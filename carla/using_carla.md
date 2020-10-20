@@ -7,34 +7,35 @@
 
 #### Test Server Computer:
 
-*Computer: Dell t1600
-*CPU:      Xeon CPU E31245 @ 3.30GHz × 8
-*Graphics: Geforce GT 630
-*RAM:      8GB
-*OS:       Ubuntu 20.04
+* Computer: Dell t1600
+* CPU:      Xeon CPU E31245 @ 3.30GHz × 8
+* Graphics: Geforce GT 630 - > Geforce GTX 1650
+* RAM:      8GB - > 16 GB
+* OS:       Ubuntu 20.04/Ubuntu18.04
 
 #### Test Client Computer:
 
-*Computer: Intel NUC7i7BNH
-*Graphics: KabyLake GT3e
-*RAM:      16GB
-*OS:       Ubuntu 18.04
+* Computer: Intel NUC7i7BNH
+* Graphics: KabyLake GT3e
+* RAM:      16GB
+* OS:       Ubuntu 18.04
 
 
 ### REQUIRED SOFTWARE
 
-#### CARLA - the core of this project
+* CARLA - the core of this project
 
-#### docker CE
+* docker CE
 
-#### nvidia-docker2
+* nvidia-docker2
 
-#### ROS
+* ROS
 
-#### ROS_BRIDGE
+* ROS_BRIDGE
 
-#### others?
+* others?
 
+### Software Installations 
 
 I installed 'docker CE' and 'nvidia-docker2'
 
