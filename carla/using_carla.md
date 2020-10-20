@@ -53,7 +53,7 @@ then I pulled the two more recent version, I as trying to get around the library
 `sudo docker pull carlasim/carla:0.9.10`
 
 this one in only on the 18.04 'sandbox computer' at the moment
-`sudo docker pull carlasim/carla:0.9.10.1  `
+`sudo docker pull carlasim/carla:0.9.10.1 `
 
 so now we have three!
 
@@ -112,8 +112,10 @@ OR
 
 and you will get something like this:
 
-```CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS                              NAMES
-7b2ab18618af        carlasim/carla:0.8.4   "/bin/bash CarlaUE4.…"   20 minutes ago      Up 20 minutes       0.0.0.0:2000-2002->2000-2002/tcp   elastic_kare```
+```
+CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS                              NAMES
+7b2ab18618af        carlasim/carla:0.8.4   "/bin/bash CarlaUE4.…"   20 minutes ago      Up 20 minutes       0.0.0.0:2000-2002->2000-2002/tcp   elastic_kare
+```
 
 
 read the goofy name over on the right and that is the 'name' you will use to stop the containers
