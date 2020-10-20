@@ -3,7 +3,7 @@
 ## This is summary of my progress and a place to store commands and procedures
 ## here is what we have done so far, this document needs work...
 
-### HARDWARE
+### Hardware
 
 #### Test Server Computer:
 
@@ -21,32 +21,65 @@
 * OS:       Ubuntu 18.04
 
 
-### REQUIRED SOFTWARE
+### Required Software
 
 * CARLA - the core of this project
 
 * docker CE
 
-* nvidia-docker2
+* nvidia-docker2 (this requires nvidia drivers and driver version limits carla version)
 
 * ROS
 
 * ROS_BRIDGE
 
-* others?
+* NUMPY and PYGAME
 
-### Software Installations 
 
-I installed 'docker CE' and 'nvidia-docker2'
 
-then I pulled a older vesion of docker 0.8.4. , this does not need to be repeated unless I change versions
+### Software Installations
+
+I installed 'docker CE' and 'nvidia-docker2' following the instructions that I was lead to from the carla docs
+https://carla.readthedocs.io/en/latest/build_docker/
+https://carla.readthedocs.io/en/latest/build_docker/#docker-ce Be careful not to install docker CE with apt and the script!
+https://carla.readthedocs.io/en/latest/build_docker/#nvidia-docker2
+
+
+then I pulled a older vesion of carla 0.8.4. , this does not need to be repeated unless I change version
 
 $ sudo docker pull carlasim/carla:0.8.4
 
-then I can run the docker
+then I pulled the two more recent version, I as trying to get around the library issues i was having
+$ sudo docker pull carlasim/carla:0.9.10
+
+$ sudo docker pull carlasim/carla:0.9.10.1  this one in only on the 18.04 'sandbox computer'
+
+so now we have three!
+
+I installed numpy and pygame to run the client on the host
+
+
+#### Software test
+
+### CARLA Version 0.8.4 - Nearly Stable  (Stable is 0.8.2)
+
+run the default script 'CarlaUE4.sh' in a carla 0.8.4 container and give a name 'carla'
 
 $ sudo docker run -p 2000-2002:2000-2002 --runtime=nvidia --gpus all carlasim/carla:0.8.4 \
 /bin/bash CarlaUE4.sh -quality-level=low -carla-server -benchmark -fps=10 --name "carlaserver"
+
+this start the server, now it is waiting for a client to connect
+
+start a client on the host machine
+
+
+
+to run the client do this on the remote computer!
+
+$ cd ~/carla_simlulator/carla_v084/PythonClient
+$ /.manual_control.py --autopilot --host 192.168.1.2
+
+
 
 You cannot just close the process, you have to stop the container
 This process needs to be improved. I am supposed to be able to use the --name option to give
@@ -69,12 +102,6 @@ read the goofy name over on the right and that is the 'name' you will use to sto
 $ sudo docker stop elastic_kare
 
 
-CLIENT SIDE:
-
-Computer: Intel NUC7i7BNH
-Graphics: KabyLake GT3e
-RAM:      16GB
-OS:       Ubuntu 18.04
 
 
 I downloaded carla 0.8.4 from github (precompiled) and ran the client program PythonClient/manual_control.py
@@ -93,11 +120,8 @@ At the moment the server<--->client relationship works!
 The response is very slow. I am only getting about 1-2 FPS
 There still alot to learn and do.
 
-THINGS TO DO:
-* get new video card and upgrade to CARLA 0.9.9 or latest - Done
-* figure out hardware builds / OS choices                 - Half Done
-* install and test ROS_BRIDGE
-* figure out controls for first demo - drive a car        - Pretty Close
+
+
 
 
 
@@ -113,16 +137,11 @@ $ cd ~/carla_simlulator/carla_v084/PythonClient
 $ /.manual_control_twh.py --autopilot --host 192.168.1.2 -q Low
 
 
-OK! I have installed my new hardware and I am back online!
-woooo
 
-Computer: Dell t1600
-CPU:      Xeon CPU E31245 @ 3.30GHz × 8
-Graphics: Geforce GTX 1650
-RAM:      16GB
-OS:       Ubuntu 20.04
+### CARLA Version 0.9.10 - Development Version
 
-First, I installed  nvidia450
+This requires the more modern nividia drivers, I installed  nvidia450
+
 
 $ sudo docker pull carlasim/carla:0.9.10
 
@@ -240,11 +259,7 @@ $ sudo docker run --name carlaclient2 -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY
 
 
 
-THINGS TO DO:
-*clean up this document, it is a huge mess - A little better
-*test client on local machine - not in docker - Done
-*test client on local machine - in a docker   - Not done
-*test server on local machine - not in a docker? - not Done
+
 
 -v Mount a volume
 
@@ -338,12 +353,10 @@ I posted my question. I am terrified that they will make fun of me.
 
 
 
-
 OK. To mix it up lets try the stable version
 
-
-
 $ sudo docker pull carlasim/carla:0.8.4
+
 
 
 For any of this to work the docker must be able to access the internet, to do this edit the /etc/default/docker file and give DNS ip address
@@ -381,3 +394,18 @@ sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3
 OK, more news! Running the installs in the container gets us past the library issue but, now we are running into another issue with the python client related to the fonts.
 
 Again, Nicholas said first test that you can run 'tutorial.py'. OK, lets try.
+
+
+
+
+
+
+
+### THINGS TO DO:
+
+* install and test ROS_BRIDGE
+* figure out controls for first demo - drive a car        - Pretty Close
+* clean up this document, it is a huge mess - A little better
+* test client on local machine - not in docker - Done
+* test client on local machine - in a docker   - Not done
+* test server on local machine - not in a docker? - not Done
