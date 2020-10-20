@@ -159,6 +159,10 @@ This will run BASH in the carla container without starting the simulator.
 This will start the simulation. There are some warnings/errors but that can be ignored. (alternative to what we are using) why? i remember
 'sudo -E docker run --name carla --privileged --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw carlasim/carla:0.9.10 /bin/bash ./CarlaUE4.sh -vulkan -benchmark -fps=25'
 
+in version 0.9.10 you can ctrl-c to close the server, but I want to check that this is ok, i think the container is removed so it should be fine
+unless you want to run that same container again with docker start or restart
+
+
 ## CARLA Client - The client is a car driving in the world
 
 Download and extracted the appropriate version from Github. Here we are using: carla 0.9.10 (https://github.com/carla-simulator/carla)
