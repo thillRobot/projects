@@ -1,0 +1,36 @@
+TWH ROS LOG - 11/30/2016 
+
+ to do: 
+
+	MAIN GOAL : develop a class to help 'part handling'
+
+
+
+
+
+	Accomplished : publish and subscribe in a cpp class, i have made 2 classes as examples (maybe they should be combined)
+ 
+			
+			$roslaunch turtlebot_stage turtlebot_in_stage 
+			
+			$rosrun using_classes sub_class
+
+			$rosrun using_classes pub_class
+
+
+
+	So what is next ?
+
+		Let us build up this class!
+
+
+		i) get transforms working in the class
+
+
+
+
+
+
+
+
+

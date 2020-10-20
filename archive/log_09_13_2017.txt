@@ -1,0 +1,14 @@
+TWH ROS LOG - 09/13/2017 
+
+  
+
+  Goal: continue with the rtabmap - The Goal is to merge the 2D nav with the 3D mapping
+
+
+	To Figure Out: WHy is the laserscan jumping around so much? Also what is up with the ghost frame that jumps around, is this the same issue?
+
+		The answer I think is here at the bottom of the page: http://wiki.ros.org/amcl
+
+	Also: There is a discrepancy with /sonar_frame and /sonar - for some reason rviz wants /sonar and everybody else want /sonar_frame
+
+ 

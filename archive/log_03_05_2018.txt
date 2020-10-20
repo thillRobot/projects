@@ -1,0 +1,79 @@
+
+TWH Logs - 03/05/2018
+
+    Processing the pointcloud data from the aubo Arm and the rpLidar ... Things are getting cool!
+
+    The paper (IDETC) deadline is rapidly approaching (02/13/2018). The paper has not been written, but the code (the meat) is mostly there. Today I am beginning to implement the 'iterative closest point' algorithm with is inlcuded in PCL. 
+
+
+Try this:
+    
+    For testing the Sample ICP code from the PCL tutoruials website we need some decent sample data. Here is the current workflow.
+
+
+    1) Generate a .stl file of the 'target'. This is a CAD model of the know geometery. (I did this on my CAE windows machine in solidworks 2015) 
+
+    2) Convert the .stl file into a .ply using 'Meshlab' with 'import mesh' and then 'save as'. Open this through the terminal,  $ meshlab 
+
+    3) Now, we can make a .pcd with the sample code from PCL (these almost work!)
+c
+       $ rosrun cad2cloud cad2cloud /home/thill/Dropbox/m73_ros/src/cad2cloud/images/input.ply 10000 0.01 output.pcd
+
+       $ rosrun cad2cloud cad2cloud /home/bender/Dropbox/t410_ros/src/cad2cloud/images/input.obj 10000 0.01 output.pcd
+
+
+
+
+ This is SOOOO close, I am doing something wrong but I am not sure what it is!!! - it seams like it should be working but the output file is not showing up! - AHHHH!!!
+ $ rosrun cad2cloud cad2cloud /home/bender/Dropbox/t410_ros/src/cad2cloud/images/scenario1.ply /home/bender/Dropbox/t410_ros/src/cad2cloud/images/output.pcd -n_samples 100000 -leaf_size 0.5
+
+
+ OK, Now it is working. It had to do with the 'normals' I think, but I have not verified the exact reason.  
+
+ Try this and it should work! 
+
+ .../images$ rosrun cad2cloud cad2cloud /home/bender/Dropbox/t410_ros/src/cad2cloud/images/scenario1.ply output.pcd -n_samples 100000 -leaf_size 0.001 -write_normals 1 -no_vis_results 0
+
+
+ .../images$ pcl_viewer -multiview 1 output.pcd
+
+
+
+
+
+
+
+
+
+
+
+
+
+    bender@bender-T410:~/Dropbox/t410_ros$ rosrun seam_detection iterative_closest_point   
+    Saved 5 data points to input:
+        0.352222 -0.151883 -0.106395
+        -0.397406 -0.473106 0.292602
+        -0.731898 0.667105 0.441304
+        -0.734766 0.854581 -0.0361733
+        -0.4607 -0.277468 -0.916762
+    size:5
+    Transformed 5 data points:
+        1.05222 -0.151883 -0.106395
+        0.302594 -0.473106 0.292602
+        -0.0318983 0.667105 0.441304
+        -0.0347655 0.854581 -0.0361733
+        0.2393 -0.277468 -0.916762
+    has converged:1 score: 1.43108e-14
+               1  -3.1665e-08 -2.66454e-14          0.7
+    -1.47149e-07            1 -7.45057e-09  -3.8743e-08
+      1.3411e-07 -5.58793e-08            1  5.96046e-08
+               0            0            0            1
+    bender@bender-T410:~/Dropbox/t410_ros$ 
+    
+
+
+
+
+
+
+

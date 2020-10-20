@@ -1,0 +1,21 @@
+
+TWH Logs - 03/07/2018
+
+    Processing the pointcloud data from the aubo Arm and the rpLidar ... Things are getting cool!
+
+
+   Seam Detection with RANSAC - find the intersection and line(s) between three planes
+
+ .../t410_ros$ roslaunch seam_detection seam_detection_RANSAC.launch in_file:="scene1.pcd" thresh:=0.003
+
+   This is an image from the lab of real steel
+
+
+
+   Seam Detection with ICP - find the intersection and line(s) between three planes
+
+   .../t410_ros$ roslaunch seam_detection seam_detection_ICP.launch in_file:="scene1.pcd" thresh:=0.003
+
+
+ we need top add this into the launch file - NO, we need to save this PCD file instead
+   rosrun cad2cloud cad2cloud /home/bender/Dropbox/t410_ros/src/cad2cloud/images/scenario1.ply output.pcd -n_samples 100000 -leaf_size 0.001 -write_normals 1 -no_vis_results 0

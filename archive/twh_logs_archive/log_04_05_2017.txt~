@@ -1,0 +1,56 @@
+TWH ROS LOG - 04/05/2017 	
+
+		To Do:
+				
+		Improve and tune Autonomous mapping (explore).
+
+		based on Frontier Exploration package: http://wiki.ros.org/frontier_exploration
+
+		loosely copied tutorial which uses 'navigation_stage'
+
+		Start here:
+		
+			To test run these launches on the robot (ssh thill@lx_robot)
+						
+			$ roslaunch lx_2dnav lx_config.launch
+
+			$ roslaunch lx_2dnav lx_explore.launch
+'
+			Then run rviz on the control computer, 			
+						
+			$ roslaunch lx_control lx_explore_control.launch
+		
+			Follow the instructions using 'clicked point' in the GUI	
+
+			This is working but it need tuning and testing.
+
+		        Now we need to save the map 
+
+			on the robot (ssh thill@lx_robot)
+
+			$ rosrun map_server map_saver -f newmap
+			
+			Now you should see 'newmap.pgm' in the folder that you started in 
+
+		Note: the weird costmap bug was fixed with 'laser_filters' pkg, to do this i created 'laser_config.yaml'
+
+
+
+
+	TO DO STILL:
+
+		1) make the explore_costmap_params.yaml file work. Currently explore only works when the params are defined in lx_explore.launch. When I try i gut this error:
+
+		Please use the 'Point' tool in Rviz to select an exporation boundary.
+		[ INFO] [1491408212.555826289]: Loading from pre-hydro parameter style
+		[ INFO] [1491408212.680163748]: Using plugin "obstacle_layer"
+		[ INFO] [1491408212.928815130]:     Subscribed to Topics: 
+		[ INFO] [1491408213.086158044]: Using plugin "inflation_layer"
+		[ WARN] [1491408229.199036714]: Please select an initial point for exploration inside the polygon
+		[ INFO] [1491408232.122089010]: Sending goal
+		[ INFO] [1491408232.157130477]: waitForService: Service [/explore_server/explore_costmap/explore_boundary/update_boundary_polygon] has not been advertised, waiting...
+		[ WARN] [1491408248.063047424]: Costmap2DROS transform timeout. Current time: 1491408248.0629, global_pose stamp: 1491408247.7218, tolerance: 0.3000
+		[ WARN] [1491408248.063246192]: Could not get robot pose, cancelling pose reconfiguration
+
+
+

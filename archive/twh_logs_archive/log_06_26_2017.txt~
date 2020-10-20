@@ -1,0 +1,57 @@
+TWH ROS LOG - 06/22/2017 
+
+To Accomplish: 	- Main Goal - Get the Axis Network Camera Working in ROS
+
+		- I have already done this but I can't find the logs DOH!
+
+		- Side Goal 1 - Fix the 'system problem detected' error (on both machines)
+  		- Side Goal 2 - Setup workspace names for each computer in Dropbox
+
+	
+
+Axis 211A cam - 192.168.1.100
+
+Problem 1 fixed - https://askubuntu.com/questions/10741/how-to-set-up-dual-wired-and-wireless-connections 
+
+check 'use this conection only for resources on its network
+
+Now I can have the camera and the internet !!
+
+  installed axis camera fro ROS
+
+	$ sudo apt-get install ros-indigo-axis-camera
+ 
+  tested camera on local machine (T410)
+
+	$ roscore	
+	
+	$ export ROS_NAMESPACE=axis   (not sure about this one)
+
+	$ rosrun axis_camera axis.py _hostname:=192.168.1.100 _password:=tturobotics
+
+	now you can see the topics published
+
+	$ rosrun image_view image_view image:=/axis/image_raw _image_transport:=compressed
+
+        Now let us see if we can get the image over to the command computer (t1600)
+
+	ON THE ROBOT COMPUTER (where the camera is)
+
+	$ roscore
+
+	$ export ROS_IP=10.100.66.XX
+	$ export ROS_NAMESPACE=axis    	
+	$ rosrun axis_camera axis.py _hostname:=192.168.1.100 _password:=tturobotics
+
+	ON THE REMOTE COMPUTER (desktop)
+
+	$ export ROS_MASTER_URI=http://10.100.66.XX:11311
+	$ export ROS_HOSTNAME=remote_computer_name
+	$ rosrun image_view image_view image:=/axis/image_raw _image_transport:=compressed
+
+	This is currently working! The image does not seem to load in rviz however.I think that might be cause it is compressed.
+
+
+
+
+

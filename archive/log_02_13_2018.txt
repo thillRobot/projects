@@ -1,0 +1,26 @@
+
+TWH Logs - 01/25/2018
+
+    Using the aubo Arm and the rpLidar to make 3D point clouds. It Works!!!
+
+Try this:
+
+// turn on the robot
+$ roslaunch aubo_control main.launch
+
+// start the conversion
+$ roslaunch scan2cloud scan2cloud.launch
+
+// move the robot
+$ rosrun goalpoint_generator lidar_scan
+
+
+And when you are happy try this:
+
+$ rosrun pcl_ros pointcloud_to_pcd input:=/cloud_out
+
+You should see a .pcd in the current directory
+
+Now you can look at the .pcd with pcl_viewer (if you have apt-get working!!!!)
+
+$ pcl_viewer -multiview 1 1516917376914132.pcd

@@ -1,0 +1,64 @@
+TWH LOGS - 10/03/2019 - 10/04/2019
+
+Setting up the LX Robot - Again - Re-born Again, Again!
+
+1) install clean MATE 16.04
+
+	thill@lx-robot:~$ lsb_release -a
+		No LSB modules are available.
+		Distributor ID:	Ubuntu
+		Description:	Ubuntu 16.04.6 LTS
+		Release:	16.04
+		Codename:	xenial
+
+2) tried to install caja-dropbox - did not work - gave up quick
+
+3) install ROS kinetic (http://wiki.ros.org/kinetic/Installation/Ubuntu)
+
+3) download install ARIA libraries - instructions here ( http://wiki.ros.org/ROSARIA/Tutorials/How%20to%20use%20ROSARIA#Install_ARIA_and_Build_ROSARIA)
+
+	this requires .deb file for aria - this is no longer available online !!!
+	Reed Hedges has the source on GIT (https://github.com/reedhedges/AriaCoda.git) 		- it makes but i dont know how to install it, maybe i should ask him
+
+	$ sudo dpkg -i libaria_2.9.1+ubuntu16_i368.deb
+
+4) download and install (from source) ROSARIA package
+
+	$ cd ~/lx_ros/src
+	$ git clone https://github.com/amor-ros-pkg/rosaria.git
+
+	$ cd ~/lx_ros
+	$ catkin_make 
+
+	This will most likely fail, this has to do with finding the Aria.h
+	So, try this instead (from Reed)
+
+	$ catkin_make --force-cmake	
+	 
+	
+
+5) configure and test gmapping and navigation demos (by saturday morning)
+
+	first copy the packages from old lx (lx_2dnav, lx_setup_tf, ttu_camera) into source directory of ne workspace, lx_ros
+
+	also, add thill user to dial group before you can use serial ports, remember you have to log out then log back in for this to work!
+
+	$ sudo adduser thill dialout
+
+	install the keyboard drive node (need updating I think)
+
+	$ sudo apt install ros-kinetic-teleop-twist-keyboard
+
+	install 'navigation' stack ( i thought this came with ros-desktop-full...)
+
+	$ sudo apt install ros-kinetic-navigation
+
+	now build the workspace with catkin
+
+	$ catkin_make
+
+
+	Boom CASH! woop woop! I am very happy that we are this far at least ! - TH
+	This is a big slightly a big deal because this is the first time the LX has run on Ubuntu 16 (MATE) - it seems to be a little smoother without unity desktop
+
+

@@ -1,0 +1,18 @@
+
+TWH Logs - 02/16/2018
+
+    Processing the pointcloud data from the aubo Arm and the rpLidar ...
+
+Try this:
+
+    I now have a .pcd to .pcd voxel filtering process ... greatly reduces data size
+
+    $ roslaunch seam_detection filter_cloud.launch in_file:="test_cloud2.pcd" out_file:="out_cloud2.pcd"
+
+
+
+    You should see the both clouds in rviz 
+
+    To check that it was saved properly you can look at the .pcd with pcl_viewer (if you have apt-get working!!!!) (and you must be in the right directory...)
+
+    $ pcl_viewer -multiview 1 out_cloud2.pcd 

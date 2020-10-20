@@ -1,0 +1,42 @@
+
+TWH Logs - 04/16/2019
+
+    3D RPlidar - 1DOF manipulator (stepper driven) made by Skyler J. - Programmed my Me!
+
+Try this:
+
+
+    Step 1) Record a pointcloud with the stepper rplidar
+
+
+        // start the conversion 
+        $ roslaunch rplidar_3d rplidar_3d.launch  
+
+        // move the lidar
+        $ roslaunch ttu_rosserial sweep_stepper.launch
+
+        // and when you are happy save the cloud to a .pcd file
+        $ rosrun pcl_ros pointcloud_to_pcd input:=/cloud_out _prefix:=/images/cloud_out
+
+        // You should see a .pcd in the current directory
+        // Now you can look at the .pcd with pcl_viewer 
+        $ pcl_viewer -multiview 1 cloud_out.12345.pcd
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
+    Step 2) Process the pointcloud using PCL 
+
+        $ roslaunch seam_detection segment_plane_line.launch in_file:="test_cloud10.pcd" thresh:=0.01
+
+        

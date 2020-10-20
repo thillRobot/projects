@@ -1,0 +1,39 @@
+TWH ROS LOG - 11/25/2016 
+
+ to do: 
+
+	MAIN GOAL : who knows
+
+
+
+
+
+	Accomplished:
+
+		1) somehow I wrecked the workspace, it would not make! (catkin_make) I think this happened when I tried $ catkin_make when I was not on the internet. I am not sure this is what caused the issue ( i hope that is not the issue because i would like to be able to compile w/o network but whatev)
+
+
+		2) built a new workspace called 'ttu_ros' the old one is now saved as ~/catkin_ws_arch 
+
+			created 3 packages 
+			
+			i) turtle_payload
+			ii) publish_goal
+			iii) using_classes
+
+		3) try this
+			
+			$roslaunch turtlebot_stage turtlebot_in_stage 
+			$rosrun using_classes cpp_class
+
+
+
+	So what is next ?
+
+		Let us build up this class!
+
+			
+
+
+
+

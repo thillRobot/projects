@@ -1,0 +1,185 @@
+TWH LOGS - 11/16/2019
+
+
+    Goal: Run turtlebot3 with navigation in a simulated brown hall. - 
+
+    So far I have the robot driving in a simulated brown hall with wall collisions working. Pretty Cool! 
+
+    It worked fine but I did something to mess up the package! it wont make!
+
+            1) Start with blueprint of the building from Dr. Canfield.
+
+            2) Make a .stl from the blueprint of the 3rd floor using a CAD program of your choice. Joseph Owens did this part.
+
+            3) Make a 'collada mesh' as a .dae file, this can be done with 'blender' software app or 'meshlab'. I used blender in ubuntu 18.04. 
+
+                i) open blender
+                ii) import .stl
+                iii) export .dae
+
+                   
+            4) Bring turtlebot3_simulations into the workspace. We are going to create a new world inside of this package. We will use the already created worlds as a template.
+
+
+               thill@t540p:~/t540p_ros/src$ git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
+ 
+
+            5) create a new 'world' Inside of this package I am going to  for turtlebot3 in live inside of Brown Hall
+
+
+                i) collect the meshes that are going to be in the model, they should be collada meshes (.dae)
+
+                ii) copy the .world file from the world called 'world' to start 
+
+                    $ cp ~/Dropbox/t540p_ros/src/turtlebot3_simulations/turtlebot3_gazebo/worlds/turtlebot3_world.world ~/Dropbox/t540p_ros/src/turtlebot3_simulations/turtlebot3_gazebo/worlds/turtlebot3_brown3.world
+
+                iii) make the appropriate edit to the model name
+
+                    $ gedit ~/Dropbox/t540p_ros/src/turtlebot3_simulations/turtlebot3_gazebo/worlds/turtlebot3_brown3.world
+
+                    <!-- Load world -->
+                    <include>
+                      <uri>model://turtlebot3_brown3</uri>
+                    </include>
+                   
+                iii) create a new model, this requires a new folder for the model
+
+             $ cp -avr ~/Dropbox/t540p_ros/src/turtlebot3_simulations/turtlebot3_gazebo/models/turtlebot3_world ~/Dropbox/t540p_ros/src/turtlebot3_simulations/turtlebot3_gazebo/models/turtlebot3_brown3
+
+
+                    you will have to edit the files: model.config and model.sdf  
+
+                    copy the .dae files into the sub folder /meshes 
+
+                    these files will be referenced in the model.sdf file
+                    
+
+                    Here is the new model.config file.
+                    ____________________________________________________
+
+                    <?xml version="1.0"?>
+
+                    <model>
+                      <name>TurtleBot3 bh3</name>
+                      <version>1.0</version>
+                      <!--<sdf version="1.4">model-1_4.sdf</sdf>-->
+                      <sdf version="1.5">model.sdf</sdf>  
+
+                      <author>
+                        <name>Tristan Hill</name>
+                        <email>thlim@robotis.com</email>
+                      </author>
+
+                      <description>
+                        World of TurtleBot3 in Brown Hall
+                      </description>
+                    </model>
+                    _____________________________________________________
+
+
+                    Here is the new model.sdf file.
+
+            _____________________________________________________________________________________
+                <sdf version='1.4'>
+
+                    <model name='bh3_walls'>
+                        <static>1</static>
+                        <link name='bh3_walls'>
+
+                            <!-- Draw Wall -->
+                            <collision name='body'>
+                                <pose>0 0 -0.3 0 0 -1.5708</pose>
+                                <geometry>
+                                <mesh>
+                                    <uri>model://turtlebot3_bh3/meshes/bh3_walls.dae</uri>
+                                    <scale>0.25 0.25 0.25</scale>
+                                </mesh>
+                                </geometry>
+                                <max_contacts>10</max_contacts>
+                                <surface>
+                                    <bounce/>
+                                    <friction>
+                                        <ode/>
+                                    </friction>
+                                    <contact>
+                                        <ode/>
+                                    </contact>
+                                </surface>
+                            </collision>
+
+                            <visual name='body'>
+                            <pose>0 0 -0.3 0 0 -1.5708</pose>
+                            <geometry>
+                                <mesh>
+                                    <uri>model://turtlebot3_bh3/meshes/bh3_walls.dae</uri>
+                                    <scale>0.25 0.25 0.25</scale>
+                                </mesh>
+                            </geometry>
+                            <material>
+                                <script>
+                                    <uri>file://media/materials/scripts/gazebo.material</uri>
+                                    <name>Gazebo/FlatBlack</name>
+                                </script>
+                            </material>
+                            </visual>
+                        </link>
+                    </model>
+                </sdf>
+                __________________________________________________________________________________
+
+
+
+                iv) create a new launch file to test this all 
+
+                    $ gedit /home/thill/t540p_ros/src/turtlebot3_simulations/turtlebot3_gazebo/launch/turtlebot_brown3.launch  
+        
+                    you will have to edit the following line with the new world name
+
+                    <arg name="world_name" value="$(find turtlebot3_gazebo)/worlds/turtlebot3_brown3.world"/>    
+
+                    
+           7)Now test! Launch this and the teleop drive and you should have a turtlebot3 in Brown hall that you can drive with the keyboard. The walls are there as objects and everything! The next thing is to try navigation but it should work no problem.
+    
+        $ roslaunch turtlebot3_gazebo turtlebot3_bh3.launch
+
+        $ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+
+
+            
+        8) now i want to move all the files into separate package. just so I know what is going on 
+
+
+           I am copying the following folders from 'turtlebot3_gazebo (from github)' to turtlebot3_control (custom)'
+
+
+            To make the work you have to append the 'GAZEBO_MODEL_PATH' this can be done in bashrc
+
+    
+        $ export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/home/thill/Dropbox/t540p_ros/src/turtlebot3_control/models
+
+            Now the models can live in whatever package you want! I have even deleted the 'turtlebot3_simulations' to test
+
+
+
+    FINALLY, you can run simulated navigation in the virtual brown hall
+
+
+    Test this! THEN GO TO BED!
+
+        $ roslaunch turtlebot3_brown turtlebot3_brown3.launch
+
+        $ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+
+        $ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping
+
+    Now you need to drive around and get data for a map. When you are finished, close the keyboard drive and save the map with command below.
+
+        $ rosrun map_server map_saver -f ~/map
+     
+
+
+
+
+
+
+

@@ -1,0 +1,130 @@
+TWH ROS LOG - 07/31/2017 
+
+To Accomplish: 	- Main Goal - Get the Microsoft Kinect working in ROS, hopefully integrated with opencv
+
+	
+		Tried and not quite working. - install openni
+
+bender@bender-T410:~$ sudo apt-get install ros-indigo-openni-camera
+bender@bender-T410:~$ sudo apt-get install ros-indigo-openni-launch
+
+bender@bender-T410:~$ sudo apt-get install libopenni0 libopenni-dev
+bender@bender-T410:~$ roslaunch openni_launch openni.launch
+
+bender@bender-T410:~$ roslaunch openni_launch openni.launch
+... logging to /home/bender/.ros/log/334e6dfc-765a-11e7-9e59-002314ed2f20/roslaunch-bender-T410-8159.log
+Checking log directory for disk usage. This may take awhile.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is <1GB.
+
+started roslaunch server http://bender-T410:32986/
+
+SUMMARY
+========
+
+PARAMETERS
+ * /camera/camera_nodelet_manager/num_worker_threads: 4
+ * /camera/depth_rectify_depth/interpolation: 0
+ * /camera/depth_registered_rectify_depth/interpolation: 0
+ * /camera/disparity_depth/max_range: 4.0
+ * /camera/disparity_depth/min_range: 0.5
+ * /camera/disparity_registered_hw/max_range: 4.0
+ * /camera/disparity_registered_hw/min_range: 0.5
+ * /camera/disparity_registered_sw/max_range: 4.0
+ * /camera/disparity_registered_sw/min_range: 0.5
+ * /camera/driver/depth_camera_info_url: 
+ * /camera/driver/depth_frame_id: camera_depth_opti...
+ * /camera/driver/depth_registration: False
+ * /camera/driver/device_id: #1
+ * /camera/driver/rgb_camera_info_url: 
+ * /camera/driver/rgb_frame_id: camera_rgb_optica...
+ * /rosdistro: indigo
+ * /rosversion: 1.11.21
+
+NODES
+  /camera/
+    camera_nodelet_manager (nodelet/nodelet)
+    depth_metric (nodelet/nodelet)
+    depth_metric_rect (nodelet/nodelet)
+    depth_points (nodelet/nodelet)
+    depth_rectify_depth (nodelet/nodelet)
+    depth_registered_hw_metric_rect (nodelet/nodelet)
+    depth_registered_metric (nodelet/nodelet)
+    depth_registered_rectify_depth (nodelet/nodelet)
+    depth_registered_sw_metric_rect (nodelet/nodelet)
+    disparity_depth (nodelet/nodelet)
+    disparity_registered_hw (nodelet/nodelet)
+    disparity_registered_sw (nodelet/nodelet)
+    driver (nodelet/nodelet)
+    ir_rectify_ir (nodelet/nodelet)
+    points_xyzrgb_hw_registered (nodelet/nodelet)
+    points_xyzrgb_sw_registered (nodelet/nodelet)
+    register_depth_rgb (nodelet/nodelet)
+    rgb_debayer (nodelet/nodelet)
+    rgb_rectify_color (nodelet/nodelet)
+    rgb_rectify_mono (nodelet/nodelet)
+  /
+    camera_base_link (tf/static_transform_publisher)
+    camera_base_link1 (tf/static_transform_publisher)
+    camera_base_link2 (tf/static_transform_publisher)
+    camera_base_link3 (tf/static_transform_publisher)
+
+auto-starting new master
+process[master]: started with pid [8187]
+ROS_MASTER_URI=http://localhost:11311
+
+setting /run_id to 334e6dfc-765a-11e7-9e59-002314ed2f20
+process[rosout-1]: started with pid [8215]
+started core service [/rosout]
+process[camera/camera_nodelet_manager-2]: started with pid [8232]
+process[camera/driver-3]: started with pid [8235]
+process[camera/rgb_debayer-4]: started with pid [8236]
+process[camera/rgb_rectify_mono-5]: started with pid [8243]
+process[camera/rgb_rectify_color-6]: started with pid [8256]
+process[camera/ir_rectify_ir-7]: started with pid [8275]
+process[camera/depth_rectify_depth-8]: started with pid [8279]
+process[camera/depth_metric_rect-9]: started with pid [8297]
+[ INFO] [1501551544.709164816]: Initializing nodelet with 4 worker threads.
+process[camera/depth_metric-10]: started with pid [8306]
+process[camera/depth_points-11]: started with pid [8319]
+process[camera/register_depth_rgb-12]: started with pid [8329]
+process[camera/points_xyzrgb_sw_registered-13]: started with pid [8353]
+process[camera/depth_registered_sw_metric_rect-14]: started with pid [8366]
+process[camera/depth_registered_rectify_depth-15]: started with pid [8368]
+process[camera/points_xyzrgb_hw_registered-16]: started with pid [8391]
+process[camera/depth_registered_hw_metric_rect-17]: started with pid [8397]
+process[camera/depth_registered_metric-18]: started with pid [8404]
+process[camera/disparity_depth-19]: started with pid [8424]
+process[camera/disparity_registered_sw-20]: started with pid [8434]
+process[camera/disparity_registered_hw-21]: started with pid [8440]
+process[camera_base_link-22]: started with pid [8452]
+process[camera_base_link1-23]: started with pid [8473]
+process[camera_base_link2-24]: started with pid [8478]
+process[camera_base_link3-25]: started with pid [8484]
+[ INFO] [1501551545.440667202]: No devices connected.... waiting for devices to be connected
+[ INFO] [1501551548.440962517]: No devices connected.... waiting for devices to be connected
+
+THIS IS NOT WORKING !!!
+
+But... 'freenect' seems to much more plug and play!
+
+INSTALL FREENECT
+
+bender@bender-T410:~$ sudo apt-get install ros-indigo-freenect-stack ( think the next 3 are redundant...)
+bender@bender-T410:~$ sudo apt-get install ros-indigo-freenect-camera
+bender@bender-T410:~$ sudo apt-get install ros-indigo-freenect-launch
+bender@bender-T410:~$ sudo apt-get install ros-indigo-libfreenect
+
+TURN THE CAMERA ON
+
+bender@bender-T410:~$ roslaunch freenect_launch freenect.launch
+
+TURN ON IMAGE_VIEW (in a new terminal)
+
+bender@bender-T410:~$ rosrun image_view image_view image:=/camera/depth/image
+
+
+
+
+
+

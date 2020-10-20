@@ -1,0 +1,16 @@
+TWH ROS LOG - 01/11/2017 
+
+ to do: 
+
+	MAIN GOAL : Implement Nav Stack on the LX (its been way too long)
+
+		1) install 'slam_gmapping' and 'map_server' on LX machine (atom)
+
+				-> $ sudo apt-get install ros-indigo-slam-mapping
+				-> $ sudo apt-get install ros-indigo-openslam-gmapping
+		 		-> $ catkin_make
+
+				-> $ sudo apt-get install ros-indigo-map-server
+
+
+

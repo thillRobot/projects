@@ -1,0 +1,104 @@
+TWH ROS LOG - 04/03/2017 	
+
+Now to do:
+		1) run time map update
+
+		2) autonomous mapping (explore)
+
+		3) view in rviz
+
+
+	Let us start with Frontier Exploration: http://wiki.ros.org/frontier_exploration
+
+		
+
+	1) the stage demo works
+
+
+
+         2) mine does not
+
+roslaunch lx_config
+
+roslaunch lx_explore
+
+
+
+thill@robot:~/ttu_ros/src/lx_2dnav$ roslaunch lx_2dnav lx_explore.launch
+... logging to /home/thill/.ros/log/1419f158-18a0-11e7-b7ae-80000b595cf4/roslaunch-robot-30763.log
+Checking log directory for disk usage. This may take awhile.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is <1GB.
+
+started roslaunch server http://robot:38609/
+
+SUMMARY
+========
+
+PARAMETERS
+ * /explore_server/explore_costmap/explore_boundary/explore_clear_space: False
+ * /explore_server/explore_costmap/explore_boundary/frontier_travel_point: middle
+ * /explore_server/explore_costmap/explore_boundary/resize_to_boundary: False
+ * /explore_server/explore_costmap/footprint: [[0.35, 0.25], [-...
+ * /explore_server/explore_costmap/inflation/inflation_radius: 0.25
+ * /explore_server/explore_costmap/obstacle_range: 0.3
+ * /explore_server/explore_costmap/obstacles/laser_scan_sensor/clearing: True
+ * /explore_server/explore_costmap/obstacles/laser_scan_sensor/data_type: LaserScan
+ * /explore_server/explore_costmap/obstacles/laser_scan_sensor/marking: True
+ * /explore_server/explore_costmap/obstacles/laser_scan_sensor/obstacle_range: $(arg sensor_range)
+ * /explore_server/explore_costmap/obstacles/laser_scan_sensor/raytrace_range: $(arg sensor_range)
+ * /explore_server/explore_costmap/obstacles/laser_scan_sensor/sensor_frame: laser_frame
+ * /explore_server/explore_costmap/obstacles/laser_scan_sensor/topic: RosAria/S3Series_...
+ * /explore_server/explore_costmap/obstacles/observation_sources: laser_scan_sensor
+ * /explore_server/explore_costmap/plugins: [{'type': 'costma...
+ * /explore_server/explore_costmap/raytrace_range: 0.4
+ * /explore_server/explore_costmap/static_map/laser_scan_sensor/clearing: True
+ * /explore_server/explore_costmap/static_map/laser_scan_sensor/data_type: LaserScan
+ * /explore_server/explore_costmap/static_map/laser_scan_sensor/marking: True
+ * /explore_server/explore_costmap/static_map/laser_scan_sensor/sensor_frame: laser_frame
+ * /explore_server/explore_costmap/static_map/laser_scan_sensor/topic: RosAria/S3Series_...
+ * /explore_server/explore_costmap/static_map/observation_sources: laser_scan_sensor
+ * /explore_server/frequency: 2.0
+ * /explore_server/goal_aliasing: 0.3
+ * /rosdistro: indigo
+ * /rosversion: 1.11.20
+
+NODES
+  /
+    explore_client (frontier_exploration/explore_client)
+    explore_server (frontier_exploration/explore_server)
+
+ROS_MASTER_URI=http://localhost:11311
+
+core service [/rosout] found
+process[explore_client-1]: started with pid [30787]
+process[explore_server-2]: started with pid [30788]
+[ INFO] [1491246165.996068965]: Please use the 'Point' tool in Rviz to select an exporation boundary.
+[ INFO] [1491246166.407807078]: Using plugin "static_map"
+[ INFO] [1491246166.565061782]: Requesting the map...
+[ INFO] [1491246166.817306219]: Resizing costmap to 4000 X 4000 at 0.050000 m/pix
+[ INFO] [1491246167.298498415]: Received a 4000 X 4000 map at 0.050000 m/pix
+[ INFO] [1491246167.331935419]: Using plugin "obstacles"
+[ INFO] [1491246167.365578594]:     Subscribed to Topics: laser_scan_sensor
+[ INFO] [1491246167.506203599]: Using plugin "inflation"
+[ INFO] [1491246167.551942865]: Using plugin "explore_boundary"
+[ WARN] [1491246168.369256785]: Map update loop missed its desired rate of 5.0000Hz... the loop actually took 0.4334 seconds
+[ WARN] [1491246168.763924221]: Map update loop missed its desired rate of 5.0000Hz... the loop actually took 0.3947 seconds
+[ WARN] [1491246168.777717805]: Map update loop missed its desired rate of 5.0000Hz... the loop actually took 0.2085 seconds
+[ WARN] [1491246191.346039797]: Costmap2DROS transform timeout. Current time: 1491246191.3459, global_pose stamp: 1491246191.0414, tolerance: 0.3000
+[ WARN] [1491246191.346280679]: Could not get robot pose, cancelling pose reconfiguration
+[ WARN] [1491246204.182757790]: Please select an initial point for exploration inside the polygon
+[ INFO] [1491246206.556614689]: Sending goal
+[ INFO] [1491246206.762259346]: Region boundary set
+[ WARN] [1491246206.770386077]: Illegal bounds change, was [tl: (-100.225000, -100.225000), br: (100.275003, 100.275003)], but is now [tl: (-100.000000, -100.000000), br: (99.975003, 99.975003)]. The offending layer is explore_costmap/explore_boundary
+[ WARN] [1491246207.312665930]: Map update loop missed its desired rate of 5.0000Hz... the loop actually took 0.5434 seconds
+[ WARN] [1491246207.846962854]: Map update loop missed its desired rate of 5.0000Hz... the loop actually took 0.5343 seconds
+[ WARN] [1491246208.392883603]: Map update loop missed its desired rate of 5.0000Hz... the loop actually took 0.5459 seconds
+[ WARN] [1491246208.948540716]: Map update loop missed its desired rate of 5.0000Hz... the loop actually took 0.5557 seconds
+[ WARN] [1491246209.502741777]: Map update loop missed its desired rate of 5.0000Hz... the loop actually took 0.5542 seconds
+[ WARN] [1491246210.047990583]: Map update loop missed its desired rate of 5.0000Hz... the loop actually took 0.5452 seconds
+[ WARN] [1491246210.599135809]: Map update loop missed its desired rate of 5.0000Hz... the loop actually took 0.5511 seconds
+[ERROR] [1491246210.616964682]: Failed exploration
+
+
+

@@ -1,0 +1,28 @@
+TWH ROS LOG - 03/16/2017 
+
+ to do: 
+
+	MAIN GOAL : Learn more about the Nav Stack using the LX, layers plugings, parameter tuning
+
+		1) Let us clean up the files first before we go much further DONE
+
+		2) combine these two launches into one, possibly, maybe call them from a third ehh..  DONE
+
+			-> $ roslaunch lx_2dnav lx_config.launch
+
+			-> $ roslaunch lx_2dnav lx_move_base.launch 
+
+		   now use this launch file, but the others still might be nice for debugging
+		
+			-> $ roslaunch lx_2dnav lx_navigate.launch	
+
+		3) set the IP address in just one place, can we make this work with the hosts file NOT DONE
+
+		4) show the planned paths in rviz
+
+		5) test setting the pose from rviz NOT WORKING
+	
+		
+
+
+	

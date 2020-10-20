@@ -1,0 +1,44 @@
+TWH ROS LOG - 08/02/2017 
+
+  Small Things....
+
+    I have added a few command line parameters to make switching computers/robots more streamline. 
+
+    To drive the lx from a remote computer try this:
+
+    ON THE ROBOT COMPUTER     
+
+    thill@robot:~$ roslaunch lx_2dnav lx_navigate.launch ip:=10.100.66.13 map:=labmap
+
+    'ip' - ip address of the robot computer --> ROS_IP (I think we can eliminate this one)
+    'map' - name of the map yaml file without the .yaml extension --> ttu_ros/src/lx_2dnav/maps/XXXXX.yaml
+
+    ON THE CONTROL COMPUTER
+
+    thill@robotlab-t1600:~$ roslaunch lx_control lx_control.launch uri:=10.100.66.13 host:=robotlab-t1600
+
+    'uri' - ip address of the robot compter --> ROS_MASTER_URI
+    'host' - name of the local control computer --> ROS_HOSTNAME
+
+
+   A slightly bigger thing!
+
+     I have moved the 'catkin_workspace' of the LX robot into my dropbox folder for backup security and ease of access. Now I can vim to remote edit 'or' just edit remotely and let dropbox sync the files. I have used a simple convention for naming the workspaces.
+
+     robotlab-t1600 workspace is : ttu_ros  (needs to be renamed to 't1600_ros')    
+     bender-t410    workspace is : t410_ros
+     lx robot       workspace is : lx_ros
+
+    This took a little doing... The one thing that I forgot was that 'rosaria' had been built from source so I had to reinstall it without 'apt-get'. Follow the instructions here: http://wiki.ros.org/ROSARIA/Tutorials/How%20to%20use%20ROSARIA
+
+
+    Now what we need to do is... 1) change the name of the 'catkin_ws' for the desktop in the robotlab to follow the convention as mentioned above.
+
+    AND! figure out how to use 'nodelets' so we can use depth_image_proc to convet the kinect into point cloud
+
+    THis is confusing!
+
+
+
+
+

@@ -1,0 +1,37 @@
+ROS log 
+Tristan Hill - October 3, 2016
+
+
+TO DO:  -> 
+	
+			
+			
+	1) get foscam working woth ros
+
+		
+			
+		
+	2) make a launch file for remote connection and drive from desktop
+
+		-> test rviz 
+
+		thill@robot$ export ROS_IP=10.100.66.99
+		thill@robot$ roslaunch ~/ttu_ros/launch/lx_demo.launch
+		
+		thill@robotlab-t1600$ export ROS_MASTER_URI=http://10.100.66.99:11311
+		thill@robotlab-t1600$ export ROS_HOSTNAME=robotlab-t1600
+		thill@robotlab-t1600$ rosrun rviz rviz
+
+		-> test remote control 
+
+		thill@robotlab-t1600$ export ROS_MASTER_URI=http://10.100.66.99:11311
+		thill@robotlab-t1600$ export ROS_HOSTNAME=robotlab-t1600
+		thill@robotlab-t1600$ sudo apt-get install ros-indigo-teleop-twist-keyboard
+		thill@robotlab-t1600$ rosrun teleop_twist_keyboard teleop_twist_keyboard.py
+		
+
+
+
+
+
+

@@ -1,0 +1,76 @@
+TWH ROS LOG - 11/03/2016 
+
+ to do: 
+
+	1) subscribe to a topic from the turtlebot, let's start with 'status'
+
+ log: 
+
+	1) subscribe to the turtlebots pose   
+
+		i) to begin it is important to update your system, use the terminal
+			
+			$ sudo apt-get update
+			
+	  	   if you have errors with this step we need to address this first
+
+		ii) now the us make new node in our package 'publish_goal', I want to name mine 'subscribe_status'. Make a 			    new file named as your node. 	
+
+			$ sudo gedit ~/catkin_ws/src/publish_goal/src/subscribe_status.cpp
+
+			you need to add the following code into the file:
+
+			#include "ros/ros.h"
+			#include "std_msgs/String.h"
+			#include "geometry_msgs/PoseStamped.h"
+			#include "actionlib_msgs/GoalStatusArray.h"
+			#include <iostream>
+
+			void chatterCallback(const actionlib_msgs::GoalStatusArray::ConstPtr& msg)
+			{
+			 	ROS_INFO("Subscriber Callback Executed");
+
+				if (!msg->status_list.empty())
+				{
+					actionlib_msgs::GoalStatus goalStatus = msg->status_list[0];
+					std::cout<<goalStatus;
+				}
+			}
+
+
+			int main(int argc, char **argv)
+			{
+			  ros::init(argc, argv, "subscribe_status");
+			  ros::NodeHandle n;
+			  ros::Subscriber sub = n.subscribe("/move_base/status", 1000, chatterCallback);
+			  ros::spin();
+			  return 0;
+			}
+
+		iii) next you need to append the ~/catkin_ws/CMakelists.txt file
+  
+			add the following lines:
+
+				add_executable(subscribe_status src/subscribe_status.cpp)
+				target_link_libraries(subscribe_status ${catkin_LIBRARIES})
+				add_dependencies(subscribe_status beginner_tutorials_generate_messages_cpp)
+
+		iiv) now compile the code, make sure to move back to the workspace before using catkin_make
+
+			$ cd ~/catkin_ws     
+				
+			$ catkin_make 
+                 	                     
+		
+
+		iv) try your stuff
+		
+
+			$ roslaunch turtlebot_stage turtlebot_in_stage.launch
+
+			$ rosrun publish_goal subscribe_status
+		
+
+		v) Is it working? How do we know? Make sure your node is printing something to the screen. WOOP!
+
+		

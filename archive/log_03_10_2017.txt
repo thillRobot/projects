@@ -1,0 +1,73 @@
+TWH ROS LOG - 01/11/2017 
+
+ to do: 
+
+	MAIN GOAL : Implement Nav Stack on the LX (its been way too long)
+
+
+		1) make a map with the LX again, a clean one hopefully.
+
+			i) ssh thill@robot$ roslaunch lx_2dnav lx_map.launch
+					  $ 
+			
+			i) ssh thill@robot$ cd ~/ttu_ros
+					  $ rosbag record -O hallmap /RosAria/S3Series_1_laserscan /tf
+
+			   Now, starting at the origin record a map using keyboard drive
+
+			ii) ssh thill@robot
+
+			iii) ssh thill@robot$ rosparam set use_sim_time true
+
+			iii) ssh thill@robot$ 
+		
+		-> CLOSE BOTH PROCESSES		
+
+		-> $ roscore
+
+		-> $ rosparam set use_sim_time true
+		
+		
+		-> $ rosrun gmapping slam_gmapping scan:=/RosAria/S3Series_1_laserscan _odom_frame:=odom
+
+		-> $ rosbag play --clock hallmap.bag
+
+		-> WAIT FOR IT TO MAKE THE MAP
+
+		-> $ rosrun map_server map_saver -f hallmap
+
+		-> NOW YOU CAN CLOSE ALL PROCESSES, you should have a map call 'hallmap.pgm'	
+
+
+		2) try to use the map to navigate with AMCL
+
+		-> roslaunch lx_2dnav lx_config.launch
+
+		-> roslaunch lx_2dnav lx_move_base.launch  (there is a problem with this step)
+
+			+ it kind of works if you di this first $ rosrun map_server map_server ~/ttu_ros/map.yaml
+
+
+
+		-> now turn on rviz remotely
+
+		 	ON THE ROBOT COMPUTER 
+
+			$ export ROS_IP=10.100.66.XX
+			$ roslaunch ~/ttu_ros/launch/lx_demo.launch
+
+			ON THE REMOTE COMPUTER
+
+			$ export ROS_MASTER_URI=http://10.100.66.XX:11311
+			$ export ROS_HOSTNAME=remote_computer_name
+			$ rosrun rviz rviz
+
+
+
+
+
+
+
+
+
+

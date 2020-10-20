@@ -40,9 +40,9 @@
 ### Software Installations
 
 I installed 'docker CE' and 'nvidia-docker2' following the instructions that I was lead to from the carla docs
-https://carla.readthedocs.io/en/latest/build_docker/
-https://carla.readthedocs.io/en/latest/build_docker/#docker-ce Be careful not to install docker CE with apt and the script!
-https://carla.readthedocs.io/en/latest/build_docker/#nvidia-docker2
+* https://carla.readthedocs.io/en/latest/build_docker/
+* https://carla.readthedocs.io/en/latest/build_docker/#docker-ce Be careful not to install docker CE with apt and the script!
+* https://carla.readthedocs.io/en/latest/build_docker/#nvidia-docker2
 
 
 then I pulled a older vesion of carla 0.8.4. , this does not need to be repeated unless I change version
@@ -63,23 +63,39 @@ I installed numpy and pygame to run the client on the host
 
 ### CARLA Version 0.8.4 - Nearly Stable  (Stable is 0.8.2)
 
+#### Start the CARLA server in a container
+
 run the default script 'CarlaUE4.sh' in a carla 0.8.4 container and give a name 'carla'
 
-$ sudo docker run -p 2000-2002:2000-2002 --runtime=nvidia --gpus all carlasim/carla:0.8.4 \
-/bin/bash CarlaUE4.sh -quality-level=low -carla-server -benchmark -fps=10 --name "carlaserver"
+$ sudo docker run --name carlaserver -p 2000-2002:2000-2002 --runtime=nvidia --gpus all carlasim/carla:0.8.4 \
+/bin/bash CarlaUE4.sh -quality-level=low -carla-server -benchmark -fps=10
 
 this start the server, now it is waiting for a client to connect
 
-start a client on the host machine
+#### start a client on the host machine - NOT WORKING - PORT2000 CLOSED
+
+change to the PythonClient directory and run one of the example scripts
+
+'cd ~/carla_simulator/carla_084/PythonClient'
+'./manual_control.py --autopilot'
+
+
+#### start a client on the remote computer - This works
+
+change to the PythonClient directory and run one of the example scripts
+
+'cd ~/carla_simulator/carla_084/PythonClient'
+'./manual_control.py --autopilot --host 192.168..'
+
+This open a PYGAME window and you can drive the car around with the keyboard.
+You have to take the parking break off first!
+
+At the moment the server<--->client relationship works!
+The response is slow. I am only getting about 5 FPS on the remote NUC.
 
 
 
-to run the client do this on the remote computer!
-
-$ cd ~/carla_simlulator/carla_v084/PythonClient
-$ /.manual_control.py --autopilot --host 192.168.1.2
-
-
+#### Shutdown th4e CARLA server (version 084 'ctrl-c' does not stop preocess)
 
 You cannot just close the process, you have to stop the container
 This process needs to be improved. I am supposed to be able to use the --name option to give
@@ -87,41 +103,21 @@ container a persistent name but I have not made this work yet.
 
 For now, to stop the container you must first list the running containers
 
-$ sudo docker ps
+'sudo docker ps'
 
 OR
 
-$ sudo docker container ls
+'sudo docker container ls'
 
 and you will get something like this:
+'''
 CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS                              NAMES
 7b2ab18618af        carlasim/carla:0.8.4   "/bin/bash CarlaUE4.…"   20 minutes ago      Up 20 minutes       0.0.0.0:2000-2002->2000-2002/tcp   elastic_kare
+'''
 
 read the goofy name over on the right and that is the 'name' you will use to stop the containers
 
-$ sudo docker stop elastic_kare
-
-
-
-
-I downloaded carla 0.8.4 from github (precompiled) and ran the client program PythonClient/manual_control.py
-
-this required numpy and pygame to be installed
-
-to run the client do this
-
-$ cd ~/carla_simlulator/carla_v084/PythonClient
-$ /.manual_control.py --autopilot --host 192.168.1.2
-
-This open a PYGAME window and you can drive the car around with the keyboard.
-You have to take the parking break off first!
-
-At the moment the server<--->client relationship works!
-The response is very slow. I am only getting about 1-2 FPS
-There still alot to learn and do.
-
-
-
+'sudo docker stop elastic_kare'
 
 
 
@@ -142,8 +138,7 @@ $ /.manual_control_twh.py --autopilot --host 192.168.1.2 -q Low
 
 This requires the more modern nividia drivers, I installed  nvidia450
 
-
-$ sudo docker pull carlasim/carla:0.9.10
+'sudo docker pull carlasim/carla:0.9.10'
 
 I ran into this  errors: sh: 1: xdg-user-dir: not found
 
@@ -152,36 +147,47 @@ but i found a solution here (https://github.com/carla-simulator/carla/issues/315
 There are still some warnings but it seems like the simulation has started.
 -p allows one to one mapping of ports host - container
 
+## CARLA Server - The server is the world simulation
 
-$ sudo docker run -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10 ./CarlaUE4.sh -opengl
-
+This will run the script CarlaUE4.sh in the carla container. This starts the server.
+'sudo docker run -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10 ./CarlaUE4.sh -opengl
+'
 
 This will run BASH in the carla container without starting the simulator.
-$ sudo -E docker run --name carla --privileged --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10 bash
+'sudo -E docker run --name carla --privileged --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10 bash'
 
-This will start the simulation. There are some warnings/errors but that can be ignored. (alternative to what we are using)
-$ sudo -E docker run --name carla --privileged --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw carlasim/carla:0.9.10 /bin/bash ./CarlaUE4.sh -vulkan -benchmark -fps=25
+This will start the simulation. There are some warnings/errors but that can be ignored. (alternative to what we are using) why? i remember
+'sudo -E docker run --name carla --privileged --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw carlasim/carla:0.9.10 /bin/bash ./CarlaUE4.sh -vulkan -benchmark -fps=25'
 
-also, on the client side I have had some trouble with the 'no module named carla issue' - https://github.com/carla-simulator/carla/issues/1137
+## CARLA Client - The client is a car driving in the world
+
+Download and extracted the appropriate version from Github. Here we are using: carla 0.9.10 (https://github.com/carla-simulator/carla)
+
+On the client side I have had some trouble with the 'no module named carla issue' - https://github.com/carla-simulator/carla/issues/1137
 this is related to properly installing the 'carla' python module from /carla/PythonAPI, i have it working, except not in a docker..
 because that is not working... yet .... boo hoo, I am going to try something else ..
 try to run the client on the local machine - not in container for now. - this seems to work pretty good - still would like both to be in a container
-I bet it is just the paths...
+I bet it is just the paths...yep
 
-on Ubuntu 20.04 (server machine) I downloaded and extracted carla 0.9.10 - 'pip3 install pygame' did not work so I had to use 'apt install python3-pygame'
-i had to set the PYTHONPATH for the carla module to work. Basically the PYTHONPATH must include the path to .egg file for the right version of carla, I think
-that this is the same problem I am having in the docker container 'no module named carla'
+In Ubuntu 20.04 (server machine) I downloaded and extracted carla 0.9.10 - 'pip3 install pygame' did not work so I had to use 'apt install python3-pygame'
+i had to set the PYTHONPATH for the carla module to work. Basically the PYTHONPATH must include the path to .egg file for the right version of carla, I think that this is the same problem I am having in the docker container 'no module named carla'
 
-export CARLA_ROOT=~/carla_simulator/carla_0910/
-export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla
-python3 ${CARLA_ROOT}/PythonAPI/examples/manual_control.py
+Either way, Jared said "but generally we recommed y'all using Miniconda/Anaconda to create your own python 2 & 3 environments without any need for admin."
 
-it works pretty good but i have just noticed that the path looks funny
-PYTHONPATH=/opt/ros/noetic/lib/python3/dist-packages:/home/thill/carla_simulator/carla_0910//PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:/home/thill/carla_simulator/carla_0910//PythonAPI/carla/agents:/home/thill/carla_simulator/carla_0910//PythonAPI/carla
+Set the PYTHONPATH (CARLA_ROOT is just intermediate variable to save length)
+
+'export CARLA_ROOT=~/carla_simulator/carla_0910'
+'export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla'
+
+Then, run the client script manual_control.py
+'python3 ${CARLA_ROOT}/PythonAPI/examples/manual_control.py'
+
+
+it works pretty good but...
 
 
 sometimes this throws an error like this:
-No recommended values for 'speed' attribute
+'No recommended values for 'speed' attribute
 Traceback (most recent call last):
   File "/home/thill/carla_simulator/carla_0910//PythonAPI/examples/manual_control.py", line 1137, in <module>
     main()
@@ -191,10 +197,9 @@ Traceback (most recent call last):
     controller = KeyboardControl(world, args.autopilot)
   File "/home/thill/carla_simulator/carla_0910//PythonAPI/examples/manual_control.py", line 292, in __init__
     world.player.set_autopilot(self._autopilot_enabled)
-RuntimeError: time-out of 2000ms while waiting for the simulator, make sure the simulator is ready and connected to 127.0.0.1:2000
+RuntimeError: time-out of 2000ms while waiting for the simulator, make sure the simulator is ready and connected to 127.0.0.1:2000'
 
-
-
+I think this may be another app using that port, but I am not sure.
 
 
 this will also start the carla server in a docker container, but Mike said 'whoa' about this line !

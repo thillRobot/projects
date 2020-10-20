@@ -1,0 +1,60 @@
+
+TWH Logs - 03/08/2018
+
+    Processing the pointcloud data from the aubo Arm and the rpLidar and CAD files ... Things are getting cool!
+
+   1) First make simple CAD drawings in 'freeCAD' - this is really a terrible cad program but it can output 'mesh' file formats (.ply, .obj, ...)
+
+   2) in the CAD window, 'ctrl-a' to select the entire part, then >>file>>export, and choose to export as a .ply file
+
+   3) now convert the new cad files (scene1,2,3) into .pcd files using my ros node shown below (this still needs some polishing)
+
+    .../images$ rosrun cad2cloud cad2cloud /home/thill/Dropbox/m73_ros/src/cad2cloud/images/scene1.ply output.pcd -n_samples 100000 -leaf_size 0.001 -write_normals 1 -no_vis_results 0
+
+   4) now look to see that is worked
+
+ .../images$ pcl_viewer -multiview 1 output.pcd
+
+    OK, this still works! good!
+
+
+   Seam Detection with RANSAC - find the intersectionand line(s) between three planes (notice the thresh is a little higher on this one)
+
+   SCENE1:  
+   $ roslaunch seam_detection seam_detection_RANSAC.launch in_file:="lidar_scene1.pcd" thresh:=0.005  
+
+   This is an image from the lab of real steel
+
+ 
+
+   Seam Detection with ICP - find the intersection and line(s) between three planes - These are both working but it is not perfect yet!
+
+     
+     SCENE1:
+     $ roslaunch seam_detection seam_detection_ICP.launch lidar_file:="lidar_scene1.pcd" cad_file:="cad_scene1.pcd"  thresh:=0.003
+ 
+     SCENE2:
+     $ roslaunch seam_detection seam_detection_ICP.launch lidar_file:="lidar_scene2.pcd" cad_file:="cad_scene2.pcd"  thresh:=0.003
+
+
+
+
+
+
+
+    CLOCK SKEW BUG FIX! http://embeddedbuzz.blogspot.in/2012/03/make-warning-clock-skew-detected-your.html
+
+
+    if this happens when you try to catkin_make ; make[1]: warning:  Clock skew detected.  Your build may be incomplete.
+     
+    this is easy to fix (it happens when you reset the clock sometimes) 
+
+    cd to the ws you want to fix and do this:
+
+    $ sudo find . -exec touch {} \;
+
+    now you should be able to make just fine!
+
+
+
+

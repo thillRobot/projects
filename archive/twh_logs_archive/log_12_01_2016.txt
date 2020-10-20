@@ -1,0 +1,25 @@
+TWH ROS LOG - 12/01/2016 
+
+ to do: 
+
+	MAIN GOAL : develop a class to help 'part handling'
+
+
+
+
+
+	Accomplished : Send the robot to a series of goals that are stored in an array. Not perfect but it is working!
+ 
+			To do this I have made a 'turtlebot_task' class. 			
+		
+
+			$roslaunch turtlebot_stage turtlebot_in_stage 
+			
+			$rosrun turtlebot_payload turtlebot_task
+
+
+
+
+
+
+

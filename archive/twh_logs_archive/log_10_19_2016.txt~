@@ -1,0 +1,101 @@
+## ROS LOG - TWH
+
+
+setting up AXIS 211A with ROS (WORKING!!!)
+
+-> Desktop conected to WRT54G (ethernet)
+-> AXIS conected to WRT54G (ethernet)
+
+make sure you can find the camera
+thill@robotlab-t1600:~$ nmap -A -T4 192.168.1.*
+
+the camera (AXIS 211A - S/N: 00408C7DA7E2 - I.P.:192.168.1.102 (on the WRT54G) 
+
+
+1) 
+thill@robotlab-t1600:~$ roscore
+
+2) new terminal
+thill@robotlab-t1600:~$ export ROS_NAMESPACE=axis
+thill@robotlab-t1600:~$ rosrun axis_camera axis.py _hostname:=192.168.1.102 _password:=tturobotics
+[INFO] [WallTime: 1476893643.415116] camera calibration URL: file:///home/thill/.ros/camera_info/192_168_1_102.yaml
+/opt/ros/indigo/lib/axis_camera/axis.py:155: SyntaxWarning: The publisher should be created with an explicit keyword argument 'queue_size'. Please see http://wiki.ros.org/rospy/Overview/Publishers%20and%20Subscribers for more information.
+  self.pub = rospy.Publisher("image_raw/compressed", CompressedImage, self)
+/opt/ros/indigo/lib/axis_camera/axis.py:156: SyntaxWarning: The publisher should be created with an explicit keyword argument 'queue_size'. Please see http://wiki.ros.org/rospy/Overview/Publishers%20and%20Subscribers for more information.
+  self.caminfo_pub = rospy.Publisher("camera_info", CameraInfo, self)
+
+
+3) new terminal
+thill@robotlab-t1600:~$ rostopic list
+/axis/camera_info
+/axis/image_raw/compressed
+/rosout
+/rosout_agg
+
+4)new terminal
+rosrun image_view image_view image:=/axis/image_raw _image_transport:=compressed
+[ INFO] [1476893750.346892571]: Using transport "compressed"
+
+
+!!! NOW YOU SHOULD BE ABLE TO SEE THE IMAGE !!!
+
+Version 2 - Camera on Robot
+
+Sadly this configuration disables the internet. Possbily a new setup entirely would fix this. Investigate 'Bridge LAN to WLAN' discussed on adept site but they say this does not work on most embedded systems. 
+
+
+1) Physical Connections: (ethernet cable)
+ AXIS 211A <------->   WRT54G    <-------> Robot (internal device accessory ethernet) 
+ (192.168.1.102)    (192.168.1.1)         (192.168.1.112)  (docs say 192.168.0.32 ?)
+
+
+2) Connect remote computer to WLAN (robot_net WPA pw: tturobotics)	
+	(192.168.1.114)				
+
+3) Test Connectivity and that Camera is working
+
+In a browser(firefox on Trusty) on the remote computer go to http://192.168.1.102.
+You should be able to see the live image and access the camera config.
+
+4) Start up the robot remote control
+
+thill@robot$ export ROS_IP=192.168.1.112
+thill@robot$ roslaunch ~/ttu_ros/launch/lx_demo.launch
+
+5) test connection with rviz - you should see a live laser image in rviz
+
+
+thill@robotlab-t1600$ export ROS_MASTER_URI=http://192.168.1.112:11311
+thill@robotlab-t1600$ export ROS_HOSTNAME=192.168.1.114
+thill@robotlab-t1600$ rosrun rviz rviz
+
+6) test remote control - you can drive the robot and see everything on remote machine
+
+thill@robotlab-t1600$ export ROS_MASTER_URI=http://192.168.1.112:11311
+thill@robotlab-t1600$ export ROS_HOSTNAME=192.168.1.114
+thill@robotlab-t1600:~$ rosrun teleop_twist_keyboard teleop_twist_keyboard.py
+
+8) startup the camera node on the robot
+
+thill@robot$ export ROS_IP=192.168.1.112
+thill@robot:~$ export ROS_NAMESPACE=axis
+thill@robot:~$ rosrun axis_camera axis.py _hostname:=192.168.1.102 _password:=tturobotics
+
+
+9) test that image view works on the local machine (doe
+
+thill@robot:~$ rosrun image_view image_view image:=/axis/image_raw _image_transport:=compressed
+ THIS IS NOT CURRENTLY WORKING ON THE LOCAL ROBOT COMPUTER
+
+
+10) test image view on the remote machine
+
+thill@robotlab-t1600$ export ROS_MASTER_URI=http://192.168.1.112:11311
+thill@robotlab-t1600$ export ROS_HOSTNAME=192.168.1.114
+thill@robotlab-t1600:~$ rosrun image_view image_view image:=/axis/image_raw _image_transport:=compressed
+
+THIS IS NOT CURRENTLY WORKING ON THE REMOTE COMPUTER (desktop)
+
+POSSIBLY TRY TURNING ON THE CAMERA FROM THE REMOTE COMP.
+
+

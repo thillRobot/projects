@@ -1,0 +1,152 @@
+TWH ROS LOG - 10/27/2016 
+
+ to do: 
+
+		
+	1) 'publish' a goal to turtlebot sim (currently we are using a 'service') (DONE!)
+
+
+ log:
+
+
+	1) publish a goal as a topic 
+
+start here: 
+
+	http://answers.ros.org/question/104321/how-to-publish-a-navigation-goal-to-turtlebot-running-the-amcl_demolaunch-navigation-with-a-map-file/
+
+that page suggests doing this: AND IT WORKS
+
+rostopic pub /move_base_simple/goal geometry_msgs/PoseStamped '{ header: {stamp: now, frame_id: "map"}, pose: { position: {x: -4.560, y: 0.204, z: 0.0}, orientation: {w: 1.0}}}'
+
+	Now lets write a pub node that does that!
+
+
+	Step 1) Create a new cpp package with these dependencies
+	
+
+	 $ catkin_create_pkg publish_goal std_msgs rospy roscpp 
+
+	 Copy the general publish code from earlier in as publish_goal.cpp
+
+	edit the source
+
+		i) add this line 
+	
+		#include "geometry_msgs/PoseStamped.h"
+	
+		ii) change the following line:
+
+			n.advertise<geometry_msgs::Twist>("/ttu/cmd_vel", 1000);
+		
+			to:
+
+			n.advertise<geometry_msgs::PoseStamped>("/ttu/cmd_pose", 1000);
+
+
+		iii) change the following line:
+
+			geometry_msgs::Twist msg;
+
+			to:
+			
+			geometry_msgs::PoseStamped msg;
+
+		iv) change the following lines:
+		
+			msg.linear.x = 2+0.01*count;
+			msg.angular.z = 2;			
+			
+			to:
+	
+			msg.pose.position.x = 2.0;
+			msg.pose.position.y = 3.0;
+			msg.pose.position.z = 0;
+
+			msg.pose.orientation.w = 1.0;
+
+		v) add the following lines (just once not in the loop)
+
+			msg.header.stamp=ros::Time::now();
+			msg.header.frame_id="map";
+
+		vi) change the following line:
+
+			ros::init(argc, argv, "ttu_publisher");
+
+			to:
+
+			ros::init(argc, argv, "publish_goal");
+	
+		vii) change the while loop from:
+
+			while (ros::ok()) 
+
+			to:
+
+			while ((ros::ok())&&(count<5)) //or however many times you want to publish
+
+
+	back out to the Workspace dir and catkin_make
+
+	$ cd ~/ttu_ros/
+	$ catkin_make
+
+	$ roslaunch turtlebot_stage turtlebot_in_stage.launch
+	
+	in a new terminal
+	
+	$rosrun publish_goal publish_goal
+
+		the goal is published you can see it in rviz, but the robot doesnt move until this process in terminated.
+
+
+
+	FINAL WORKING CODE BELOW:
+
+		#include "ros/ros.h"
+		#include "geometry_msgs/Twist.h"
+		#include "geometry_msgs/PoseStamped.h"
+		#include <sstream>
+		int main(int argc, char **argv)
+		{
+			ros::init(argc, argv, "publish_goal");
+			ros::NodeHandle n;
+			ros::Publisher ttu_publisher =
+			n.advertise<geometry_msgs::PoseStamped>("/move_base_simple/goal", 1000);
+			ros::Rate loop_rate(10);
+	
+			geometry_msgs::PoseStamped msg;
+			msg.header.stamp=ros::Time::now();
+			msg.header.frame_id="map";
+
+			int count = 0;
+			while ((ros::ok())&&(count<5))  
+			{				
+				msg.pose.position.x = 6.0;
+				msg.pose.position.y = 3.0;
+				msg.pose.position.z = 0;
+
+				msg.pose.orientation.w = 1.0;
+
+				ttu_publisher.publish(msg);
+				ros::spinOnce();
+				loop_rate.sleep();
+				++count;
+			}
+
+			// notice I am just publishing more than once, 
+			// it seems that sometimes it is 'missed' if i just do it once
+			// but if i publish it forever the robot never moves.	
+		}
+
+
+
+
+
+
+
+
+
+
+

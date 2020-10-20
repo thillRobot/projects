@@ -1,0 +1,24 @@
+TWH ROS LOG - 01/04/2018 
+
+  Goal: Use the 'laser_geometry' package to make a 3D point cloud from a tilting scanning laser ranger (Hokuyo)
+
+    
+  try this:
+
+  First power on the laser (12v) and plug in the USB
+
+  For now we have to give ACM0 dial permissions - (Needs to be fixed)
+   
+  Check the permissions
+  $ ls -l /dev/ttyACM0 
+
+  Change the permissions (only needed after being unplugged or powered off)
+  $ sudo chmod a+rw /dev/ttyACM0
+
+  Launch our new node!
+  $ roslaunch scan2cloud scan2cloud.launch
+
+  Now you should be able to see both the '/scan' and the '/cloud'
+
+
+  What's Next: 'tilt' the laser and make some 3d data

@@ -1,0 +1,65 @@
+## ROS LOG - TWH
+
+
+setting op foscam
+
+
+thill@robotlab-t1600:~$ nmap -A -T4 192.168.1.*
+
+Starting Nmap 6.40 ( http://nmap.org ) at 2016-10-05 17:12 CDT
+Illegal character(s) in hostname -- replacing with '*'
+Nmap scan report for 192.168.1.1
+Host is up (0.012s latency).
+Not shown: 995 filtered ports
+PORT     STATE  SERVICE  VERSION
+20/tcp   closed ftp-data
+21/tcp   closed ftp
+23/tcp   closed telnet
+80/tcp   open   http     Intoto httpd 1.0
+| http-auth: 
+| HTTP/1.0 401 Unauthorized Access Denied
+|_  Basic realm=WRT54G
+|_http-title: 401 Unauthorized
+2869/tcp open   http     Intoto httpd 1.1
+|_http-title: Site doesn't have a title.
+
+Nmap scan report for 192.168.1.100
+Host is up (0.0071s latency).
+Not shown: 997 closed ports
+PORT    STATE SERVICE    VERSION
+88/tcp  open  http       lighttpd 1.4.31
+|_http-title: IPCam Client
+443/tcp open  tcpwrapped
+|_http-title: IPCam Client
+| ssl-cert: Subject: commonName=*.myfoscam.org/organizationName=ShenZhen Foscam Intelligent Technology Co,Ltd/stateOrProvinceName=Guangdong/countryName=CN
+| Not valid before: 2013-11-07T16:41:25+00:00
+|_Not valid after:  2016-11-11T07:51:17+00:00
+888/tcp open  tcpwrapped
+
+Nmap scan report for robotlab-t1600.* (192.168.1.101)
+Host is up (0.000093s latency).
+All 1000 scanned ports on robotlab-t1600.* (192.168.1.101) are closed
+
+Service detection performed. Please report any incorrect results at http://nmap.org/submit/ .
+Nmap done: 256 IP addresses (3 hosts up) scanned in 98.91 seconds
+thill@robotlab-t1600:~$ 
+
+thill@robotlab-t1600:~$ ping 192.168.1.100
+PING 192.168.1.100 (192.168.1.100) 56(84) bytes of data.
+64 bytes from 192.168.1.100: icmp_seq=1 ttl=64 time=0.788 ms
+64 bytes from 192.168.1.100: icmp_seq=2 ttl=64 time=0.705 ms
+64 bytes from 192.168.1.100: icmp_seq=3 ttl=64 time=0.718 ms
+64 bytes from 192.168.1.100: icmp_seq=4 ttl=64 time=0.861 ms
+64 bytes from 192.168.1.100: icmp_seq=5 ttl=64 time=0.629 ms
+64 bytes from 192.168.1.100: icmp_seq=6 ttl=64 time=0.682 ms
+64 bytes from 192.168.1.100: icmp_seq=7 ttl=64 time=0.589 ms
+64 bytes from 192.168.1.100: icmp_seq=8 ttl=64 time=0.657 ms
+64 bytes from 192.168.1.100: icmp_seq=9 ttl=64 time=0.710 ms
+64 bytes from 192.168.1.100: icmp_seq=10 ttl=64 time=0.763 ms
+64 bytes from 192.168.1.100: icmp_seq=11 ttl=64 time=0.582 ms
+^C
+--- 192.168.1.100 ping statistics ---
+11 packets transmitted, 11 received, 0% packet loss, time 9997ms
+rtt min/avg/max/mdev = 0.582/0.698/0.861/0.085 ms
+thill@robotlab-t1600:~$ 
+

@@ -1,0 +1,28 @@
+
+TWH Logs - 02/26/2018
+
+    Processing the pointcloud data from the aubo Arm and the rpLidar ... Things are getting sharper!
+
+    Also, we (I mean Stephen Z.) have tuned the robot so the scans are improved. The '2 planes' issue seems to be gone. 
+    
+    The newest scan files are: "test_cloud14.pcd" and "test_cloud15.pcd"      
+
+
+Try this:
+    
+    Process the pointcloud using PCL 
+
+        $ roslaunch seam_detection segment_plane_line.launch in_file:="test_cloud15.pcd" thresh:=0.003
+
+        
+   Because there are multiple planes (more than 3) in these new files the seam detection is sensitive to teh filtering and the threshold. 
+
+
+And now what... adding 'visualization markers' for the planes in rviz to reduce the topic load hopefully - it seems to be working but is not done. 
+
+
+
+
+
+
+

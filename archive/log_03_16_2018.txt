@@ -1,0 +1,13 @@
+
+TWH Logs - 03/16/2018
+
+   Seam Detection with RANSAC - improved plane filter - thick thin
+
+   SCENE1:  
+   $ roslaunch seam_detection plane_filter_RANSAC.launch in_file:="lidar_scene1.pcd" thresh:=0.005  
+
+   This is an image from the lab of real steel
+
+
+
+

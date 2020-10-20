@@ -1,0 +1,28 @@
+ROS log 
+Tristan Hill - September 8, 2016
+
+
+TO DO:  Drive Robot Remotely and view laser in rviz
+
+Accomplished: 
+	
+	-> edited /etc/hosts on both robot and desktop so IPs are known
+		-robot_wlan,robot_lan,desktop_wlan,desktop_lan
+
+	-> figured out remote computer WLAN issues
+	
+	To Use remote computer nodes
+
+		1) Check bidirectional connectivity (http://wiki.ros.org/ROS/NetworkSetup)
+
+		2) ON THE ROBOT COMPUTER 
+
+			$ export ROS_IP=10.100.66.99
+			$ roslaunch ~/ttu_ros/launch/lx_demo.launch
+
+		3) ON THE REMOTE COMPUTER
+
+			$ export ROS_MASTER_URI=http://10.100.66.99:11311
+			$ export ROS_HOSTNAME=remote_computer_name
+			$ rosrun rviz rviz
+

@@ -1,0 +1,22 @@
+
+TWH Logs - 03/06/2018
+
+    Processing the pointcloud data from the aubo Arm and the rpLidar ... Things are getting cool!
+
+    Import a cloud from a CAD model. Currently it works like this - .ply(from freecad) to a .pdc (for PCL)
+
+ Try this and it should work! 
+
+ 
+
+ .../images$ rosrun cad2cloud cad2cloud /home/bender/Dropbox/t410_ros/src/cad2cloud/images/scenario1.ply output.pcd -n_samples 100000 -leaf_size 0.001 -write_normals 1 -no_vis_results 0
+
+
+ .../images$ pcl_viewer -multiview 1 output.pcd
+
+
+
+
+
+
+

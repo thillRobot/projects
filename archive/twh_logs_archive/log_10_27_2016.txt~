@@ -1,0 +1,126 @@
+TWH ROS LOG - 10/27/2016 
+
+ to do: 1) Turtlebot Simulator Map Files 
+
+		a) figure out my map file bug on the work laptop ( researcher3-LattitudeXT )
+
+		b) move the map files into the workspace ( ~/catkin_ws )	
+
+	2) 'publish' a goal to turtlebot sim (currently we are using a 'service')
+
+
+ log:
+
+
+	1a) fix map file bug -> i think the update fixed it
+
+		In a fresh terminal 
+		
+
+		$ sudo apt-get install python-rosdep python-wstool ros-indigo-ros
+
+		$ sudo rosdep init
+		
+		$ rosdep update
+
+
+		$ sudo apt-get update	
+
+		$ sudo apt-get check (not needed but can check for error w/o internet I think)
+
+		$ roslaunch turtlebot_stage turtlebot_in_stage.launch
+	
+		This should load the turtlebot simulator in the default map. The 'export' commands should not be needed 		until we build a new map.
+
+
+	1b) move map files (http://wiki.ros.org/turtlebot_stage/Tutorials/indigo/Customizing%20the%20Stage%20Simulator)
+		
+		go to the (cd - change directory) the installation directory 
+
+		$ cd /opt/ros/indigo/share/turtlebot_stage/maps
+	
+		check that you can see the files here (.yaml, .map, .png)
+
+		$ ls
+
+
+		Make a directory in your workspace to put your world in.
+
+		$ mkdir ~/catkin_ws/maps
+
+		Copy the default files to your workspace (3 files). You can choose a new name
+
+		$ cp maze.png ~/catkin_ws/maps/ttu_maze.png
+		$ cp maze.yaml ~/catkin_ws/maps/ttu_maze.yaml
+		$ cp stage/maze.world ~/catkin_ws/maps/ttu_maze.world
+
+		Set these new files as the world
+
+		$ export TURTLEBOT_STAGE_MAP_FILE="~/catkin_ws/maps/ttu_maze.png"
+		$ export TURTLEBOT_STAGE_WORLD_FILE="~/catkin_ws/maps/ttu_maze.world"
+
+		$ roslaunch turtlebot_stage turtlebot_in_stage.launch
+
+		We need to check that we are actually using the correct world! To do this we should modify the map.png file and check that it works. I am going to use GIMP.
+
+		There are a few steps we need to take to modify the stock map
+		
+			i) edit the ttu_maze.yaml file ( 1 line)
+
+				$ gedit ~/catkin_ws/maps/ttu_maze.yaml
+
+				Change 'maze.png' to 'ttu_maze.png' and save
+
+			ii) edit the ttu_maze.world file (2 lines)
+
+				$ gedit ~/catkin_ws/maps/ttu_maze.world	
+	
+				...
+				name "maze"
+  				bitmap "../maze.png"
+				...
+
+				to 
+				...	
+				name "ttu_maze"
+  				bitmap "../ttu_maze.png"	
+				...
+		
+
+		
+		
+		
+
+
+
+
+
+		
+
+
+
+
+
+
+	2) publish a goal
+
+	start here: 
+
+	http://answers.ros.org/question/104321/how-to-publish-a-navigation-goal-to-turtlebot-running-the-amcl_demolaunch-navigation-with-a-map-file/
+
+that page suggests doing this:
+
+rostopic pub /move_base_simple/goal geometry_msgs/PoseStamped '{ header: {stamp: now, frame_id: "map"}, pose: { position: {x: -4.560, y: 0.204, z: 0.0}, orientation: {w: 1.0}}}'
+
+	
+
+
+
+ edits to make: 
+
+		-> ROS is a framework! not an OS
+
+		-> rocon is a multimaster framework (man, I though multi nodes and packages was cray!)
+
+	
+

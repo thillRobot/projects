@@ -1,0 +1,44 @@
+
+TWH Logs - 02/04/2020
+
+    Processing the pointcloud data from the aubo Arm and the rpLidar ...
+    We are finally going to do something with this awesome stuff. Write a paper!
+
+    The goal is to submit a paper for IDETC to show off this work.
+
+    Note: Something that I have done has caused 'catkin_make' to take forever (30sec or more). It is the PCL compile. This needs looking at.
+
+Try this:
+
+    I have just re-installed ROS and compiled (catkin_make) the old seam detection code. Test before going further.
+
+
+    Step 1) Record a pointcloud with the Aubo Arm  - SKIP STEP 1 - use prerecored scans
+
+        // turn on the robot
+        $ roslaunch aubo_control main.launch
+
+        // start the conversion
+        $ roslaunch scan2cloud scan2cloud.launch
+
+        // move the robot
+        $ rosrun goalpoint_generator lidar_scan
+
+
+        // and when you are happy save the cloud to a .pcd file
+        $ rosrun pcl_ros pointcloud_to_pcd input:=/cloud_out
+
+        // You should see a .pcd in the current directory
+
+        // Now you can look at the .pcd with pcl_viewer
+
+        $ pcl_viewer -multiview 1 1516917376914132.pcd
+
+
+    Step 2) Process the pointcloud using PCL - START HERE ON STEP 2 - process prerecorded scans - THIS WORKS (02/04/2020)
+
+        $ roslaunch seam_detection segment_plane.launch in_file:="test_cloud8.pcd" thresh:=0.01
+
+        try this one pcd_to_pointcloud - THIS WORKS (02/04/2020)
+
+        $ roslaunch seam_detection segment_plane_line.launch in_file:="test_cloud11.pcd" thresh:=0.01

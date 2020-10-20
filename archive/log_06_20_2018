@@ -1,0 +1,16 @@
+TWH ROS LOG - 06/20/2018 
+
+  
+
+  Goal: Perform camera calibration for the Kinect and save the files and use them later...
+
+  
+  First turn on the Kinect
+  
+    $ roslaunch freenect_launch freenect.launch
+
+    $ rosrun camera_calibration cameracalibrator.py image:=/camera/rgb/image_raw camera:=/camera/rgb --size 8x6 --square 0.0245
+
+
+  
+	

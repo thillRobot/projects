@@ -1,0 +1,23 @@
+
+TWH Logs - 04/04/2018
+
+  
+ BIG NEWS! - I have moved my ThinkPad T410 to Ubuntu16 and ROS Kinetic!
+           - There were a few bumps but it seems to be pretty nice!
+
+ Also, I ma working on 'Apriltags' for the 'cube sat' senior design group, this is coming along
+ 	
+	- I got opencv3 working in Kinetic
+
+	- I pulled the source from git for 'apriltags2_ros' and it built with no problems
+
+	- Now the task is to test it out, this is coming along
+
+        Try This: 
+
+		$ roslaunch ttu_opencv line_detection.launch
+		
+		$ roslaunch apriltags2_ros continuous_detection.launch camera_name:="usb_cam_node"
+
+         This is working but the camera needs to be calibrated!
+

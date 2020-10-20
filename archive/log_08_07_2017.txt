@@ -1,0 +1,51 @@
+TWH ROS LOG - 08/07/2017 
+
+  
+     I have finshed moving the 'catkin_workspaces' of all computers into my dropbox folder for backup security and ease of access. Now I can vim to remote edit 'or' just edit remotely and let dropbox sync the files. I have used a simple convention for naming the workspaces.
+
+     robotlab-t1600 workspace is : t1600_ros    
+     bender-t410    workspace is : t410_ros
+     robot (lx)     workspace is : lx_ros      (this one kinda breaks the rule but we are going to go with it for now)
+
+    This took a little doing... The one thing that I forgot was that 'rosaria' had been built from source so I had to reinstall it without 'apt-get'. Follow the instructions here: http://wiki.ros.org/ROSARIA/Tutorials/How%20to%20use%20ROSARIA
+
+
+Trying to get kinect working on the lx - problems right from the start
+
+I installed freenect-stack no problem but then this!
+
+thill@robot:~/Dropbox$ roslaunch freenect_launch freenect.launch
+
+thill@robot:~/Dropbox$ rosrun image_view image_view image:=/camera/depth/image
+[ INFO] [1502119622.449855988]: Using transport "raw"
+[ERROR] [1502119623.733336869]: Unable to convert '32FC1' image for display: 'cv_bridge.cvtColorForDisplay() while trying to convert image from '32FC1' to 'bgr8' an exception was thrown ([32FC1] is not a color format. but [bgr8] is. The conversion does not make sense)'
+
+
+So we need to figure this out!
+
+ So it does work when viewing on the control computer. I believe this is the same atom32 cant do graphics! Why me! 
+
+
+Try this with the Kinect plugged into the external ESB port on the LX:
+         
+              ON THE ROBOT 
+
+                     	thill@robot: $ roslaunch ttu_camera start_kinect.launch
+
+              ON THE CONTROL COMPUTER
+
+			thill@robotlab-t1600: $ roslaunch ttu_camera view_kinect.launch
+
+	      Now you should see the depth image in the 'image-view' window.
+
+This leaves the real question. Can we make 3D maps using the Kinect and the LX ??? I hope so!
+      
+
+Also, lx_drive and lx_teleop are acting funny together, we need to figure this out as well!
+
+
+
+
+
+
+

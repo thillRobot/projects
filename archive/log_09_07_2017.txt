@@ -1,0 +1,19 @@
+TWH ROS LOG - 09/07/2017 
+
+  
+
+  Goal: continue with the rtabmap - The Goal is to merge the 2D nav with the 3D mapping
+
+
+	ON THE ROBOT COMPUTER 
+
+        thill@robot:~$ roslaunch ttu_camera lx_3dmap.launch
+
+	ON THE LOCAL COMPUTER
+
+       	thill@robotlab-t1600:~$ roslaunch ttu_camera start_rtabmap.launch
+
+	thill@robotlab-t1600:~$ roslaunch lx_control lx_control.launch
+
+	thill@robotlab-t1600:~$ rtabmap-databaseViewer ~/.ros/rtabmap.db
+

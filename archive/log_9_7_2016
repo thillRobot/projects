@@ -1,0 +1,29 @@
+ROS log 
+Tristan Hill - September 7, 2016
+
+	Goal: Get Rviz working with LX (atom D525)
+
+	Problem: Rviz requires opengl 2.1 (not supported on atom board)
+
+
+
+	Solution1: run rviz on a separate computer
+
+	1) on the local computer	(both machines on LAN)
+		 $ netcat -l 1234  		
+
+	2) on the remote computer (tested with TWH desktop ip: 149.149.150.141)
+		 $ netcat 149.149.150.141 1234 
+		
+	3) ROS_IP=149.149.150.141 ROS_MASTER_URI=http://robot:11311/ rosrun rostopic list
+
+	3) ROS_IP=149.149.150.141 ROS_MASTER_URI=http://robot:11311/ rosrun rviz rviz
+
+	SUCCESS: This works but in rviz the 'status' of the laserscan blinks from OK to ERROR
+
+	STILL TO DO: LAN<->WLAN (NOT WORKING)
+
+
+		
+-rosrun rosaria RosAria _port:=/dev/ttyUSB0 _baud:=57600
+

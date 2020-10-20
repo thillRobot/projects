@@ -1,0 +1,10 @@
+## ROS LOG - TWH
+
+
+setting op foscam (DAY 3 really ? - i am about to freak out)
+
+-> Desktop conected to WRT54G (ethernet)
+-> Foscam conected to WRT54G (ethernet)
+
+thill@robotlab-t1600:~$ nmap -A -T4 192.168.1.*
+

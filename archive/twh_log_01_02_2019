@@ -1,0 +1,73 @@
+TWH LOGS - 01/02/2019
+
+    Goal: Update Ubuntu Desktop in my clement office.
+
+	Dual Drive Setup - 	1) Primary Drive - 240GB SSD - Ubuntu 18.04 
+				2) Secondary Drive - 160 GB HDD - Ubuntu 16.04 		
+				note: in the GRUB menu 'ubuntu' is ubuntu 16 and 'ubuntu18.04' is ubuntu 18 
+				(this is b/c 16 was installed second)
+
+	1) Primary Drive - 240GB SSD - Ubuntu 18.04 - /dev/sda 
+	
+		User Name: thill
+		
+		PSWD: twhR0b0t!c$
+	
+		Computer Name: ubuntu18-brwn305
+
+		Partion Sheme: 
+
+		'boot' - /boot - 2.5 GB - /dev/sda1
+
+		'root' - /     - 50 GB - /dev/sda5
+
+		'home' - /home - 170 GB - /dev/sda6
+		
+		'swap' - swap area - 16 GB - /dev/sda7
+			
+		'free space' - less than 2 GB left over
+		
+	2) Secondary Drive - 160GB HDD - Ubuntu 16.04 - /dev/sdb
+	
+		User Name: thill
+		
+		PSWD: twhR0b0t!c$
+	
+		Computer Name: ubuntu16-brwn305
+
+		Partion Sheme: 
+
+		'boot' - /boot - 2.5 GB - /dev/sdb1
+
+		'root' - /     - 50 GB - /dev/sdb5
+
+		'home' - /home - 90 GB - /dev/sdb6
+		
+		'swap' - swap area - 16 GB - /dev/sdb7
+		
+		'free space' - less than 2 GB left over
+		
+		
+	
+	SOFTWARE INSTALLATIONS COMPLETED on UBUNTU18
+	
+	1) Dropbox + Nautilus Dropbox
+		
+		I AM OFFICIALLY PISSED OFF AT DROPBOX
+		
+		Important Note: to install 'nautilus dropbox' you have to manually install 'libatomic1' first! This took FOREVER to figure out. 
+		
+		$ sudo apt install libatomic1
+		
+		Then the 'dropbox daemon' can start
+	
+	
+	2) Inkscape (0.92) + TexText (0.1)
+	
+		make sure to use the correct versions!
+	
+	3) GIMP2
+	
+	4) MATLAB TSH (non- student i think)
+	
+	

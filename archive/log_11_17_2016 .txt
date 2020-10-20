@@ -1,0 +1,9 @@
+TWH ROS LOG - 11/16/2016 
+
+ to do: 
+
+	MAIN GOAL : Have turtlebot start in one corner. And a block (marker) starts in the other. Send it towards the block with rviz (or a script), and when the robot reaches certain proximity 'aquire' he object by reassigning frames. 
+
+	
+
+	

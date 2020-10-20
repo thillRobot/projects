@@ -1,0 +1,21 @@
+TWH ROS LOG - 08/09/2018
+
+
+  Goal: re-learn ROS-KINECT
+
+      - There are several packages and two main drivers I think. The goal is to learn about this and sort it out.
+      - freenect
+      - openni
+      - openni2
+
+
+      This Works -
+
+        thill@researcher-ThinkCentre-M73:~$ roslaunch ttu_opencv start_kinect.launch
+
+      But no visuals appear.
+
+
+      We get a video with this at least...
+
+        thill@researcher-ThinkCentre-M73:~$ roslaunch ttu_opencv view_kinect_local.launch

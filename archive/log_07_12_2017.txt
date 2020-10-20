@@ -1,0 +1,28 @@
+TWH ROS LOG - 07/12/2017 
+
+To Accomplish: 	- Main Goal - Get the Axis Network Camera Working in ROS
+
+		- it is working but I cannot veiw the video in RVIZ - GOAL
+
+		- sub goal- launch file for axis camera - DONE!
+
+		to view the camera with 'image_view' do this:
+
+		
+		on the robot (computer with the camera)
+
+		$ roslaunch ttu_camera start_camera.launch
+
+		on the remote computer (where you want to see the image)
+
+		$ roslaunch ttu_camera view_camera.launch
+
+		now you should see the video live in the 'image view' window and in rviz !
+
+                Well now we need a new goal! Apparently not yet, something has broken!
+		The only thing that has changed is that I install find_object_2d
+		the topic changed names so .... it works now but we need to figure that out
+		
+
+
+		

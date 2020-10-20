@@ -1,0 +1,63 @@
+TWH ROS LOG - 11/29/2016 
+
+ to do: 
+
+	MAIN GOAL : develop a class to help 'part handling'
+
+
+
+
+
+		1) Start here
+
+			$roslaunch turtlebot_stage turtlebot_in_stage 
+			$rosrun using_classes cpp_class
+
+
+
+	So what is next ?
+
+		Let us build up this class!
+
+			
+
+		i)  publish goal in a member function
+
+		ii) get transforms working in the class
+
+
+
+
+
+
+	WHOA! After ubuntu updated, turtlebot sim broke! But I fixed it! You just have to move a launch file!
+
+		
+		error: 
+
+while processing /opt/ros/indigo/share/turtlebot_navigation/launch/includes/amcl.launch.xml:
+Invalid roslaunch XML syntax: [Errno 2] No such file or directory: u'/opt/ros/indigo/share/turtlebot_navigation/launch/includes/amcl.launch.xml'
+The traceback for the exception was written to the log file
+
+		fix: 
+
+	cd opt/ros/indigo/share/turtlebot_navigation/launch/includes/amcl
+	sudo cp amcl.launch.xml /opt/ros/indigo/share/turtlebot_navigation/launch/includes/
+
+	I think I may have to move the others as well in the future. 
+
+
+
+
+	accompished: (NOT much)
+
+		split cpp_class into 2 classes. 
+
+			1) sub_class.cpp (subscriber) (works great!)
+
+			2) pub_class.cpp (publisher) (doesnt work at all :( )
+				
+	
+
+
+

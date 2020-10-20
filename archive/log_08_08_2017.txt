@@ -1,0 +1,69 @@
+TWH ROS LOG - 08/08/2017 
+
+  
+
+  NEW BIG GOAL! - Get rtabmap_ros working - This is a ROS wrapper on the 'rtabmap' (real time appearence based mapping) RGB-D 3D SLAM algorithm 
+
+  http://wiki.ros.org/rtabmap_ros
+
+  We are going to start with the Kinect (ros-freenect) on the Desktop, hopefully we will move to LX soon.
+   
+I am going to go through some of the tutorials
+1) http://wiki.ros.org/rtabmap_ros/Tutorials/HandHeldMapping
+
+Pretty quick I ran into an error! But I think I have gotten around it!
+
+
+thill@robotlab-t1600:~$ roslaunch ttu_camera start_kinect.launch
+ 
+This works fine!
+
+thill@robotlab-t1600:~$ roslaunch rtabmap_ros rtabmap.launch rtabmap_args:="--delete_db_on_start"
+
+This does not!
+
+/opt/ros/indigo/lib/rtabmap_ros/rgbd_odometry: error while loading shared libraries: librtabmap_core.so.0.11: cannot open shared object file: No such file or directory
+followed by a bunch of evil red ink!
+
+I have found a workaround in several places ont he web, 
+
+" This error happens when the linker cannot find the library on runtime in the standard paths. The rtabmap library uses multi-arch installation, so it would be installed in /opt/ros/kinetic/lib/x86_64-linux-gnu instead of /opt/ros/kinetic/lib.
+
+For some reasons, the library paths may not be correctly set on a fresh install. Make sure to source the setup.bash in your catkin devel workspace, it sometimes add lib/x86_64-linux-gnu to LD_LIBRARY_PATH environment variable. If not automatically added, you can add it manually (or add this line at the end of your "~/.bashrc"):
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/ros/kinetic/lib/x86_64-linux-gnu "
+
+
+SO TRY THIS! export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/ros/indigo/lib/x86_64-linux-gnu
+
+I am adding this into the launch file so I dont have to do it in .bashrc or manually
+
+    thill@robotlab-t1600:~$ roslaunch ttu_camera start_kinect.launch
+
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/ros/indigo/lib/x86_64-linux-gnu
+
+    thill@robotlab-t1600:~$ roslaunch rtabmap_ros rtabmap.launch rtabmap_args:="--delete_db_on_start"
+
+    now close both terminals
+
+    thill@robotlab-t1600:~$ rtabmap-databaseViewer ~/.ros/rtabmap.db
+
+    go to view>3D view then you have to navigate around to see the map!
+  
+    the go to file->export 3D map-> and save it somewhere
+
+    then open 'meshlab' it can be installed with apt-get, file->import mesh-> pick your file and see how awesome it is 
+	
+
+
+
+<!-- <param name="depth_registration" value="true"/> -- Why is it an "arg" and not a "param" ? I should know.-->
+
+
+
+
+
+
+
+
+

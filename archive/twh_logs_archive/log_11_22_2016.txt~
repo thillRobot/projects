@@ -1,0 +1,38 @@
+TWH ROS LOG - 11/22/2016 
+
+ to do: 
+
+	MAIN GOAL (working) : 
+
+ start with this from last ime
+
+	$ roslaunch turtlebot_stage turtlebot_in_stage.launch
+	$ rosrun using_markers gripper
+
+
+ maybe we should make a class for doing just this
+ i think our code is already really messy  
+
+	$rosrun using_markers class_shapes 
+
+
+ ) before we make a class we should just write a function, duh
+
+	What is it going to look like? Prototype
+
+		
+	
+
+
+
+
+
+I) lets make multiple blocks first, at that point it must be messy enough
+
+II) or maybe ....
+
+	
+
+
+
+

@@ -1,0 +1,71 @@
+TWH ROS LOG - 03/31/2017 
+
+ to do: 
+
+	MAIN GOAL : Learn more about the Nav Stack using the LX, layers plugings, parameter tuning
+
+		Accomlpished:
+
+		1) I have learned much more the nav stack. This is an extensive collection of ros packages that seems to be well documented and fully functioning. There are several other navigation tool chains Hector, Cartographer, etc. I have not looked into these thoroughly however at first glance they look less developed. maybe....
+
+
+
+		2) The LX is working well. There are several important elements of the navigation. 
+
+		
+			Main Packages(Nodes): 	1) slam_gmapping - making maps 
+
+				  		2) amcl - localization 
+
+						3) map_server - used with amcl and move_base
+
+						4) move_base and costmap2d- this is what I have mostly been working on 
+					
+							i) Path Plannning
+				
+								a) global planner: global_planner			
+								b) local planner:  teb_local_planner
+
+							ii) Costmaps 
+
+								a) common params
+								b) local params
+								c) global params 
+
+								d) plugin layers - obstacle - static - inflation
+		
+
+	Now to do:
+
+			1) check obstacle layer clearing 
+
+			2) fix/check pose reset through rviz
+
+
+			3) investigate runtime parameter update, this works! very cool but kinda dangerous with a powerful robot.  
+                        try this: 
+
+				>> ssh thill@lx_robot
+
+					$ roslaunch lx_2dnav lx_control
+
+			        >> on the remote computer (commmand computer)
+
+					$roslaunch lx_control lx_control.launch  (for remote rviz)
+	
+					$roslaunch lx_control lx_config.launch  (for remote rqt_reconfigure)
+
+
+
+
+	
+					
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,111 @@
+TWH ROS LOG - 03/04/2019 
+
+  Goal: Learn to use 'rosserial' to communicate with the ATMEGA2560 (Arduino Mega)
+
+    * start with the tutorials here: http://wiki.ros.org/rosserial/Tutorials
+
+    * start with USB, maybe try RS232 or network later
+
+    * I created a package called 'ttu_rosserial' to work in for now.
+
+    
+    TURTORIAL 1: HELLO WORLD  
+        
+        * mega (publisher) --> ROS (subscriber)
+
+        1) 'roscore' runs on PC  
+            
+            $ roscore
+        
+        2) 'hellow_world.ino' on mega publishes a topic '/chatter' 
+
+            unpload and start 'hello_world' on mega.
+        
+        3) 'rosserial_python serial_node.py' runs on PC
+        
+            $ rosrun rosserial_python serial_node.py /dev/ttyACM0    
+
+        4)  topic can be viewed using 'rostopic echo'
+
+            $ rostopic echo /chatter
+
+
+   TURTORIAL 2: BLINK
+
+        * ROS (publisher) --> mega (subscriber)
+
+        1) 'roscore' runs on PC  
+            
+            $ roscore
+        
+        2) 'blink.ino' on mega subscribes to a topic '/toggle_led' 
+
+            unpload and start 'hello_world' on mega.
+        
+        3) 'rosserial_python serial_node.py' runs on PC
+        
+            $ rosrun rosserial_python serial_node.py /dev/ttyACM0    
+
+        4)  topic can be published using 'rostopic pub'
+
+            $ rostopic pub toggle_led std_msgs/Empty --once
+
+    These seem to work as they shold. - TH  
+
+
+    Now for the fun stuff...
+
+    APPLICATION 1: MICROSTEP DRIVER CONTROL
+
+        * Microstep Driver TB6600 
+        * Long's 1.7 amp 4 wire basic stepper motor
+        * Arduino Mega 2560
+        * 12v AC->DC power supply
+
+        * ROS (publisher) --> mega (subscriber)
+        
+        1) 'roscore' runs on PC  
+                
+            $ roscore
+        
+        2) 'microstep_driver_tb6600_rosserial.ino' on mega subscribes to a topic 'motor_enable' 
+
+            unpload and start 'microstep_driver_tb6600_rosserial' on mega.
+        
+        3) 'rosserial_python serial_node.py' runs on PC
+        
+            $ rosrun rosserial_python serial_node.py /dev/ttyACM0    
+
+        4)  turn on motor by publishing topic 'rostopic pub'
+
+            $ rostopic pub motor_enable std_msgs/Bool 1 --once
+
+        5)  send a command to step a specific number of steps 
+
+            $ rostopic pub cmd_steps std_msgs/Int32 100 --once
+
+        6) set or change the motor direction (1/0)
+    
+            $ rostopic pub motor_dir std_msgs/Bool 1 --once
+
+        7)  now turn off the motor 
+     
+            $ rostopic pub motor_enable std_msgs/Bool 0 --once
+    
+        Now try this launch file!
+        
+        1) 'microstep_driver_tb6600_rosserial.ino' on mega subscribes to a topic 'motor_enable' 
+
+            unpload and start 'microstep_driver_tb6600_rosserial' on mega.
+            
+        2) launch the ROS system to control the motor         
+        
+            $ roslaunch ttu_rosserial microstep_demo.launch
+
+            or use the class based implementation
+
+            $ roslaunch ttu_rosserial microstep_class_demo.launch
+
+ OK! I made alot of progress but I am still haveing problems with missing counts. I dont think it is my code though so its ok!
+
+

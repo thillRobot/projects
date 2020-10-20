@@ -1,0 +1,20 @@
+TWH ROS LOG - 12/13/2016 
+
+ to do: 
+
+	MAIN GOAL : develop a class to help 'part handling'
+
+				start here:
+
+					$roslaunch turtlebot_stage turtlebot_in_stage
+
+					$ rosrun ttu_turtlebot turtlebot_task
+
+					OR
+
+					$ rosrun ttu_turtlebot turtlebot_gripper
+					
+		
+
+
+

@@ -1,0 +1,65 @@
+## ROS LOG - TWH
+
+
+setting op foscam (DAY 3 really ? - i am about to freak out)
+
+-> Desktop conected to WRT54G (ethernet)
+-> Foscam conected to WRT54G (ethernet)
+
+make sure you can find the camera
+thill@robotlab-t1600:~$ nmap -A -T4 192.168.1.*
+
+Starting Nmap 6.40 ( http://nmap.org ) at 2016-10-06 09:31 CDT
+Illegal character(s) in hostname -- replacing with '*'
+Nmap scan report for 192.168.1.1
+Host is up (0.015s latency).
+Not shown: 995 filtered ports
+PORT     STATE  SERVICE  VERSION
+20/tcp   closed ftp-data
+21/tcp   closed ftp
+23/tcp   closed telnet
+80/tcp   open   http     Intoto httpd 1.0
+| http-auth: 
+| HTTP/1.0 401 Unauthorized Access Denied
+|_  Basic realm=WRT54G
+|_http-title: 401 Unauthorized
+2869/tcp open   http     Intoto httpd 1.1
+|_http-title: Site doesn't have a title.
+
+Nmap scan report for robotlab-t1600.* (192.168.1.100)
+Host is up (0.000084s latency).
+All 1000 scanned ports on robotlab-t1600.* (192.168.1.100) are closed
+
+Nmap scan report for 192.168.1.101 ### IP OF THE CAMERA
+Host is up (0.0067s latency).
+Not shown: 997 closed ports
+PORT    STATE SERVICE    VERSION
+88/tcp  open  http       lighttpd 1.4.31 ### CAMERA ON PORT 88
+|_http-title: IPCam Client
+443/tcp open  tcpwrapped
+|_http-title: IPCam Client
+| ssl-cert: Subject: commonName=*.myfoscam.org/organizationName=ShenZhen Foscam Intelligent Technology Co,Ltd/stateOrProvinceName=Guangdong/countryName=CN
+| Not valid before: 2013-11-07T16:41:25+00:00
+|_Not valid after:  2016-11-11T07:51:17+00:00
+|_ssl-date: 2016-10-03T02:51:05+00:00; -3d11h40m51s from local time.
+888/tcp open  tcpwrapped
+
+Service detection performed. Please report any incorrect results at http://nmap.org/submit/ .
+Nmap done: 256 IP addresses (3 hosts up) scanned in 100.59 seconds
+thill@robotlab-t1600:~$ 
+thill@robotlab-t1600:~$ ping 192.168.1.101
+PING 192.168.1.101 (192.168.1.101) 56(84) bytes of data.
+64 bytes from 192.168.1.101: icmp_seq=1 ttl=64 time=0.653 ms
+64 bytes from 192.168.1.101: icmp_seq=2 ttl=64 time=0.606 ms
+64 bytes from 192.168.1.101: icmp_seq=3 ttl=64 time=0.599 ms
+^C
+--- 192.168.1.101 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 1999ms
+rtt min/avg/max/mdev = 0.599/0.619/0.653/0.031 ms
+
+
+
+
+
+
+

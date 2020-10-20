@@ -1,0 +1,17 @@
+TWH ROS LOG - 01/05/2018 
+
+  Goal: Use the 'laser_geometry' package to make a 3D point cloud from a tilting scanning laser ranger (Hokuyo)
+
+  We are getting closer - not quite there yet!
+
+Try this in separate terminals:
+
+    $ roscore
+
+    $ rosrun rosserial_python serial_node.py _port:=/dev/ttyACM1
+
+    $ rosrun scan2cloud tilt_servo
+
+    $ roslaunch scan2cloud scan2cloud.launch
+
+The laser projection to pointcloud isnt working yet! It will be soon...

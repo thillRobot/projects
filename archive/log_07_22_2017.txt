@@ -1,0 +1,41 @@
+TWH ROS LOG - 07/22/2017 
+
+To Accomplish: 	- Main Goal - Get the Open CV working with ROS 
+
+
+Done: openCV is installed (by default) and updated in ubuntu
+
+	- demo program 'image_converter.cpp' is built and works
+
+	- modified demo program 'line_detection.cpp' is built and works
+
+	Try This:
+
+		Turn on the camera
+
+		$ roslaunch ttu_camera view_camera.launch	
+
+		You should see the video in the 'image_view' window
+
+		$ rosrun ttu_camera image_converter
+
+		Now you should see the video in the 'image window'
+
+		$ rosrun ttu_camera line_detection
+
+
+		
+	Next Goal - Do some more awesome stuff with open cv at the home crib lab!
+
+		  - Goal: Make it easier to switch networks/locations/remote versus local
+
+			-subgoal: pass in ROS_MASTER_URI /ROS_HOSTNAME as command line parameters to the launches - Working, but needs to be tested with other machines.
+
+				-issue1: There is no image shown in the window when on the local machine. What has changed? - FIXED 
+
+			
+
+
+
+		
+

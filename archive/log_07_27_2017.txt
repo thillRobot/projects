@@ -1,0 +1,71 @@
+TWH ROS LOG - 07/27/2017 
+
+To Accomplish: 	- Main Goal - Get the Open CV working with ROS 
+
+
+Done: openCV is installed (by default) and updated in ubuntu
+
+	- demo program 'image_converter.cpp' is built and works
+
+	- modified demo program 'line_detection.cpp' is built and works
+
+	Try This:
+
+		Turn on the camera
+
+		$ roslaunch ttu_camera view_camera.launch	
+
+		You should see the video in the 'image_view' window
+
+		$ rosrun ttu_camera image_converter
+
+		Now you should see the video in the 'image window'
+
+		$ rosrun ttu_camera line_detection
+
+
+		
+	Next Goal - Do some more awesome stuff with open cv at the home crib lab!
+
+		  - Goal: Make it easier to switch networks/locations/remote versus local
+
+			-subgoal: pass in ROS_MASTER_URI /ROS_HOSTNAME as command line parameters to the launches - Working, but needs to be tested with other machines.
+
+				-issue1: There is no image shown in the window when on the local machine. What has changed? - FIXED 
+
+				-issue2: The openCV GUI window is not working. I have fixed the problem. For some reason /axis/image_view/output is not published for some reason. OpenCV is working fine on both computers as long as I changed the topic to /image_view/output
+
+		Try This! OpenCV is working again
+
+		turn on the camera 
+
+		$ roslaunch ttu_camera view_camera.launch
+	
+		Launch the Line Detection Program
+
+		$ roslaunch ttu_camera line_detection.launch
+
+		You should several windows, with the line detection showing in the 3rd.
+
+
+		Notice that the image_view node is not neccesary if you do not want it, but if removed it has to be replaced with the 'republish' node. This node converts from type: /sensor_msgs/CompressedImage to type: sensor_msgs/Image
+		
+
+
+		Accomnplished:  Circle Detection written in C++ using the open cv lib
+
+		$ roslaunch ttu_camera view_camera.launch
+
+		$ roslaunch ttu_camera circle_detection.launch  
+			
+		This works but not very well
+
+		Accomnplished:  Face Detection using opencv_apps. This is a rosnode available with sudo apt-get install ros-indigo-opencv-apps
+
+		$ roslaunch ttu_camera view_camera.launch
+
+		$ roslaunch ttu_camera face_detection.launch
+
+
+		
+

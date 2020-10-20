@@ -1,0 +1,116 @@
+ROS log 
+Tristan Hill - September 19, 2016
+
+
+TO DO:  Get softkinetic ds311 working with ROS
+
+	1) try first on desktop 
+
+
+Accomplished: 
+
+	1) works in WIN7 (easy-basic install)
+
+	2) works in UBUNTU 14.04 
+		
+		DepthSense SDK relies on libudev.so.0 (old library from ubuntu 12)
+
+		
+	
+		i) download and copy over proper libs
+
+			$cd /Downloads
+			$tar -xzf libudev-ubuntu-12.04.tar.gz
+			$cd /Downloads/lib/legacy/ubuntu-12.04
+			$sudo cp libudev.so.0 /usr/lib
+			
+		ii) append path in evironment vars, add line below to .bashrc
+			$sudo gedit ~/.bashrc
+				>>LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib
+			
+			$source ~/.bashrc
+			$sudo ldconfig
+
+		iii) download and install depthsense SDK 
+			- must login(free) on Softkinetic.com to access linux drivers 
+			-download 'DepthSenseSDK-1.9.0-5-i386-deb.run'
+
+			$cd /Downloads
+			$chmod +x DepthSenseSDK-1.9.0-5-i386-deb.run
+			$sudo ./DepthSenseSDK-1.9.0-5-i386-deb.run 
+
+		iv) test it! - GUI works
+
+			$cd /opt/softkinetic/DepthSenseSDK/bin
+			$./DepthSenseServer
+			$./DepthSenseViewer
+		
+		iv) test with ROS - NOT WORKING see error at bottom of log below
+
+thill@robot:~$ cd /opt/softkinetic/DepthSenseSDK/bin
+thill@robot:/opt/softkinetic/DepthSenseSDK/bin$ ./DepthSenseServer
+thill@robot:/opt/softkinetic/DepthSenseSDK/bin$ ./DepthSenseViewer
+thill@robot:/opt/softkinetic/DepthSenseSDK/bin$ roslaunch softkinetic_camera softkinetic_camera_ds311.launch
+... logging to /home/thill/.ros/log/b1976f66-7e8e-11e6-85da-80000b595cf4/roslaunch-robot-5223.log
+Checking log directory for disk usage. This may take awhile.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is <1GB.
+
+started roslaunch server http://robot:58423/
+
+SUMMARY
+========
+
+PARAMETERS
+ * /rosdistro: indigo
+ * /rosversion: 1.11.20
+ * /softkinetic_camera/camera_link: softkinetic_camer...
+ * /softkinetic_camera/color_compression: MJPEG
+ * /softkinetic_camera/color_frame_format: VGA
+ * /softkinetic_camera/color_frame_rate: 25
+ * /softkinetic_camera/confidence_threshold: 200
+ * /softkinetic_camera/depth_frame_format: QVGA
+ * /softkinetic_camera/depth_frame_rate: 25
+ * /softkinetic_camera/depth_mode: long
+ * /softkinetic_camera/enable_color: True
+ * /softkinetic_camera/enable_depth: True
+ * /softkinetic_camera/far_plane: 10.0
+ * /softkinetic_camera/hfov: 40.0
+ * /softkinetic_camera/limit_max: 10.0
+ * /softkinetic_camera/limit_min: 0.01
+ * /softkinetic_camera/min_neighbours: 50
+ * /softkinetic_camera/near_plane: 0.01
+ * /softkinetic_camera/search_radius: 0.05
+ * /softkinetic_camera/use_frustum_culling_filter: False
+ * /softkinetic_camera/use_passthrough_filter: False
+ * /softkinetic_camera/use_radius_outlier_filter: False
+ * /softkinetic_camera/use_voxel_grid_filter: True
+ * /softkinetic_camera/vfov: 60.0
+ * /softkinetic_camera/voxel_grid_size: 0.02
+
+NODES
+  /
+    softkinetic_camera (softkinetic_camera/softkinetic_bringup_node)
+
+auto-starting new master
+process[master]: started with pid [5235]
+ROS_MASTER_URI=http://localhost:11311
+
+setting /run_id to b1976f66-7e8e-11e6-85da-80000b595cf4
+process[rosout-1]: started with pid [5248]
+started core service [/rosout]
+process[softkinetic_camera-2]: started with pid [5265]
+[ERROR] [1474306202.978832571]: 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++ Could not locate the DepthSense SDK +++++++++++
+Please install the SDK, create an softkinectic overlay
+and recompile the softkinetic_camera package, see README.txt.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+			
+				
+			
+

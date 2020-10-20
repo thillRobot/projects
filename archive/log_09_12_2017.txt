@@ -1,0 +1,47 @@
+TWH ROS LOG - 09/12/2017 
+
+  
+
+  Goal: continue with the rtabmap - The Goal is to merge the 2D nav with the 3D mapping
+
+
+	Minor Goal: View the 3D mapping in rviz
+
+	ON THE ROBOT COMPUTER 
+
+	    thill@robot:~$ roslaunch ttu_camera lx_3dmap.launch	
+
+	ON THE LOCAL COMPUTER
+
+       	thill@robotlab-t1600:~$ roslaunch ttu_camera start_rtabmap_rviz.launch
+
+	    thill@robotlab-t1600:~$ roslaunch lx_control lx_control.launch
+        
+	ON THE LOCAL COMPUTER
+
+       	
+
+
+	NEW THING WE LEARNED! We can control the Kinect Motors
+	
+	Install a new 
+
+	$ sudo apt-get install ros-indigo-kinect-aux
+
+	Turn on the Node
+
+	$ roscore
+
+	$ rosrun kinect_aux kinect_aux_node
+
+	Publish a topic to choose the tilt
+
+	$ rostopic pub /tilt_angle std_msgs/Float64 -- 0
+	
+
+
+	TO DO NEXT:
+
+	Figure out why the /base_link is not on the map floor - this tf doesnt show up in lx_setup_tf like the others
+
+	I think this is done. The /base_link is on on the floor of the map.

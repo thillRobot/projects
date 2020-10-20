@@ -1,0 +1,17 @@
+TWH ROS LOG - 03/16/2017 
+
+ to do: 
+
+	MAIN GOAL : Learn more about the Nav Stack using the LX, layers plugings, parameter tuning
+
+		1) I have learned that you have to watch for noise in the map. I found pixels that were occupied that shold not. 
+
+		2) The robot is very sensitive to the costmap parameters when working in a tight space 
+
+		3) I am trying to implement the new global planner called 'global_planner' next maybe 'teb_planner'
+
+			'global_planner' is now the base_global_planner, in my opinion A* works best
+				-> set params in global_planner_params.yaml (new)
+
+			next is o try teb_local_planer
+	

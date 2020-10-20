@@ -1,0 +1,10 @@
+
+TWH Logs - 01/25/2018
+
+    Processing the pointcloud data from the aubo Arm and the rpLidar ...
+
+Try this:
+
+    $ roslaunch scan2cloud ransac_plane.launch test_file:="test_cloud2.pcd"
+
+    You should see the original cloud in rviz and the results from ransac in '3D viewer'

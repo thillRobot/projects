@@ -1,0 +1,37 @@
+
+TWH Logs - 02/17/2018
+
+    Processing the pointcloud data from the aubo Arm and the rpLidar ...
+
+Try this:
+
+    I now have multiple plane detection working. Here is the full work flow to test the process.
+
+
+    Step 1) Record a pointcloud with the Aubo Arm
+
+        // turn on the robot
+        $ roslaunch aubo_control main.launch
+
+        // start the conversion
+        $ roslaunch scan2cloud scan2cloud.launch
+
+        // move the robot
+        $ rosrun goalpoint_generator lidar_scan
+
+
+        // and when you are happy save the cloud to a .pcd file
+        $ rosrun pcl_ros pointcloud_to_pcd input:=/cloud_out
+
+        // You should see a .pcd in the current directory
+
+        // Now you can look at the .pcd with pcl_viewer 
+
+        $ pcl_viewer -multiview 1 1516917376914132.pcd
+
+     
+    Step 2) Process the pointcloud using PCL 
+
+        $ roslaunch seam_detection segment_plane.launch in_file:="test_cloud8.pcd" thresh:=0.01
+
+        

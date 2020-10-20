@@ -1,0 +1,14 @@
+TWH ROS LOG - 01/11/2018 
+
+  Goal: Use the 'laser_geometry' package to make a 3D point cloud from a tilting scanning laser ranger (Hokuyo)
+
+    It is finally working but the transforms from the 'robot arm' (rc servo arm) are very sloppy. I am blaming the error mainly on this.  
+
+   I did not add mush today except I did figure out the 'fixed USB connection' issue. I followed this post from user 'RolfBly' here: https://unix.stackexchange.com/questions/66901/how-to-bind-usb-device-under-a-static-name 
+
+    I made a file etc/udev/rules.d/99-usb-serial.rules' which contains the names of the devices. Now the Laser and Arduino are known as follows:
+
+    Hokuyo UHG Laser -     /dev/hokuyo_uhg
+    Ben's Arduino Uno R3 - /dev/arduino_uno
+
+    Tomorrow maybe we will get a robot arm ...

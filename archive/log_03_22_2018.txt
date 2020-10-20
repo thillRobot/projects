@@ -1,0 +1,12 @@
+
+TWH Logs - 03/22/2018
+
+  Senior D - April Tags Ros Install - First try - http://people.csail.mit.edu/kaess/apriltags/
+
+  Step 1) 
+
+   sudo apt-get install subversion cmake libopencv-dev libeigen3-dev libv4l-dev
+
+  Step 2)
+
+   https://github.com/xenobot-dev/apriltags_ros - this guys uses it in ros

@@ -1,0 +1,55 @@
+TWH ROS LOG - 08/09/2017 
+
+  
+
+  Goal: continue with the rtabmap tutorials 
+
+  Also: need to figure out why my launch file is not working! (DONE - added lines below to ~/.bashrc)
+
+   LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/ros/indigo/lib/x86_64-linux-gnu
+   export LD_LIBRARY_PATH
+
+
+
+	NOW TRY THIS:
+
+        thill@robotlab-t1600:~$ roslaunch ttu_camera start_kinect.launch
+
+     	thill@robotlab-t1600:~$ roslaunch ttu_camera start_rtabmap.launch
+
+	thill@robotlab-t1600:~$ rtabmap-databaseViewer ~/.ros/rtabmap.db
+
+        go to view>3D view then you have to navigate around to see the map
+  
+        the go to file->export 3D map-> and save it somewhere
+
+     	then open 'meshlab' it can be installed with apt-get, file->import mesh-> pick your file and see how awesome it is !
+
+
+       Now I am starting the 'mapping on a remote computer' tutorial.
+
+
+        I pulled a new 'rtabmap.launch' into the /opt/ros/indigo/share/rtabmap_ros/launch/ folder and saved the old one as instructed in the tutorial
+
+
+   NOW TRY THIS:
+
+        ON THE ROBOT COMPUTER (the kinect is plugged into the external usb port on LX)
+
+       thill@robot:~$ roslaunch ttu_camera lx_3dmap.launch
+
+	ON THE LOCAL COMPUTER
+
+       	thill@robotlab-t1600:~$ export ROS_MASTER_URI=http://10.100.66.13:11311
+	thill@robotlab-t1600:~$ export ROS_HOSTNAME=robotlab-t1600
+       	thill@robotlab-t1600:~$ export ROS_IP=149.149.151.59
+
+	thill@robotlab-t1600:~$ roslaunch rtabmap_ros rtabmap.launch rgb_topic:=/camera/data_throttled_image depth_topic:=/camera/data_throttled_image_depth camera_info_topic:=/camera/data_throttled_camera_info compressed:=true rtabmap_args:="--delete_db_on_start"
+	
+	Now you should see the mapping in the ttabmapviz window! Woop Woop!
+
+	To do next: Figure out why my launch file (start_rtabmap.launch) is not working.
+
+
+
+      

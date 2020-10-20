@@ -1,0 +1,9 @@
+// start main (robot)
+roslaunch aubo_control main.launch
+
+
+// start rviz
+roslaunch aubo_control rviz.launch
+
+// start a lidar scan (moves robot)
+rosrun goalpoint_generator lidar_scan

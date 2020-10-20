@@ -1,0 +1,61 @@
+TWH ROS LOG - 12/07/2016 
+
+ to do: 
+
+	MAIN GOAL : develop a class to help 'part handling'
+
+
+
+
+
+	Accomplished : Send the robot to a series of goals that are stored in an array. Not perfect but it is working!
+ 
+			To do this I have made a 'turtlebot_task' class. 			
+		
+			$roslaunch turtlebot_stage turtlebot_in_stage 
+			
+			$rosrun turtlebot_payload turtlebot_task
+
+
+
+
+
+	To do: 
+		1) move workspace to Dropbox 
+						- This is done, testing in progress, the new catkin_ws is:  ~/Dropbox/ttu_ros
+					     	- also I have changed my turtlebot_payload pkg name to ttu_turtlebot
+						- these changes need to be installed on the dell notebook too :(
+
+
+				so now try:
+
+					$roslaunch turtlebot_stage turtlebot_in_stage
+
+					$ rosrun ttu_turtlebot turtlebot_task
+
+					OR
+
+					$ rosrun ttu_turtlebot turtlebot_gripper
+					
+		
+				these are both working but need more work !
+
+		
+
+		2) fix start up issues (in constructor)
+
+		3) fix exit issues, console hangs up on ctrl-c (FIXED HALFWAY- step 4 below fixed this issue!)
+
+			- if the task.visit_goals() function is completed and we return to main then i can exit cleanly with ctrl-c
+		
+		4) series of goals as a clean function call (clean up main) (DONE) 
+
+		
+
+
+
+
+
+
+
+

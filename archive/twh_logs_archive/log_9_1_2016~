@@ -1,0 +1,24 @@
+ROS log 
+Tristan Hill - September 1, 2016
+
+1) ROS indigo installed
+2) ROSARIA installed 
+	-> used note option in tutorial ($ sudo dpkg -i libaria_2.9.1+ubuntu12_i386.deb )
+	-> did not use alternative rosdep option
+
+3) ROSARIA connected to LX !!!
+
+	-> source the proper files ( this is now done in ~/.bashrc 9/2/2016)
+
+	. /opt/ros/indigo/setup.bash
+	cd ttu_ros
+	. devel/setup.bash
+
+
+	-> ~/ttu_ros$ rosrun rosaria RosAria _port:=/dev/ttyUSB0 _baud:=57600
+
+	and the robot is awake!!!
+
+	-> try $rostopic list
+\
+

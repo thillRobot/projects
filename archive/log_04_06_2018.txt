@@ -1,0 +1,53 @@
+
+TWH Logs - 04/06/2018
+
+  
+# hello-world
+This is a test!
+
+I am just learning to use Git properly. I think that is crazy! - TH
+
+This is the 'master' branch. - TH
+
+
+Here is a simple workflow for GitHub through bash
+
+Step 1) Clone the repository into the directory of your choice, this should create the 'master' branch
+
+	$ cd <parent directory of repository>
+
+	$ git clone <repo web address>
+
+
+Step 2) Make a "devel" branch, this is a copy that we can test in. 
+
+	$ git branch <branch name>
+
+	$ git checkout <branch name>
+
+
+Step 3) edit a file somehow - "do some work"
+
+
+Step 4) Add and Commit any files to the 'devel' branch
+	
+	$ git add <file name>
+	
+	$ git commit -m "<add your comments here>"
+
+
+Step 5) Change to the master branch and merge
+
+	$ git checkout master'
+
+	$ git merge devel' merge the branches
+
+Step 6) Push to the main repository (to the web!)  
+
+WOOP!
+
+I know this needs work, but it is a start! - TH
+
+I think this is awesome!
+
+

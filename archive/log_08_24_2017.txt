@@ -1,0 +1,24 @@
+TWH ROS LOG - 08/24/2017 
+
+  
+
+  Goal: continue with the rtabmap tutorials 
+
+   THis should work with a single launch file! MAKE THAT HAPPEN!:
+
+        ON THE ROBOT COMPUTER (the kinect is plugged into the external usb port on LX)
+
+        thill@robot:~$ roslaunch ttu_camera lx_3dmap.launch
+
+	ON THE LOCAL COMPUTER
+
+       	thill@robotlab-t1600:~$ export ROS_MASTER_URI=http://10.100.66.70:11311
+	thill@robotlab-t1600:~$ export ROS_HOSTNAME=robotlab-t1600
+       	thill@robotlab-t1600:~$ export ROS_IP=149.149.151.59
+
+	thill@robotlab-t1600:~$ roslaunch rtabmap_ros rtabmap.launch rgb_topic:=/camera/data_throttled_image depth_topic:=/camera/data_throttled_image_depth camera_info_topic:=/camera/data_throttled_camera_info compressed:=true rtabmap_args:="--delete_db_on_start"
+	
+	Now you should see the mapping in the rtabmapviz window! Woop Woop!
+
+	To do next: Figure out why my launch file (start_rtabmap.launch) is not working.
+

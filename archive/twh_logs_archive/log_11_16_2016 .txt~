@@ -1,0 +1,43 @@
+TWH ROS LOG - 11/16/2016 
+
+ to do: 
+
+	MAIN GOAL : Have turtlebotsim stage have and move simple objects (DONE in a simple way, needs work)	
+
+	1) learn TF, start with the tutorials
+
+		http://wiki.ros.org/tf/Tutorials/
+
+		we made a launch file to do everything 
+
+		$ roslaunch learning_tf start_demo.launch
+
+	2) learn basic shapes (markers in rviz)
+ 		
+		http://wiki.ros.org/rviz/Tutorials/Markers%3A%20Basic%20Shapes
+
+		we made a launch file for this too
+
+		$ roslaunch using_markers markers_demo.launch
+
+		to see the marker you may need to 'add' a marker in the rviz GUI
+
+
+	3) now we need to bring this together with turtlebotsim_stage !
+
+
+		lets make a new node (.cpp program) inside of our using markers folder  
+
+		the goal of this node is to listen to the pose of the robot and have a block exist in this pose with an offset.
+
+		Well that was way easier than I thought it would be. Check out this.
+
+		$ roslaunch turtlebot_stage turtlebot_in_stage.launch
+		$ rosrun using_markers turtlebot_shapes
+		
+		Now if add a marker it should be on the robot ! And if you close the second terminal it will drop the marker!
+
+	
+
+
+

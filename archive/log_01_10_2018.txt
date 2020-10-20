@@ -1,0 +1,29 @@
+TWH ROS LOG - 01/10/2018 
+
+  Goal: Use the 'laser_geometry' package to make a 3D point cloud from a tilting scanning laser ranger (Hokuyo)
+
+    It is finally working but the transforms from the 'robot arm' (rc servo arm) are very sloppy. I am blaming the error mainly on this.  
+
+Now try this in separate terminals:
+
+    $ roslaunch scan2cloud tilt_servo.launch
+
+    $ roslaunch scan2cloud scan2cloud.launch
+
+You can see the laser projection to pointcloud is working and the clouds are merged into one cloud in the map frame. 
+
+Now save the merged cloud into a .pcd file. It will have a file name based on the timestamp
+
+    $ rosrun pcl_ros pointcloud__pcd input:=/cloud_out
+
+Now you should be able to look at the cloud with 'pcl-viewer' (outside of ros)
+
+    $ pcl_viewer -multiview 1 1515564128591685.pcd 
+
+
+
+Also try this! I have messed with the servos some, with some improvements....
+
+    $ roslaunch scan2cloud test_servo.launch
+
+    $ roslaunch scan2cloud scan2cloud.launch

@@ -1,0 +1,40 @@
+ROS log 
+Tristan Hill - September 19, 2016
+
+
+TO DO:  -> Install ROS on the desktop named robotlab-t1600
+	-> Get workspace up to date with progress
+
+	
+			
+				
+	1) ROS indigo installation - http://wiki.ros.org/ROS/Installation
+
+		
+	2) Setup Remote Connection - Desktop to Robot(LX)
+	
+		-> test bidirectional connectivity 
+		-> modify /etc/hosts on both machines
+
+		-> test rviz 
+
+		thill@robot$ export ROS_IP=10.100.66.99
+		thill@robot$ roslaunch ~/ttu_ros/launch/lx_demo.launch
+		
+		thill@robotlab-t1600$ export ROS_MASTER_URI=http://10.100.66.99:11311
+		thill@robotlab-t1600$ export ROS_HOSTNAME=robotlab-t1600
+		thill@robotlab-t1600$ rosrun rviz rviz
+
+		-> test remote control 
+
+		thill@robotlab-t1600$ export ROS_MASTER_URI=http://10.100.66.99:11311
+		thill@robotlab-t1600$ export ROS_HOSTNAME=robotlab-t1600
+		thill@robotlab-t1600$ sudo apt-get install ros-indigo-teleop-twist-keyboard
+		thill@robotlab-t1600$ rosrun teleop_twist_keyboard teleop_twist_keyboard.py
+		
+
+
+
+
+
+

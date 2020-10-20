@@ -1,0 +1,4 @@
+
+TWH Logs - 03/25/2018
+
+  roslaunch seam_detection seam_detection_RANSAC.launch in_file:="lidar_scene1.pcd" out_file:="scene1.txt" thresh1:=0.01 thresh2:=0.001

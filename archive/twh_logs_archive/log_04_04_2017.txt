@@ -1,0 +1,35 @@
+TWH ROS LOG - 04/03/2017 	
+
+Accomplished:
+		
+		
+		Autonomous mapping (explore) THIS WORKS!
+
+		based on Frontier Exploration package: http://wiki.ros.org/frontier_exploration
+
+		loosely copied tutorial which uses 'navigation_stage'
+
+		
+			To test run these launches on the robot (ssh thill@lx_robot)
+						
+			$ roslaunch lx_2dnav lx_config.launch
+
+			$ roslaunch lx_2dnav lx_explore.launch
+'
+			Then run rviz on the control computer, 			
+						
+			$ roslaunch lx_control lx_explore_control.launch
+		
+			Follow the instructions using 'clicked point' in the GUI	
+
+			This is working but it need tuning and testing.
+
+		        Now we need to save the map 
+
+			on the robot (ssh thill@lx_robot)
+
+			$ rosrun map_server map_saver -f newmap
+			
+			Now you should see 'newmap.pgm' in the folder that you started in 
+
+		Note: the weird costmap bug was fixed with 'laser_filters' pkg, to do this i created 'laser_config.yaml'

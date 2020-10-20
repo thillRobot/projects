@@ -1,0 +1,34 @@
+TWH LOGS - 12/30/2019
+
+
+    Goal: Get 'Brushless Gimbal by martinez' running or decide to shelf it. 
+
+    Progess:  
+
+STEP 1 - Identification: What is this thing? Did I really buy a a product with no idea what it was? Yes.
+			
+			Several different people have worked on this. Below are several important sources. 	
+
+http://www.itsqv.com/QVM/index.php?title=How_To_-_Martinez_Brushless_Gimbal_Controller_Set-Up#PWM_.26_PID_Value_Definitions
+
+https://sourceforge.net/projects/brushless-gimbal-brugi/
+
+https://github.com/owhite/brushless_gimbal_motor/tree/master/src			
+
+https://github.com/owhite/brushless_gimbal_motor
+
+
+STEP 2 - Firmware Update: I successfully uploaded new firmware using the Arudino IDE in Ubuntu 18.04 - This required some figuring out but the post below explains MOST of what needs to be done. I had to add one additional 'extern' line to serrcomm.h  
+
+https://github.com/owhite/brushless_gimbal_motor
+
+
+STEP 3 - PID Tuning - This is most easily done with the windows .exe blg-tool 
+
+			I have had some success but it is not great yet. There are lots of posts about PID tuning. Tuning the 'roll' axis seems easy but tuning the 'pitch' axis is not. 
+
+https://www.multi-rotor.co.uk/index.php?topic=2945.0
+
+http://www.itsqv.com/QVM/index.php?title=How_To_-_Martinez_Brushless_Gimbal_Controller_Set-Up#PWM_.26_PID_Value_Definitions
+
+

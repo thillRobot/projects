@@ -1,0 +1,57 @@
+TWH ROS LOG - 11/26/2016 
+
+ to do: 
+
+	MAIN GOAL : develop a class to help 'part handling'
+
+
+
+
+
+		1) Start here
+
+			$roslaunch turtlebot_stage turtlebot_in_stage 
+			$rosrun using_classes cpp_class
+
+
+
+	So what is next ?
+
+		Let us build up this class!
+
+			
+
+
+		i) lets make a backup of both workspaces today (new one and old broken one)
+
+			- ~/ttu_ros -> ttu_ros_researcher3_11_26_2016.zip
+			- ~/catkin_ws_arch -> catkin_ws_researcher3_11_26_2016.zip
+
+			these just went to cloudland!
+
+
+		i) now lets build up this class
+
+			first i am just going to add a few more subscriber callbacks
+
+			we now have a class with callbacks for 
+			
+			- goal status
+			- amcl pose
+
+			- clock (this is not working) but it does need to, there is an easeier way
+
+				ros::Time now = ros::Time::now();
+				ROS_INFO("Current Time=[%i]\n",now.sec	
+
+
+		
+			
+
+
+
+
+
+
+
+

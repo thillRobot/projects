@@ -1,0 +1,99 @@
+ROS log 
+Tristan Hill - October 6, 2016
+
+
+TO DO:  -> Plan Class!
+
+	-> Teach Launch Files (basic turtlesim launch)	
+
+EXAMPLE LAUNCH FILE 1
+	
+	<launch>
+	<node 
+		name="turtlesim_node" 
+		pkg="turtlesim" 
+		type="turtlesim_node"
+		output="screen" 
+		>	
+	</node>
+	<param name="background_r" type="int" value="200" />
+	<param name="background_b" type="int" value="200" />
+	<param name="background_g" type="int" value="200" />
+
+	<node 
+		name="teleop_twist_keyboard" 
+		pkg="teleop_twist_keyboard" 
+		type="teleop_twist_keyboard.py"
+		output="screen" 
+		args="/cmd_vel:=/turtle1/cmd_vel"
+		>	
+	</node>		
+	</launch>
+
+
+EXAMPLE LAUNCH FILE 2
+
+	<launch>
+	<node 
+		name="turtlesim_node" 
+		pkg="turtlesim" 
+		type="turtlesim_node"
+		output="screen" 
+		>	
+	</node>
+	<param name="background_r" type="int" value="200" />
+	<param name="background_b" type="int" value="200" />
+	<param name="background_g" type="int" value="200" />
+
+	<node 
+		name="teleop_twist_keyboard" 
+		pkg="teleop_twist_keyboard" 
+		type="teleop_twist_keyboard.py"
+		output="screen" 
+		args="/cmd_vel:=/turtle1/cmd_vel"
+		>	
+	</node>		
+	</launch>
+
+
+
+
+	-> Get Turtlebot Simulator Working
+
+	1) Make sure 'stage_ros' is installed (most likely already is)
+	http://wiki.ros.org/stage_ros
+
+	thill@robotlab-t1600:~$ sudo apt-get install ros-indigo-stage-ros
+
+	2) Install turtlebot simulator
+	http://wiki.ros.org/turtlebot_simulator
+
+	thill@robotlab-t1600:~$ sudo apt-get install ros-indigo-turtlebot-simulator
+	
+	3) Install turtlebot (possibly not needed)
+	http://wiki.ros.org/turtlebot_stage/Tutorials/indigo/Bring%20up%20TurtleBot%20in%20stage
+
+	thill@robotlab-t1600:~$ sudo apt-get install ros-indigo-turtlebot ros-indigo-turtlebot-	apps ros-indigo-turtlebot-interactions ros-indigo-turtlebot-simulator ros-indigo-kobuki-ftdi ros-indigo-rocon-remocon ros-indigo-rocon-qt-library ros-indigo-ar-track-alvar-msgs
+
+	4) Set the World and Map files
+	http://answers.ros.org/question/214452/setting-environment-variable-turtlebot_stage_map_file/	
+
+	thill@robotlab-t1600:~$ export TURTLEBOT_STAGE_MAP_FILE="/opt/ros/indigo/share/		turtlebot_stage/maps/maze.yaml"
+
+	thill@robotlab-t1600:~$ export TURTLEBOT_STAGE_WORLD_FILE="/opt/ros/indigo/share/turtlebot_stage/maps/stage/maze.world"
+
+	5) Start the demo launch file
+	
+	thill@robotlab-t1600:~$ roslaunch turtlebot_stage turtlebot_in_stage.launch
+
+	6) Copy the map files, Modify (with your favorite editor), and try again
+
+	thill@robotlab-t1600:~$ export TURTLEBOT_STAGE_MAP_FILE="/opt/ros/indigo/share/		turtlebot_stage/maps/ttu_maze.yaml"
+
+	thill@robotlab-t1600:~$ export TURTLEBOT_STAGE_WORLD_FILE="/opt/ros/indigo/share/turtlebot_stage/maps/stage/ttu_maze.world"
+
+thill@robotlab-t1600:~$ roslaunch turtlebot_stage turtlebot_in_stage.launch
+	
+		
+
+	

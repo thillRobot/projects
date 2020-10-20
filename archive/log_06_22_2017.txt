@@ -1,0 +1,18 @@
+TWH ROS LOG - 04/05/2017 
+
+To Accomplish: 	- Main Goal - Get the Axis Network Camera Working in ROS
+
+		- I have already done this but I can't find the logs DOH!
+
+		- Side Goal 1 - Fix the 'system problem detected' error (on both machines)
+  		- Side Goal 2 - Setup workspace names for each computer in Dropbox
+
+	
+
+Axis 211A cam - 192.168.1.100
+
+Problem 1 fixed - https://askubuntu.com/questions/10741/how-to-set-up-dual-wired-and-wireless-connections 
+
+check 'use this conection only for resources on its network
+
+Now I can have the camera and the internet 

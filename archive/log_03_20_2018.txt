@@ -1,0 +1,11 @@
+
+TWH Logs - 03/20/2018
+
+   Seam Detection with RANSAC - improved plane filter - thick thin double filter
+
+   SCENE1:  
+   $ roslaunch seam_detection seam_detection_RANSAC.launch in_file:="lidar_scene1.pcd" thresh1:=0.01 thresh2:=0.001
+
+   It seems to be working better, I theoretically have 1mm planes now, with fancy markers...
+
+

@@ -1,0 +1,15 @@
+ROS log 
+Tristan Hill - September 8, 2016
+
+
+TO DO:  Make a launch file to run LX (ttu_ros/launch/lx_demo.launch)
+
+	1) rosaria setup WORKS!
+			
+		$ roslaunch ~/ttu_ros/launch/lx_demo.launch
+		in new terminal
+		$ rosrun teleop_twist_keyboard teleop_twist_keyboard.py
+
+		then you can drive the robot
+		if the robot doesnt 'click' (brake release) shut the entire system down and restart 
+

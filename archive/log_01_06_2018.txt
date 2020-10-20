@@ -1,0 +1,15 @@
+TWH ROS LOG - 01/6/2018
+
+  Goal: Use the 'laser_geometry' package to make a 3D point cloud from a tilting scanning laser ranger (Hokuyo)
+
+  We are getting closer - I think it is 'technically working' but there is definitley slop due to the servo angle and linear offset and my sloppy math - FIX THIS!!
+
+  Also, the error might be related to the 'transform rates' I messed with this some just befiore deciding it works 
+
+Now try this in separate terminals:
+
+    $ roslaunch scan2cloud tilt_servo.launch
+
+    $ roslaunch scan2cloud scan2cloud_new.launch
+
+The laser projection to pointcloud isnt quite working yet! It will be soon...

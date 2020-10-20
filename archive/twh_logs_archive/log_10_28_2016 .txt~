@@ -1,0 +1,165 @@
+TWH ROS LOG - 10/27/2016 
+
+ to do: 
+
+	1) Fix key error (DONE!)
+
+	2) Turtlebot Simulator Map Files (DONE!)
+
+		b) move the map files into the workspace ( ~/catkin_ws )	
+
+	3) 'publish' a goal to turtlebot sim (currently we are using a 'service')
+
+
+ log:
+
+	1) Key Issue Done! Fix from this post - https://ubuntuforums.org/showthread.php?t=2322420
+	
+	$ wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+	
+	
+
+	2) Working, needs to be well documented and tested
+
+
+	make a directory to put your maps in
+
+		$ mkdir ~/ttu_ros/maps
+
+	copy 3 files into this directory (not with sudo)
+
+		$ cp /opt/ros/indigo/share/turtlebot_stage/maps/maze.yaml ~/ttu_ros/maps/new_maze.yaml
+		$ cp /opt/ros/indigo/share/turtlebot_stage/maps/maze.png ~/ttu_ros/maps/new_maze.png
+		$ cp /opt/ros/indigo/share/turtlebot_stage/maps/stage/maze.world ~/ttu_ros/maps/new_maze.world
+	
+	you need to make a few edits to the new_maze.world file
+	
+		change:
+
+			name "maze"
+		  	bitmap "../maze.png"
+		
+		to: 
+
+			name "new_maze"
+		  	bitmap "new_maze.png"
+
+
+		change:
+	
+			include "turtlebot.inc"
+		
+		to:
+	
+			include "/opt/ros/indigo/share/turtlebot_stage/maps/stage/turtlebot.inc"
+
+		you need to make one edit to the new_maze.yaml file
+
+		change: 
+
+			image: maze.png
+	
+		to:
+
+			image: new_maze.png
+
+
+	Now you can edit your image file new_maze.png with the image editor of your choice. 
+
+
+	Set your map as an environment variable and run the simulator
+	
+		$ export TURTLEBOT_STAGE_MAP_FILE=~/ttu_ros/maps/new_maze.yaml
+		$ export TURTLEBOT_STAGE_WORLD_FILE=~/ttu_ros/maps/new_maze.world
+		$ roslaunch turtlebot_stage turtlebot_in_stage.launch
+
+	or if you used the default names:
+		
+		$ export TURTLEBOT_STAGE_MAP_FILE=~/catkin_ws/maps/new_maze.yaml
+		$ export TURTLEBOT_STAGE_WORLD_FILE=~/catkin_ws/maps/new_maze.world
+		$ roslaunch turtlebot_stage turtlebot_in_stage.launch
+
+		
+
+	You should now have a robot in a newly modified map !
+
+
+	3) publish a goal as a topic 
+
+start here: 
+
+	http://answers.ros.org/question/104321/how-to-publish-a-navigation-goal-to-turtlebot-running-the-amcl_demolaunch-navigation-with-a-map-file/
+
+that page suggests doing this: AND IT WORKS
+
+rostopic pub /move_base_simple/goal geometry_msgs/PoseStamped '{ header: {stamp: now, frame_id: "map"}, pose: { position: {x: -4.560, y: 0.204, z: 0.0}, orientation: {w: 1.0}}}'
+
+	Now lets write a pub node that does that!
+
+
+	Step 1) Create a new cpp package with these dependencies
+	
+
+	 $ catkin_create_pkg publish_goal std_msgs rospy roscpp 
+
+	 Copy the general publish code from earlier in as publish_goal.cpp
+
+	edit the source
+
+		i) add this line 
+	
+		#include "geometry_msgs/PoseStamped.h"
+	
+		ii) change the following line:
+
+			n.advertise<geometry_msgs::Twist>("/ttu/cmd_vel", 1000);
+		
+			to:
+
+			n.advertise<geometry_msgs::PoseStamped>("/ttu/cmd_pose", 1000);
+
+
+		iii) change the following line:
+
+			geometry_msgs::Twist msg;
+
+			to:
+			
+			geometry_msgs::PoseStamped msg;
+
+		iv) change the following lines:
+		
+			msg.linear.x = 2+0.01*count;
+			msg.angular.z = 2;			
+			
+			to:
+	
+			msg.pose.position.x = 2.0;
+			msg.pose.position.y = 3.0;
+			msg.pose.position.z = 0;
+
+			msg.pose.orientation.w = 1.0;
+
+		v) add the following lines (just once not in the loop)
+
+			msg.header.stamp=ros::Time::now();
+			msg.header.frame_id="map";
+
+	back out to the Workspace dir and catkin_make
+
+	$ cd ~/ttu_ros/
+	$ catkin_make
+
+	$ roslaunch turtlebot_stage turtlebot_in_stage.launch
+	
+	in a new terminal
+	
+	$rosrun publish_goal publish_goal
+
+		the goal is published you can see it in rviz, but the robot doesnt move until this process in terminated.
+
+
+
+
+
+

@@ -1,0 +1,63 @@
+TWH ROS LOG - 01/11/2017 
+
+ to do: 
+
+	MAIN GOAL : Implement Nav Stack on the LX (its been way too long)
+
+	1) install 'slam_gmapping' and 'map_server' on LX machine (atom)
+
+		-> $ sudo apt-get install ros-indigo-slam-mapping
+		-> $ sudo apt-get install ros-indigo-openslam-gmapping
+ 		-> $ catkin_make
+
+		-> $ sudo apt-get install ros-indigo-map-server
+
+
+	2) make a map with the pioneer LX (DONE!)
+
+		-> $ sudo apt-get update
+		-> $ rosmake gmapping 
+		
+		-> $ cd ~/ttu_ros
+		
+
+		-> $ roslaunch lx_nav lx_map.launch
+
+		-> $ rosbag record -O map /RosAria/S3Series_1_laserscan /tf
+
+		-> CLOSE BOTH TERMINALS		
+
+		-> $ roscore
+
+		-> $ rosparam set use_sim_time true
+		
+		
+		-> $ rosrun gmapping slam_gmapping scan:=/RosAria/S3Series_1_laserscan _odom_frame:=odom
+
+		-> $ rosbag play --clock map.bag
+
+		-> WAIT FOR IT TO MAKE THE MAP
+
+		-> $ rosrun map_server map_saver
+
+
+	3) Use the map to navigate with AMCL
+
+		->  sudo apt-get install ros-indigo-amcl
+		->  sudo apt-get install ros-indigo-move-base
+
+
+		-> roslaunch lx_2dnav lx_config.launch
+
+		-> roslaunch lx_2dnav lx_move_base.launch  (there is a problem with this step)
+
+			+ it kind of works if you di this first $ rosrun map_server map_server ~/ttu_ros/map.yaml
+
+
+
+				
+
+
+
+
+
