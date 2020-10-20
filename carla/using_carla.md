@@ -1,16 +1,17 @@
 # TWH logs - CARLA - open source vehicle simulator
-# October 07, 2020 - October 14, 2020 
-## I have spent the weekend/week messing with this, and at least it is working, kinda
+## October 07, 2020 - October 14, 2020
+## This is summary of my progress and a place to store commands and procedures
+## here is what we have done so far, this document needs work...
 
-here is what we have done so far, this document needs work...
+### HARDWARE
 
-SERVER SIDE:
+#### First Test Computer:
 
-Computer: Dell t1600
-CPU:      Xeon CPU E31245 @ 3.30GHz × 8
-Graphics: Geforce GT 630
-RAM:      8GB
-OS:       Ubuntu 20.04
+*Computer: Dell t1600
+*CPU:      Xeon CPU E31245 @ 3.30GHz × 8
+*Graphics: Geforce GT 630
+*RAM:      8GB
+*OS:       Ubuntu 20.04
 
 I installed 'docker CE' and 'nvidia-docker2'
 
