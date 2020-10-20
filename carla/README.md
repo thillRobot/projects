@@ -1,4 +1,4 @@
-# TWH logs - CARLA - open source vehicle simulator
+## TWH logs - CARLA - open source vehicle simulator
 ## October 07, 2020 - October 14, 2020
 ## This is summary of my progress and a place to store commands and procedures
 ## here is what we have done so far, this document needs work...
@@ -50,9 +50,11 @@ then I pulled a older vesion of carla 0.8.4. , this does not need to be repeated
 `sudo docker pull carlasim/carla:0.8.4`
 
 then I pulled the two more recent version, I as trying to get around the library issues i was having
+
 `sudo docker pull carlasim/carla:0.9.10`
 
 this one in only on the 18.04 'sandbox computer' at the moment
+
 `sudo docker pull carlasim/carla:0.9.10.1 `
 
 so now we have three!
@@ -86,6 +88,7 @@ change to the PythonClient directory and run one of the example scripts
 change to the PythonClient directory and run one of the example scripts
 
 `cd ~/carla_simulator/carla_084/PythonClient`
+
 `./manual_control.py --autopilot --host 192.168.x.x`
 
 This open a PYGAME window and you can drive the car around with the keyboard.
@@ -133,6 +136,7 @@ Run the server - notice I have added the opengl flag
 Run the client - notice this is my script that I modified. Cool
 
 `cd ~/carla_simlulator/carla_v084/PythonClient`
+
 `/.manual_control_twh.py --autopilot --host 192.168.1.2 -q Low`
 
 
@@ -153,19 +157,34 @@ There are still some warnings but it seems like the simulation has started.
 ## CARLA Server - The server is the world simulation
 
 This will run the script CarlaUE4.sh in the carla container. This starts the server.
+
 `sudo docker run -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10 ./CarlaUE4.sh -opengl`
 
 adding the --name option is very useful
+
 `sudo docker run --name carlasever -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10 ./CarlaUE4.sh -opengl`
 
 This will run BASH in the carla container without starting the simulator.
+
 `sudo -E docker run --name carla --privileged --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10 bash`
 
-This will start the simulation. There are some warnings/errors but that can be ignored. (alternative to what we are using) why? i remember
+Do not run the docker as --privileged even though some forums may suggest it. This gives container root access to host, and this is very dangerous.
+Someone suggested this. DO NOT DO IT
+
 `sudo -E docker run --name carla --privileged --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw carlasim/carla:0.9.10 /bin/bash ./CarlaUE4.sh -vulkan -benchmark -fps=25`
 
 in version 0.9.10 you can ctrl-c to close the server, but I want to check that this is ok, i think the container is removed so it should be fine
 unless you want to run that same container again with docker start or restart
+
+### runnning the server without sudo (root access)
+
+If you are a regular user without without access to sudo, you must be added to the docker group. This requires sudo. 
+
+`sudo groupadd docker`
+
+`sudo usermod -aG docker $USER`
+
+
 
 
 ## CARLA Client - The client is a car driving in the world
@@ -186,11 +205,12 @@ Either way, Jared said "but generally we recommed y'all using Miniconda/Anaconda
 Set the PYTHONPATH (CARLA_ROOT is just intermediate variable to save length)
 
 `export CARLA_ROOT=~/carla_simulator/carla_0910`
+
 `export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
 
 Then, run the client script manual_control.py
-`python3 ${CARLA_ROOT}/PythonAPI/examples/manual_control.py`
 
+`python3 ${CARLA_ROOT}/PythonAPI/examples/manual_control.py`
 
 it works pretty good but...
 
