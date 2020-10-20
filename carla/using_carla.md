@@ -155,6 +155,8 @@ There are still some warnings but it seems like the simulation has started.
 This will run the script CarlaUE4.sh in the carla container. This starts the server.
 `sudo docker run -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10 ./CarlaUE4.sh -opengl`
 
+adding the --name option is very useful
+`sudo docker run --name carlasever -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10 ./CarlaUE4.sh -opengl`
 
 This will run BASH in the carla container without starting the simulator.
 `sudo -E docker run --name carla --privileged --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10 bash`
@@ -390,25 +392,33 @@ apt-get install vim
 
 Start bash in the running container
 
-sudo docker exec -it -u 0:0 carla /bin/bash
+`sudo docker exec -it -u 0:0 <container_name> /bin/bash`
 
-apt-get update
+`apt-get update`
 
-apt-get install libjpeg-turbo8 libtiff-dev python3-pip
+`apt-get install python3-pip`
 
-pip3 install -r PythonAPI/examples/requirements.txt
+`pip3 install -r PythonAPI/examples/requirements.txt`
+
+`apt-get install libjpeg-turbo8 libtiff-dev libxerces-c3.2`
+
+`exit`
+
+now execute the client in the running container
 
 python3 PythonAPI/examples/manual_control.py
 
 exit
 
-sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg carla python3 PythonAPI/examples/manual_control.py
+`sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg carlaserver python3 PythonAPI/examples/manual_control.py`
 
 OK, more news! Running the installs in the container gets us past the library issue but, now we are running into another issue with the python client related to the fonts.
 
 Again, Nicholas said first test that you can run 'tutorial.py'. OK, lets try.
 
+Also, he said that he uses apt-get and not pip. this makes sense in the docker. let try this one more time.
 
+`sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg carlaserver python3 PythonAPI/examples/tutorial.py`
 
 
 
@@ -419,6 +429,9 @@ Again, Nicholas said first test that you can run 'tutorial.py'. OK, lets try.
 * install and test ROS_BRIDGE
 * figure out controls for first demo - drive a car        - Pretty Close
 * clean up this document, it is a huge mess - A little better
-* test client on local machine - not in docker - Done
-* test client on local machine - in a docker   - Not done
-* test server on local machine - not in a docker? - not Done
+
+* test client on local machine - not in docker - Done - Working
+* test client on remote machine - not in docker - Done - Working
+* test client on local machine - in a docker   - DONE - not working
+* test server on local machine - in a docker - DONE - Working
+* test server on local machine - not in a docker - NOT DONE
