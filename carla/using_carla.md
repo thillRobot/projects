@@ -1,6 +1,6 @@
-TWH logs - CARLA - open source vehicle simulator
-October 07, 2020 - October 14, 2020
-I have spent the weekend/week messing with this, and at least it is working, kinda
+# TWH logs - CARLA - open source vehicle simulator
+# October 07, 2020 - October 14, 2020 
+## I have spent the weekend/week messing with this, and at least it is working, kinda
 
 here is what we have done so far, this document needs work...
 
@@ -136,6 +136,21 @@ it works pretty good but i have just noticed that the path looks funny
 PYTHONPATH=/opt/ros/noetic/lib/python3/dist-packages:/home/thill/carla_simulator/carla_0910//PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:/home/thill/carla_simulator/carla_0910//PythonAPI/carla/agents:/home/thill/carla_simulator/carla_0910//PythonAPI/carla
 
 
+sometimes this throws an error like this:
+No recommended values for 'speed' attribute
+Traceback (most recent call last):
+  File "/home/thill/carla_simulator/carla_0910//PythonAPI/examples/manual_control.py", line 1137, in <module>
+    main()
+  File "/home/thill/carla_simulator/carla_0910//PythonAPI/examples/manual_control.py", line 1129, in main
+    game_loop(args)
+  File "/home/thill/carla_simulator/carla_0910//PythonAPI/examples/manual_control.py", line 1046, in game_loop
+    controller = KeyboardControl(world, args.autopilot)
+  File "/home/thill/carla_simulator/carla_0910//PythonAPI/examples/manual_control.py", line 292, in __init__
+    world.player.set_autopilot(self._autopilot_enabled)
+RuntimeError: time-out of 2000ms while waiting for the simulator, make sure the simulator is ready and connected to 127.0.0.1:2000
+
+
+
 
 
 this will also start the carla server in a docker container, but Mike said 'whoa' about this line !
@@ -234,7 +249,7 @@ ImportError: libxerces-c-3.2.so: cannot open shared object file: No such file or
 
 
 
-OKIE DOKIE!  I think i figured out the libxerces-c issue. well, maybe not but I think someone else did. Look at version 0.9.10.1 
+OKIE DOKIE!  I think i figured out the libxerces-c issue. well, maybe not but I think someone else did. Look at version 0.9.10.1
 (https://github.com/carla-simulator/carla/releases)
 
 "Fixed dependency of library Xerces-c on package" - I think they might mean 'of'
@@ -273,24 +288,11 @@ either way i learned something
 Start the carla server in a docker container:
 $ sudo docker run --name carla -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl
 
-Then, I had been starting the client like this: 
+Then, I had been starting the client like this:
 $ sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:/home/carla/PythonAPI/carla/agents:/home/carla/PythonAPI/carla carla python3 PythonAPI/examples/manual_control.py
 
-I just realized that this seems to work just the same. Only the first python path is required. 
+I just realized that this seems to work just the same. Only the first python path is required.
 $ sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg carla python3 PythonAPI/examples/manual_control.py
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 I am having a similar issue while trying to run the PythonAPI in a carlasim/carla:0.9.10.1 docker container. The server runs with some warnings, but the client does not run and shows the following error when I run the client inside the container.
 
@@ -312,7 +314,7 @@ I posted my question. I am terrified that they will make fun of me.
 
 
 
-OK. To mix it up lets try the stable version 
+OK. To mix it up lets try the stable version
 
 
 
@@ -324,20 +326,26 @@ add this line to the bottom of /etc/default/docker to allow a container to acces
 
 DOCKER_OPTS="--dns <your_dns_server_1> --dns <your_dns_server_2>"
 
-sudo service docker restart
+here it is in one line
+
+'sudo echo "DOCKER_OPTS=" --dns 192.168.254.254" >> /etc/default/docker"'
+
+'sudo service docker restart'
 
 
 OK! We have news....Nicholas from carla team said that the image is not 'runtime' for the client so I have to start bash is the container and intall the library with apt-get
 
 apt-get install vim
 
+Start bash in the running container
+
 sudo docker exec -it -u 0:0 carla /bin/bash
 
 apt-get update
 
-apt-get install libjpeg-turbo8 libtiff-dev python3-pip 
+apt-get install libjpeg-turbo8 libtiff-dev python3-pip
 
-pip3 install -r PythonAPI/examples/requirements.txt 
+pip3 install -r PythonAPI/examples/requirements.txt
 
 python3 PythonAPI/examples/manual_control.py
 
@@ -345,3 +353,6 @@ exit
 
 sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg carla python3 PythonAPI/examples/manual_control.py
 
+OK, more news! Running the installs in the container gets us past the library issue but, now we are running into another issue with the python client related to the fonts.
+
+Again, Nicholas said first test that you can run 'tutorial.py'. OK, lets try.
