@@ -99,7 +99,7 @@ The response is slow. I am only getting about 5 FPS on the remote NUC.
 
 
 
-#### Shutdown th4e CARLA server (version 084 'ctrl-c' does not stop preocess)
+#### Shutdown the CARLA server (version 084 'ctrl-c' does not stop preocess)
 
 You cannot just close the process, you have to stop the container
 This process needs to be improved. I am supposed to be able to use the --name option to give
@@ -156,40 +156,50 @@ There are still some warnings but it seems like the simulation has started.
 
 ## CARLA Server - The server is the world simulation
 
-This will run the script CarlaUE4.sh in the carla container. This starts the server.
+### run the server in a container
+This will run the script CarlaUE4.sh in the carla container. This starts the server under a random funny name.
 
 `sudo docker run -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10 ./CarlaUE4.sh -opengl`
 
-adding the --name option is very useful
+Using the --name option to choose a name is very useful. See below.
 
-`sudo docker run --name carlasever -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10 ./CarlaUE4.sh -opengl`
+`sudo docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10 ./CarlaUE4.sh -opengl`
 
 This will run BASH in the carla container without starting the simulator.
 
-`sudo -E docker run --name carla --privileged --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10 bash`
+`sudo -E docker run --name carlaserver --privileged --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10 bash`
 
 Do not run the docker as --privileged even though some forums may suggest it. This gives container root access to host, and this is very dangerous.
 Someone suggested this. DO NOT DO IT
 
-`sudo -E docker run --name carla --privileged --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw carlasim/carla:0.9.10 /bin/bash ./CarlaUE4.sh -vulkan -benchmark -fps=25`
+`sudo -E docker run --name carla --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw carlasim/carla:0.9.10 /bin/bash ./CarlaUE4.sh -vulkan -benchmark -fps=25`
 
 in version 0.9.10 you can ctrl-c to close the server, but I want to check that this is ok, i think the container is removed so it should be fine
 unless you want to run that same container again with docker start or restart
 
 ### runnning the server without sudo (root access)
 
-If you are a regular user without without access to sudo, you must be added to the docker group. This requires sudo. 
+If you are a regular user without without access to sudo, you must be added to the docker group. This does not require sudo because <user> owns $XAUTHORITY 
 
 `sudo groupadd docker`
 
 `sudo usermod -aG docker $USER`
 
+Also, for the X11 stuff to work the container needs access to $XAUTHORITY , this is a common issue with GUI in containers 
 
+`chmod 644 $XAUTHORITY`
+
+Now you should be able to run the server with the `docker run` below. 
+
+`docker run -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
 
 
 ## CARLA Client - The client is a car driving in the world
 
+### run the client in ~/
 Download and extracted the appropriate version from Github. Here we are using: carla 0.9.10 (https://github.com/carla-simulator/carla)
+
+I do not like this option because it seems like it should be available in the container...
 
 On the client side I have had some trouble with the 'no module named carla issue' - https://github.com/carla-simulator/carla/issues/1137
 this is related to properly installing the 'carla' python module from /carla/PythonAPI, i have it working, except not in a docker..
@@ -201,6 +211,10 @@ In Ubuntu 20.04 (server machine) I downloaded and extracted carla 0.9.10 - 'pip3
 i had to set the PYTHONPATH for the carla module to work. Basically the PYTHONPATH must include the path to .egg file for the right version of carla, I think that this is the same problem I am having in the docker container 'no module named carla'
 
 Either way, Jared said "but generally we recommed y'all using Miniconda/Anaconda to create your own python 2 & 3 environments without any need for admin."
+
+The client requires NUMPY and PYGAME
+
+`pip3 install numpy pygame`
 
 Set the PYTHONPATH (CARLA_ROOT is just intermediate variable to save length)
 
@@ -232,12 +246,9 @@ RuntimeError: time-out of 2000ms while waiting for the simulator, make sure the 
 I think this may be another app using that port, but I am not sure.
 
 
-this will also start the carla server in a docker container, but Mike said 'whoa' about this line !
-sudo -E docker run --name carla --privileged --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw carlasim/carla:0.9.10 /bin/bash ./CarlaUE4.sh -vulkan -benchmark -fps=25
-
-next start a client (on the server machine this time so there is no ip needed)
 
 
+### altemnatively run the client in the container - this is what I really want - 
 
 then start the carla server in a docker container
 $ sudo docker run -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10 ./CarlaUE4.sh -opengl
@@ -248,7 +259,7 @@ $ sudo docker run -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/
 $ sudo docker run -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --net=host -it --gpus all carlasim/carla:0.9.10 /PythonAPI/examples/manual_control.py --env CARLA_ROOT=~/ --env PYTHONPATH=~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:~/PythonAPI/carla/agents:~/PythonAPI/carla
 
 
-I have tried to set the paths the same as the are in the local version, I am not sure what is differnent and I still have not ruled out user error (me!)
+I have tried to set the paths the same as the are in the local version, I am not sure what is different and I still have not ruled out user error (me!)
 export CARLA_ROOT=~/
 export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla
 
@@ -261,9 +272,6 @@ $ sudo docker run -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/
 sudo docker exec -it carla python3 PythonAPI/examples/manual_control.py --env PYTHONPATH=~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:~/PythonAPI/carla/agents:~/PythonAPI/carla
 
 sudo docker exec -it --env PYTHONPATH=~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:~/PythonAPI/carla/agents:~/PythonAPI/carla carla python3 PythonAPI/examples/manual_control.py
-
-
-
 
 
 Start the carla server in a docker container
