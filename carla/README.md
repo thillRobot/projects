@@ -1,7 +1,5 @@
 ## TWH logs - CARLA - open source vehicle simulator
 ## October 07, 2020 - October 14, 2020
-## This is summary of my progress and a place to store commands and procedures
-## here is what we have done so far, this document needs work...
 
 ### Hardware
 
