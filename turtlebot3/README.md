@@ -11,7 +11,7 @@ here is what I have done so far:
 
 I think that we should just stay headless and I predict that issue will go away, but we will see.
 
-lets ttry that again:
+Lets try that again  without the desktop:
 * download Mate 18.04 64bit image for pi 3B + from Ubuntu Mate website
 * used pi-imager to load the image to SD card
 * use GUI to setup account and keyboard yada yada
