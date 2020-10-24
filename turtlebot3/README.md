@@ -28,7 +28,7 @@ Try that again  without the desktop (headless). This worked good:
 
   `sudo apt install openssh-server`
 
-* test connectivity
+* test connectivity - both computers should be on the same network, prefferably plugged into ethernet cables and not using wifi
 
   `ip a`
 
