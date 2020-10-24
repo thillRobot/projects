@@ -20,23 +20,32 @@ lets ttry that again:
 
 
 * update the repository list - no need to upgrade
+
   `sudo apt update`
+
 * install SSH for remote connection - this is already install on Mate image
+
   `sudo apt install openssh-server`
 
 * test connectivity
+
   `ip a`
+
   check that you get a valid ip address - take a picture of the terminal!
 
   try to ping the pi from a remote computer (on the network)
+
   `ping 192.168.xxx.yy`
+
   you should get byte transferred as shown below
+
   `PING 192.168.254.22 (192.168.254.22) 56(84) bytes of data.
   64 bytes from 192.168.254.22: icmp_seq=1 ttl=64 time=0.599 ms
   64 bytes from 192.168.254.22: icmp_seq=2 ttl=64 time=0.620 ms
   64 bytes from 192.168.254.22: icmp_seq=3 ttl=64 time=0.624 ms`
 
   next try to ssh in from the remote computer. Make sure openssh-server is on both machines
+
   `ssh <user on pi>@<ip of pi>`
 
   ssh was not working, so... I made some changes to /etc/ssh/sshd_config THIS WAS NOT THE FIX
@@ -47,8 +56,9 @@ lets ttry that again:
   finally test that you can connect to the pi from the control computer
   notice how it shows that you have changed computers
 
-  `thill@T1600-brwn305:~$ ssh thill@192.168.254.22
-  thill@192.168.254.22's password:
+  `thill@T1600-brwn305:~$ ssh thill@192.168.254.22`
+
+  `thill@192.168.254.22's password:
   Welcome to Ubuntu 18.04.2 LTS (GNU/Linux 4.15.0-1032-raspi2 aarch64)
 
    * Documentation:  https://help.ubuntu.com
