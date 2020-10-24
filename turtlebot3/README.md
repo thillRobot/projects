@@ -28,38 +28,38 @@ Try that again  without the desktop (headless). This worked good:
 
 * install SSH for remote connection on remote computer - this is already installed on he Mate image but NOT on the Ubuntu install.  This makes no sense to me, but it will not hurt to run this command on both machines.  
 
-  `sudo apt install openssh-server`
+ `sudo apt install openssh-server`
 
 * test connectivity - both computers should be on the same network, prefferably plugged into ethernet cables and not using wifi
 
-  `ip a`
+ `ip a`
 
-  check that you get a valid ip address - take a picture of the terminal!
+ check that you get a valid ip address - take a picture of the terminal!
 
-  try to ping the pi from a remote computer (on the network)
+ try to ping the pi from a remote computer (on the network)
 
-  `ping 192.168.xxx.yy`
+ `ping 192.168.xxx.yy`
 
-  you should get byte transferred as shown below
+ you should get byte transferred as shown below
 
   ```PING 192.168.254.22 (192.168.254.22) 56(84) bytes of data.
   64 bytes from 192.168.254.22: icmp_seq=1 ttl=64 time=0.599 ms
   64 bytes from 192.168.254.22: icmp_seq=2 ttl=64 time=0.620 ms
-  64 bytes from 192.168.254.22: icmp_seq=3 ttl=64 time=0.624 ms```
+  64 bytes from 192.168.254.22: icmp_seq=3 ttl=64 time=0.624 ms
+  ```
+next try to ssh in from the remote computer. Make sure openssh-server is on both machines
 
-  next try to ssh in from the remote computer. Make sure openssh-server is on both machines
+ `ssh <pi user>@<pi ip>`
 
-  `ssh <user on pi>@<ip of pi>`
+ ssh was not working, so... I made some changes to /etc/ssh/sshd_config THIS WAS NOT THE FIX
+ the fix is much easier, just run this on the host (the pi) and you should be good to go
 
-  ssh was not working, so... I made some changes to /etc/ssh/sshd_config THIS WAS NOT THE FIX
-  the fix is much easier, just run this on the host (the pi) and you should be good to go
+ `sudo dpkg-reconfigure openssh-server`
 
-  `sudo dpkg-reconfigure openssh-server`
+ finally test that you can connect to the pi from the control computer
+ notice how it shows that you have changed computers
 
-  finally test that you can connect to the pi from the control computer
-  notice how it shows that you have changed computers
-
-  `thill@T1600-brwn305:~$ ssh thill@192.168.254.22`
+ `thill@T1600-brwn305:~$ ssh thill@192.168.254.22`
 
 ```  thill@192.168.254.22's password:
   Welcome to Ubuntu 18.04.2 LTS (GNU/Linux 4.15.0-1032-raspi2 aarch64)
@@ -83,6 +83,8 @@ Try that again  without the desktop (headless). This worked good:
   now would be a good time to make a backup image... lol
 
   install ROS following  the steps here http://wiki.ros.org/melodic/Installation/Ubuntu but do them through ssh
+  
+  thill@T1600-brwn305:~$ ssh <pi user>@<pi ip>
 
   then setup a workspace for ros called 'pi_ros'
 
