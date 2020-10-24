@@ -2,7 +2,7 @@
 
 #### I brought a pi3B+ home to test
 
-First you can try to install through the Mate desktop environment.
+First you can try to install through the Mate desktop environment. This did not work for me:
 * download Mate 18.04 64bit image for pi 3B + from Ubuntu Mate website (https://ubuntu-mate.org/download/arm64/)
 * use pi-imager to load the image to SD card (https://www.raspberrypi.org/downloads/) 
 * insert SD card and boot pi
@@ -12,8 +12,7 @@ First you can try to install through the Mate desktop environment.
 * freezing and crashing seems to be a common issue when using the desktop, some have suggested trying the 32bit option
 * a pi 4 is probably a good option if you want to use the desktop
 
-That did not work. I think that we should just stay headless, and I predict that the frezing issues will go away.
-Try that again  without the desktop:
+Try that again  without the desktop (headless). I predict that the freezing issues will go away:
 * download Mate 18.04 64bit image for pi 3B + from Ubuntu Mate website (https://ubuntu-mate.org/download/arm64/)
 * use pi-imager to load the image to SD card (https://www.raspberrypi.org/downloads/)
 * insert SD card and boot pi
