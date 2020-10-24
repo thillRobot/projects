@@ -118,12 +118,14 @@ lets ttry that again:
 
       install some Packages (changed kinetic to melodic)
 
-      ```
+      `
       $ sudo apt install ros-melodic-rosserial-python ros-melodic-tf
-      ```
+      `
 
       backout to the top of the workspace and build with catkin_make (what is -j1 ?)
 
-      ```
+      `
       $ cd ~/catkin_ws && catkin_make -j1
-      ```
+     `
+      
+      
