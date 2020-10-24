@@ -2,22 +2,24 @@
 
 #### I brought a pi3B+ home to test
 
-here is what I have done so far:
-* downloaded Mate 18.04 64bit image for pi 3B + from Ubuntu Mate website
-* used pi-imager to load the image to SD card
+First you can try to install through the Mate desktop environment.
+* download Mate 18.04 64bit image for pi 3B + from Ubuntu Mate website (https://ubuntu-mate.org/download/arm64/)
+* use pi-imager to load the image to SD card (https://www.raspberrypi.org/downloads/) 
+* insert SD card and boot pi
 * open MATE desktop and it seems to work, graphics are terribly slow
-* i install ros successfully and tested roscore
-* i did some other things then it crashed, this seems to be a common issue when using the desktop
+* test the internet
+* install ros successfully and test roscore
+* freezing and crashing seems to be a common issue when using the desktop, some have suggested trying the 32bit option
+* a pi 4 is probably a good option if you want to use the desktop
 
-I think that we should just stay headless and I predict that issue will go away, but we will see.
-
-Lets try that again  without the desktop:
-* download Mate 18.04 64bit image for pi 3B + from Ubuntu Mate website
-* used pi-imager to load the image to SD card
-* use GUI to setup account and keyboard yada yada
-* do not login into desktop, press: 'ctrl+alt+f1' to open a terminal
-* login as your user, not root for now
-
+That did not work. I think that we should just stay headless, and I predict that the frezing issues will go away.
+Try that again  without the desktop:
+* download Mate 18.04 64bit image for pi 3B + from Ubuntu Mate website (https://ubuntu-mate.org/download/arm64/)
+* use pi-imager to load the image to SD card (https://www.raspberrypi.org/downloads/)
+* insert SD card and boot pi
+* use GUI to setup user account for Mate and keyboard setting yada yada
+* do not login into desktop, instead press 'ctrl+alt+f1' to open a terminal
+* login as your user, no need to login as root
 
 * update the repository list - no need to upgrade
 
