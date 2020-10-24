@@ -102,6 +102,7 @@ lets ttry that again:
 
    START 3) Install Dependent Packages on TurtleBot PC - replace all instances of 'kinetic' with 'melodic'
 
+
       download the drivers from github, make sure you are in `~/pi_ros/src`  before you clone the repo
 
       ```
@@ -128,4 +129,10 @@ lets ttry that again:
 
       `$ cd ~/catkin_ws && catkin_make -j1`
 
-      Everything seemed to work just fine - good news 
+      Everything seemed to work just fine - good news
+
+      DO step 4,5 next
+
+      4) USB Settings
+
+      5) Network Configuration
