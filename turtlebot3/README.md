@@ -58,7 +58,7 @@ lets ttry that again:
 
   `thill@T1600-brwn305:~$ ssh thill@192.168.254.22`
 
-  `thill@192.168.254.22's password:
+```  thill@192.168.254.22's password:
   Welcome to Ubuntu 18.04.2 LTS (GNU/Linux 4.15.0-1032-raspi2 aarch64)
 
    * Documentation:  https://help.ubuntu.com
@@ -73,7 +73,9 @@ lets ttry that again:
   Run 'do-release-upgrade' to upgrade to it.
 
   Last login: Sat Oct 24 01:09:38 2020 from 192.168.254.45
-  thill@mate18-pi3bp:~$ `
+  thill@mate18-pi3bp:~$
+```
+  this means
 
   now would be a good time to make a backup image... lol
 
