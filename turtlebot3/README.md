@@ -7,7 +7,7 @@ here is what I have done so far:
 * used pi-imager to load the image to SD card
 * open MATE desktop and it seems to work, graphics are terribly slow
 * i install ros successfully and tested roscore
-* i did some other things then it crashed, this seems to be a common brought
+* i did some other things then it crashed, this seems to be a common issue when using the desktop
 
 I think that we should just stay headless and I predict that issue will go away, but we will see.
 
