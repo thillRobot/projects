@@ -75,8 +75,58 @@ lets ttry that again:
   Last login: Sat Oct 24 01:09:38 2020 from 192.168.254.45
   thill@mate18-pi3bp:~$
 ```
-  this means
+  this means that you are in, woop woop!
 
   now would be a good time to make a backup image... lol
 
-  lets install some packages instead, follow the steps here http://wiki.ros.org/melodic/Installation/Ubuntu but do them through ssh
+  install ROS following  the steps here http://wiki.ros.org/melodic/Installation/Ubuntu but do them through ssh
+
+  then setup a workspace for ros called 'pi_ros'
+
+```  
+  ~$ mkdir -p ~/pi_ros/src
+  ~$ cd pi_ros/
+  ~/pi_ros$ catkin_make
+  ~/$ echo "~/pi_ros/devel/setup.bash" >> ~/.bashrc
+  source ~/pi_ros/devel/setup.bash
+  ```
+
+
+
+  your workspace should compile without errors
+
+  now install the turtlebot3 packeges following this https://emanual.robotis.com/docs/en/platform/turtlebot3/raspberry_pi_3_setup/ (SBC setup)
+
+   SKIP 1) Install Ubuntu MATE on TurtleBot PC - we already did this 'manually'
+
+   SKIP 2) Install ROS on TurtleBot PC - we already did this 'manually'
+
+   START 3) Install Dependent Packages on TurtleBot PC - replace all instances of 'kinetic' with 'melodic'
+
+      download the drivers from github, make sure you are in `~/pi_ros/src`  before you clone the repo
+
+      ```
+      $ cd ~/pi_ros/src
+      $ git clone https://github.com/ROBOTIS-GIT/hls_lfcd_lds_driver.git
+      $ git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
+      $ git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
+      ```
+
+      go into turtlbot3 and delete some stuff (I am not sure why I am just following)
+
+      ```
+      $ cd ~/catkin_ws/src/turtlebot3
+      $ rm -r turtlebot3_description/ turtlebot3_teleop/ turtlebot3_navigation/ turtlebot3_slam/ turtlebot3_example/
+      ```
+
+      install some Packages (changed kinetic to melodic)
+
+      ```
+      $ sudo apt install ros-melodic-rosserial-python ros-melodic-tf
+      ```
+
+      backout to the top of the workspace and build with catkin_make (what is -j1 ?)
+
+      ```
+      $ cd ~/catkin_ws && catkin_make -j1
+      ```
