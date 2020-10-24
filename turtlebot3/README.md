@@ -12,7 +12,7 @@ First you can try to install through the Mate desktop environment. This did not 
 * freezing and crashing seems to be a common issue when using the desktop, some have suggested trying the 32bit option
 * a pi 4 is probably a good option if you want to use the desktop
 
-Try that again  without the desktop (headless). I predict that the freezing issues will go away:
+Try that again  without the desktop (headless). This worked good:
 * download Mate 18.04 64bit image for pi 3B + from Ubuntu Mate website (https://ubuntu-mate.org/download/arm64/)
 * use pi-imager to load the image to SD card (https://www.raspberrypi.org/downloads/)
 * insert SD card and boot pi
