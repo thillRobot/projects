@@ -24,7 +24,7 @@ Try that again  without the desktop (headless). This worked good:
 
   `sudo apt update`
 
-* install SSH for remote connection - this is already install on Mate image
+* install SSH for remote connection on remote computer - this is already installed on he Mate image but NOT on the Ubuntu install.  This makes no sense to me, but it will not hurt to run this command on both machines.  
 
   `sudo apt install openssh-server`
 
@@ -40,10 +40,10 @@ Try that again  without the desktop (headless). This worked good:
 
   you should get byte transferred as shown below
 
-  `PING 192.168.254.22 (192.168.254.22) 56(84) bytes of data.
+  ```PING 192.168.254.22 (192.168.254.22) 56(84) bytes of data.
   64 bytes from 192.168.254.22: icmp_seq=1 ttl=64 time=0.599 ms
   64 bytes from 192.168.254.22: icmp_seq=2 ttl=64 time=0.620 ms
-  64 bytes from 192.168.254.22: icmp_seq=3 ttl=64 time=0.624 ms`
+  64 bytes from 192.168.254.22: icmp_seq=3 ttl=64 time=0.624 ms```
 
   next try to ssh in from the remote computer. Make sure openssh-server is on both machines
 
