@@ -83,8 +83,7 @@ lets ttry that again:
 
   then setup a workspace for ros called 'pi_ros'
 
-```  
-  ~$ mkdir -p ~/pi_ros/src
+``` ~$ mkdir -p ~/pi_ros/src
   ~$ cd pi_ros/
   ~/pi_ros$ catkin_make
   ~/$ echo "~/pi_ros/devel/setup.bash" >> ~/.bashrc
@@ -105,8 +104,7 @@ lets ttry that again:
 
       download the drivers from github, make sure you are in `~/pi_ros/src`  before you clone the repo
 
-      ```
-      $ cd ~/pi_ros/src
+      ``` $ cd ~/pi_ros/src
       $ git clone https://github.com/ROBOTIS-GIT/hls_lfcd_lds_driver.git
       $ git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
       $ git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
@@ -114,8 +112,7 @@ lets ttry that again:
 
       go into turtlbot3 and delete some stuff (I am not sure why I am just following)
 
-      ```
-      $ cd ~/catkin_ws/src/turtlebot3
+      ``` $ cd ~/catkin_ws/src/turtlebot3
       $ rm -r turtlebot3_description/ turtlebot3_teleop/ turtlebot3_navigation/ turtlebot3_slam/ turtlebot3_example/
       ```
 
