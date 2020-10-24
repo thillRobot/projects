@@ -5,30 +5,30 @@ The goal is to setup turtlebot3 with ROS Melodic Navigation
 This follows the Robotis EManual here (https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/)
 but I have made several modifications to stream line the procedure
 
-##### Graphical Install 
+#### Graphical Install 
 First you can try to install through the Mate desktop environment. This did not work for me:
 
-1) Install Ubuntu MATE on TurtleBot PC 
+#####1) Install Ubuntu MATE on TurtleBot PC 
 * download Mate 18.04 64bit image for pi 3B + from Ubuntu Mate website (https://ubuntu-mate.org/download/arm64/)
 * use pi-imager to load the image to SD card (https://www.raspberrypi.org/downloads/) 
 * insert SD card and boot pi
 * open MATE desktop and it seems to work, graphics are terribly slow
 * test the internet
 
-2) Install ROS on TurtleBot PC - Robotis Emanual calls the 'manual', do not use their script without invesitigating first
+#####2) Install ROS on TurtleBot PC - Robotis Emanual calls the 'manual', do not use their script without invesitigating first
 * install ros successfully and test roscore
 * freezing and crashing seems to be a common issue when using the desktop, some have suggested trying the 32bit option
 * a pi 4 is probably a good option if you want to use the desktop
 
-3) never got here
-4) never got here
-5) never got here
+#####3) never got here
+#####4) never got here
+#####5) never got here
 
 
-##### Terminal Install
+#### Terminal Install
 Try that again  without the desktop (headless). This worked good:
 
-1) Install Ubuntu MATE on TurtleBot PC 
+#####1) Install Ubuntu MATE on TurtleBot PC 
 * download Mate 18.04 64bit image for pi 3B + from Ubuntu Mate website (https://ubuntu-mate.org/download/arm64/)
 * use pi-imager to load the image to SD card (https://www.raspberrypi.org/downloads/)
 * insert SD card and boot pi
@@ -96,7 +96,7 @@ Try that again  without the desktop (headless). This worked good:
 
   now would be a good time to make a backup image... lol
   
-  2) Install ROS on TurtleBot PC - Robotis Emanual calls the 'manual', do not use their script without invesitigating first
+  #####2) Install ROS on TurtleBot PC - Robotis Emanual calls the 'manual', do not use their script without invesitigating first
   install ROS following  the steps here http://wiki.ros.org/melodic/Installation/Ubuntu but do them through ssh
   
   thill@T1600-brwn305:~$ ssh <pi user>@<pi ip>
@@ -116,7 +116,7 @@ Try that again  without the desktop (headless). This worked good:
 
  
 
-   3) Install Dependent Packages on TurtleBot PC - replace all instances of 'kinetic' with 'melodic'
+   #####3) Install Dependent Packages on TurtleBot PC - replace all instances of 'kinetic' with 'melodic'
 
 
    download the drivers from github, make sure you are in `~/pi_ros/src`  before you clone the repo
