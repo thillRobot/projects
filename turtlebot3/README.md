@@ -104,7 +104,8 @@ lets ttry that again:
 
       download the drivers from github, make sure you are in `~/pi_ros/src`  before you clone the repo
 
-      ``` $ cd ~/pi_ros/src
+      ```
+      $ cd ~/pi_ros/src
       $ git clone https://github.com/ROBOTIS-GIT/hls_lfcd_lds_driver.git
       $ git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
       $ git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
@@ -118,14 +119,11 @@ lets ttry that again:
 
       install some Packages (changed kinetic to melodic)
 
-      `
+
       $ sudo apt install ros-melodic-rosserial-python ros-melodic-tf
-      `
+
 
       backout to the top of the workspace and build with catkin_make (what is -j1 ?)
 
-      `
+
       $ cd ~/catkin_ws && catkin_make -j1
-     `
-      
-      
