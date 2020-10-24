@@ -126,4 +126,6 @@ lets ttry that again:
       backout to the top of the workspace and build with catkin_make (what is -j1 ?)
 
 
-      $ cd ~/catkin_ws && catkin_make -j1
+      `$ cd ~/catkin_ws && catkin_make -j1`
+
+      Everything seemed to work just fine - good news 
