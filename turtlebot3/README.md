@@ -2,7 +2,8 @@
 
 #### I brought a pi3B+ home to test
 The goal is to setup turtlebot3 with ROS Melodic Navigation
-This follows the Robotis EManual here (https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/)
+This follows the Steps 1-5 Robotis EManual here (https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/)
+are come from th
 but I have made several modifications to stream line the procedure
 
 #### Graphical Install 
@@ -15,7 +16,7 @@ First you can try to install through the Mate desktop environment. This did not 
 * open MATE desktop and it seems to work, graphics are terribly slow
 * test the internet
 
-##### 2) Install ROS on TurtleBot PC - Robotis Emanual calls the 'manual', do not use their script without invesitigating first
+##### 2) Install ROS on TurtleBot PC - Robotis Emanual calls this 'manual methos', do not use their script without invesitigating first
 * install ros successfully and test roscore
 * freezing and crashing seems to be a common issue when using the desktop, some have suggested trying the 32bit option
 * a pi 4 is probably a good option if you want to use the desktop
