@@ -2,8 +2,6 @@
 October 07, 2020 - October 14, 2020 - October 29, 2020
 
 
-I am not the first one doing this... what a surprise
-https://usermanual.wiki/Document/CARLASetupGuideUbuntu.271743992/help  
 
 
 ### Hardware
@@ -487,5 +485,12 @@ Nicholas from CARLA team said first test that you can run 'tutorial.py'. OK, let
 - [ ] change the town from the cleint side, HDMaps/Town02.pcd 
 - [ ] document and test basic use of CARLA - not in a docker container
 
+
+### Useful Resources
+
+https://carla.readthedocs.io/en/latest/
+
+I am not the first one doing this... what a surprise
+https://usermanual.wiki/Document/CARLASetupGuideUbuntu.271743992/help  
 
 
