@@ -77,22 +77,39 @@ this one in only on the 18.04 'sandbox computer' at the moment
 
 so now we have three!
 
-#### install Python Dependencies
-I installed numpy and pygame to run the client on the host
+#### Download and install CARLA package 
 
-The CARLA docs page says you can do that like this:
+Download and extract the appropriate version from Github. Here we are using: carla 0.9.10 (https://github.com/carla-simulator/carla)
 
-`pip install --user pygame numpy`
+In Ubuntu 20.04 (server machine) I downloaded and extracted carla 0.9.10 - 'pip3 install pygame' did not work so I had to use 'apt install python3-pygame'
+i had to set the PYTHONPATH for the carla module to work. Basically the PYTHONPATH must include the path to .egg file for the right version of carla, I think that this is the same problem I am having in the docker container 'no module named carla'
 
-but I did it like this:
+Either way, Jared said *but generally we recommed y'all using Miniconda/Anaconda to create your own python 2 & 3 environments without any need for admin.*
+
+The client requires NUMPY and PYGAME
+
+`pip3 install numpy pygame`
+
+You can also install them with pip and the `requirements.txt` file. I am not sure which is better. Mike seemed to think requirements was not important, and I have seen no difference between these two methods.
 
 `pip3 install -r PythonAPI/examples/requirements.txt`
 
 Do I need the `--user` option ? What does that even do?
 
+On the client side I have had some trouble with the 'no module named carla issue' - https://github.com/carla-simulator/carla/issues/1137
+this is related to properly setting the path for the 'carla' python module from /carla/PythonAPI. Before you can run the client you have to set PYTHONPATH to .egg file. (CARLA_ROOT is just intermediate variable to save length)
+
+`export CARLA_ROOT=~/carla_simulator/carla_0910`
+
+`export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
+
+Then, you can run *some* of the examples in `/PythonAPI/examples` and `/PythonAPI/utils`, but several of the scripts fail.
+
+This starts a client and lets you drive with PYGAME.
+`python3 ${CARLA_ROOT}/PythonAPI/examples/manual_control.py`
 
 
-### Using CARLA - this is a hybrid of method 1 and method 3 from the list above 
+### Using CARLA - this is a hybrid of approach 1 (download and extract) and method 3 (run in docker) from the list above 
 
 ### CARLA Version 0.8.4 - Nearly Stable  (Stable is 0.8.2)
 
@@ -229,32 +246,6 @@ Now you should be able to run the server with the `docker run` below.
 ##### Running the client in users home directory (~/) of the local (server) machine 
 
 I do not like this option because it seems like it should be available in the container...
-
-On the client side I have had some trouble with the 'no module named carla issue' - https://github.com/carla-simulator/carla/issues/1137
-this is related to properly setting the path for the 'carla' python module from /carla/PythonAPI. This is discusses elsewhere.
-
-Download and extract the appropriate version from Github. Here we are using: carla 0.9.10 (https://github.com/carla-simulator/carla)
-
-In Ubuntu 20.04 (server machine) I downloaded and extracted carla 0.9.10 - 'pip3 install pygame' did not work so I had to use 'apt install python3-pygame'
-i had to set the PYTHONPATH for the carla module to work. Basically the PYTHONPATH must include the path to .egg file for the right version of carla, I think that this is the same problem I am having in the docker container 'no module named carla'
-
-Either way, Jared said *but generally we recommed y'all using Miniconda/Anaconda to create your own python 2 & 3 environments without any need for admin.*
-
-The client requires NUMPY and PYGAME
-
-`pip3 install numpy pygame`
-
-You can also install them with pip and the `requirements.txt` file. I am not sure which is better. Mike seemed to think requirements was not important, and I have seen no difference between these two methods.
-
-Before you can run the client you have to set PYTHONPATH to .egg file. (CARLA_ROOT is just intermediate variable to save length)
-
-`export CARLA_ROOT=~/carla_simulator/carla_0910`
-
-`export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
-
-Then, run the client script manual_control.py
-
-`python3 ${CARLA_ROOT}/PythonAPI/examples/manual_control.py`
 
 It works pretty good, but sometimes this throws an error like this:
 
