@@ -135,8 +135,8 @@ This starts a client and lets you drive with PYGAME.
 ### Using CARLA
 this is a hybrid of approach 1 (download and extract) and method 3 (run in docker) from the list above 
 
-#### Start the CARLA server in a container
-#### CARLA Version 0.8.4 - Nearly Stable  (Stable is 0.8.2) 
+#### Start the CARLA server in a CARLA Version 0.8.4 container
+
 run the default script 'CarlaUE4.sh' in a carla 0.8.4 container and give a name 'carlaserver'
 
 `sudo docker run --name carlaserver -p 2000-2002:2000-2002 --runtime=nvidia --gpus all carlasim/carla:0.8.4 \
@@ -144,7 +144,7 @@ run the default script 'CarlaUE4.sh' in a carla 0.8.4 container and give a name 
 
 this starts the server, now it is waiting for a client to connect
 
-#### start a client on the host machine - NOT WORKING - PORT2000 CLOSED
+#### Start a client (0.8.4) on the host machine - NOT WORKING - PORT2000 CLOSED
 
 change to the PythonClient directory and run one of the example scripts
 
@@ -152,23 +152,23 @@ change to the PythonClient directory and run one of the example scripts
 `./manual_control.py --autopilot`
 
 
-#### start a client on the remote computer - This works
+#### Start a client (0.8.4) on a remote computer - This works
 
-change to the PythonClient directory and run one of the example scripts
+First change to the PythonClient directory and run one of the example scripts
 
 `cd ~/carla_simulator/carla_084/PythonClient`
 
 `./manual_control.py --autopilot --host 192.168.x.x`
 
-This open a PYGAME window and you can drive the car around with the keyboard.
-You have to take the parking break off first!
+#### Drive the car around with the keyboard in PYGAME.
+You have to take the parking break off first! At the moment the server<--->client relationship works!
 
-At the moment the server<--->client relationship works!
-The response is slow. I am only getting about 5 FPS on the remote NUC.
-
+Note: the directory `/PythonClient` has changed `/PythonAPI` in the later versions 
 
 
-#### Shutdown the CARLA server (version 084 'ctrl-c' does not stop preocess)
+#### Shutdown the CARLA server 
+
+In version 084 'ctrl-c' does not stop the preocess
 
 You cannot just close the process, you have to stop the container
 This process needs to be improved. I am supposed to be able to use the --name option to give
@@ -286,7 +286,7 @@ RuntimeError: time-out of 2000ms while waiting for the simulator, make sure the 
 ```
 I think this may be another app using that port, but I am not sure.
 
-### Configuring the CARLA server from a client
+##### Configuring the CARLA server from a client
 A new useful feature I have just discovered is `/PythonAPI/utils/config.py`. This scripts is used to configure a running CARLA server. You can do things like change the town map and other things. This is very useful becuase is it a pain (so much that I was unable to do so!) from the server side. I guess this makes sensse...
 
 Here is an example that shows how to change the town map.
