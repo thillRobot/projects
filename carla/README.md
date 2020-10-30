@@ -1,7 +1,31 @@
 ## TWH logs - CARLA - open source vehicle simulator
 October 07, 2020 - October 14, 2020 - October 29, 2020
 
+### Goals:
 
+- [ ] figure out controls for first demo - testdrive an autonomous car - Pretty Close
+
+- [ ] install and test ROS_BRIDGE
+- [ ] record a *metric*
+
+- [ ] start the server in a different town, HDMaps/Town02.pcd  
+- [x] change the town from the client side, HDMaps/Town02.pcd 
+- [ ] document and test basic use of CARLA - not in a docker container
+- [ ] clean up this document, it is a huge mess - it is a little better
+
+- [x] try the stable version (0.8.4 or 0.8.2) - does not have ROS_BRIDGE support I do not think
+- [x] test client on local machine - not in docker - Done - Working
+- [x] test client on remote machine - not in docker - Done - Working
+- [x] test client on local machine - in a docker   - DONE - not working
+- [x] test server on local machine - in a docker - DONE - Working
+- [ ] test server on local machine - not in a docker - NOT DONE
+
+### Useful Resources
+
+https://carla.readthedocs.io/en/latest/
+
+I am not the first one doing this... what a surprise
+https://usermanual.wiki/Document/CARLASetupGuideUbuntu.271743992/help  
 
 
 ### Hardware
@@ -17,12 +41,10 @@ October 07, 2020 - October 14, 2020 - October 29, 2020
 #### Test Client Computer:
 
 * Computer: Intel NUC7i7BNH
+* CPU:      Intel i7
 * Graphics: KabyLake GT3e
 * RAM:      16GB
 * OS:       Ubuntu 18.04
-
-
-
 
 
 ### Installing CARLA
@@ -39,20 +61,21 @@ October 07, 2020 - October 14, 2020 - October 29, 2020
 * ROS
 * ROS_BRIDGE
 
-There are multple ways to install and run the CARLA package.
 
 #### Different Options for Installing CARLA
+There are multple ways to install and run the CARLA package. Which is the right way, who knows.
+
 1. Download and Extract from CARLA package from Github (https://github.com/carla-simulator/carla/releases) - if you just need a client
-  - [ ] CARLA Client - This is easy - requires numpy and pygame only 
-  - [ ] CARLA Server -  This appears to be a very involved - requires building CARLA and UNREAL4 (https://carla.readthedocs.io/en/latest/build_linux/)
+  * CARLA Client - This is easy - requires numpy and pygame only 
+  * CARLA Server -  This appears to be a very involved - requires building CARLA and UNREAL4 (https://carla.readthedocs.io/en/latest/build_linux/)
    
 2. Install CARLA package with APT - this should be very straight forward - but hard to change versions - maybe this is the permanent solution 
-  - [ ] CARLA Client - this needs testing - this should be easy 
-  - [ ] CARLA Server - this needs testing - it may be a pain to update versions - maybe not
+  * CARLA Client - this needs testing - this should be easy 
+  * CARLA Server - this needs testing - it may be a pain to update versions - maybe not
 
 3. Use Docker to pull and run a CARLA image (https://carla.readthedocs.io/en/latest/build_docker/) 
-  - [ ] CARLA Client - This should be easy, but this does not work - see bottom of this document
-  - [ ] CARLA Server - This works good, but it did require some figuring out - see middle of this document
+  * CARLA Client - This should be easy, but this does not work - see bottom of this document
+  * CARLA Server - This works good, but it did require some figuring out - see middle of this document
 
 I am pursuing the Docker Approach for the server for several reasons. Mainly flexibility in testing. Currently, my working demo is a hybrid of approach 1 and 3 from above. It would nice if we had full functionality in a Docker container (method 3 only) because this would allow for complete portability. This may have to wait. Option 2 is a good idea also!
 
@@ -455,33 +478,5 @@ Nicholas from CARLA team said first test that you can run 'tutorial.py'. OK, let
 
 `sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg carlaserver python3 PythonAPI/examples/tutorial.py`
 
-
-
-### THINGS TO DO:
-
-
-
-- [ ] clean up this document, it is a huge mess - it is a little better - still needs work
-- [x] test client on local machine - not in docker - Done - Working
-- [x] test client on remote machine - not in docker - Done - Working
-- [x] test client on local machine - in a docker   - DONE - not working
-- [x] test server on local machine - in a docker - DONE - Working
-- [ ] test server on local machine - not in a docker - NOT DONE
-
-- [ ] figure out controls for first demo - drive a car        - Pretty Close
-- [x] try the stable version (0.8.4 or 0.8.2) - does not have ROS_BRIDGE support
-- [ ] install and test ROS_BRIDGE
-
-- [x] start the server in a different town, HDMaps/Town02.pcd  - woooo!
-- [ ] change the town from the cleint side, HDMaps/Town02.pcd 
-- [ ] document and test basic use of CARLA - not in a docker container
-
-
-### Useful Resources
-
-https://carla.readthedocs.io/en/latest/
-
-I am not the first one doing this... what a surprise
-https://usermanual.wiki/Document/CARLASetupGuideUbuntu.271743992/help  
 
 
