@@ -62,7 +62,7 @@ I installed 'docker CE' and 'nvidia-docker2' following the instructions that I w
 * https://carla.readthedocs.io/en/latest/build_docker/#docker-ce Be careful not to install docker CE with apt and the script!
 * https://carla.readthedocs.io/en/latest/build_docker/#nvidia-docker2
 
-
+#### pull CARLA images with docker
 then I pulled a older vesion of carla 0.8.4. , this does not need to be repeated unless I change version
 
 `sudo docker pull carlasim/carla:0.8.4`
