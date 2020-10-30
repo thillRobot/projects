@@ -119,7 +119,7 @@ CONTAINER ID        IMAGE                  COMMAND                  CREATED     
 ```
 
 
-read the goofy name over on the right and that is the 'name' you will use to stop the containers
+read the goofy name over on the right and that is the 'name' you will use to stop the containers. This goofy name issue is solved with the `--name` option.
 
 `sudo docker stop elastic_kare`
 
@@ -177,13 +177,13 @@ unless you want to run that same container again with docker start or restart
 
 ##### runnning the server without sudo (root access)
 
-If you are a regular user without without access to sudo, you must be added to the docker group. This does not require sudo because **user** owns $XAUTHORITY 
+If you are a regular user without without access to sudo, you must be added to the docker group. 
 
 `sudo groupadd docker`
 
 `sudo usermod -aG docker $USER`
 
-Also, for the X11 stuff to work the container needs access to $XAUTHORITY , this is a common issue with GUI in containers 
+Also, for the X11 stuff to work the container needs access to $XAUTHORITY , this is a common issue with GUI in containers. This does not require sudo because **user** owns $XAUTHORITY 
 
 `chmod 644 $XAUTHORITY`
 
