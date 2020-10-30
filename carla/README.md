@@ -245,7 +245,9 @@ Someone suggested this. DO NOT DO IT
 In version 0.9.10 you can ctrl-c to close the server, but I want to check that this is ok, i think the container is removed so it should be fine
 unless you want to run that same container again with docker start or restart
 
+For now, you have to remove the container before you can start it again. This should be fixed.
 
+`docker container rm carlaserver`
 
 
 #### CARLA Client - The client is a car driving in the world
