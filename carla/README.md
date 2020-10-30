@@ -1,30 +1,10 @@
 ## TWH logs - CARLA - open source vehicle simulator
 October 07, 2020 - October 14, 2020 - October 29, 2020
 
-### CARLA Installation
-There are multple ways to install and run the CARLA package.
 
-1. Download and Extract from CARLA package from Github (https://github.com/carla-simulator/carla/releases)
-  - [ ] CARLA Client - This is easy - requires numpy and pygame only 
-  - [ ] CARLA Server -  This appears to be a very involved - requires build CARLA and UNREAL4 (https://carla.readthedocs.io/en/latest/build_linux/)
-   
-2. Install CARLA package with APT
-  - [ ] CARLA Client - this needs testing
-  - [ ] CARLA Server - this needs testing
+I am not the first one doing this... what a surprise
+https://usermanual.wiki/Document/CARLASetupGuideUbuntu.271743992/help  
 
-3. Use Docker to pull and run a CARLA image (https://carla.readthedocs.io/en/latest/build_docker/)
-  - [ ] CARLA Client - This should be easy, but this does not work - see bottom of this document
-  - [ ] CARLA Server - This works good, but it did require some figuring out - see middle of this document
-  
-
-A simple place to start is method **1. Download and Extract from CARLA package from Github**
-
-
-
-
-
-
-It would nice if we had full functionality in a Docker container because this would allow for complete portability. This may have to wait. 
 
 ### Hardware
 
@@ -44,24 +24,41 @@ It would nice if we had full functionality in a Docker container because this wo
 * OS:       Ubuntu 18.04
 
 
-### Required Software
+
+
+
+### Installing CARLA
+
+
+#### Required/Related Software
 
 * CARLA - the core of this project
+* NUMPY and PYGAME
 
 * docker CE
-
 * nvidia-docker2 (this requires nvidia drivers and driver version limits carla version)
 
 * ROS
-
 * ROS_BRIDGE
 
-* NUMPY and PYGAME
+There are multple ways to install and run the CARLA package.
 
+#### Different Options for Installing CARLA
+1. Download and Extract from CARLA package from Github (https://github.com/carla-simulator/carla/releases) - if you just need a client
+  - [ ] CARLA Client - This is easy - requires numpy and pygame only 
+  - [ ] CARLA Server -  This appears to be a very involved - requires building CARLA and UNREAL4 (https://carla.readthedocs.io/en/latest/build_linux/)
+   
+2. Install CARLA package with APT - this should be very straight forward - but hard to change versions - maybe this is the permanent solution 
+  - [ ] CARLA Client - this needs testing 
+  - [ ] CARLA Server - this needs testing
 
+3. Use Docker to pull and run a CARLA image (https://carla.readthedocs.io/en/latest/build_docker/) 
+  - [ ] CARLA Client - This should be easy, but this does not work - see bottom of this document
+  - [ ] CARLA Server - This works good, but it did require some figuring out - see middle of this document
 
-### Software Installations
+I am pursuing the Docker Approach for the server for several reasons. Mainly flexibility in testing. Currently, my working demo is a hybrid of approach 1 and 3 from above. It would nice if we had full functionality in a Docker container (method 3 only) because this would allow for complete portability. This may have to wait. 
 
+#### install docker 
 I installed 'docker CE' and 'nvidia-docker2' following the instructions that I was lead to from the carla docs
 * https://carla.readthedocs.io/en/latest/build_docker/
 * https://carla.readthedocs.io/en/latest/build_docker/#docker-ce Be careful not to install docker CE with apt and the script!
@@ -82,24 +79,33 @@ this one in only on the 18.04 'sandbox computer' at the moment
 
 so now we have three!
 
+#### install Python Dependencies
 I installed numpy and pygame to run the client on the host
 
+The CARLA docs page says you can do that like this:
+
+`pip install --user pygame numpy`
+
+but I did it like this:
+
+`pip3 install -r PythonAPI/examples/requirements.txt`
+
+Do I need the `--user` option ? What does that even do?
 
 
 
-
-#### Using CARLA in a docker container
+### Using CARLA - this is a hybrid of method 1 and method 3 from the list above 
 
 ### CARLA Version 0.8.4 - Nearly Stable  (Stable is 0.8.2)
 
 #### Start the CARLA server in a container
 
-run the default script 'CarlaUE4.sh' in a carla 0.8.4 container and give a name 'carla'
+run the default script 'CarlaUE4.sh' in a carla 0.8.4 container and give a name 'carlaserver'
 
 `sudo docker run --name carlaserver -p 2000-2002:2000-2002 --runtime=nvidia --gpus all carlasim/carla:0.8.4 \
 /bin/bash CarlaUE4.sh -quality-level=low -carla-server -benchmark -fps=10`
 
-this start the server, now it is waiting for a client to connect
+this starts the server, now it is waiting for a client to connect
 
 #### start a client on the host machine - NOT WORKING - PORT2000 CLOSED
 
@@ -240,7 +246,9 @@ The client requires NUMPY and PYGAME
 
 `pip3 install numpy pygame`
 
-Set the PYTHONPATH (CARLA_ROOT is just intermediate variable to save length)
+You can also install them with pip and the `requirements.txt` file. I am not sure which is better. Mike seemed to think requirements was not important, and I have seen no difference between these two methods.
+
+Before you can run the client you have to set PYTHONPATH to .egg file. (CARLA_ROOT is just intermediate variable to save length)
 
 `export CARLA_ROOT=~/carla_simulator/carla_0910`
 
@@ -267,6 +275,16 @@ RuntimeError: time-out of 2000ms while waiting for the simulator, make sure the 
 ```
 I think this may be another app using that port, but I am not sure.
 
+### Configuring the CARLA server from a client
+A new useful feature I have just discovered is `/PythonAPI/utils/config.py`. This scripts is used to configure a running CARLA server. You can do things like change the town map and other things. This is very useful becuase is it a pain (so much that I was unable to do so!) from the server side. I guess this makes sensse...
+
+Here is an example that shows how to change the town map.
+
+`python3 ${CARLA_ROOT}/PythonAPI/util/config.py --map Town04`
+
+And this line changes the weather. 
+
+`python3 ${CARLA_ROOT}/PythonAPI/util/config.py --weather HardRainNoon`
 
 
 #### altemnatively run the client in the container - this is what I really want - This does not work yet
