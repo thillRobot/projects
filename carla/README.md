@@ -109,27 +109,14 @@ i had to set the PYTHONPATH for the carla module to work. Basically the PYTHONPA
 
 Either way, Jared said *but generally we recommed y'all using Miniconda/Anaconda to create your own python 2 & 3 environments without any need for admin.*
 
-The client requires NUMPY and PYGAME
+The client requires NUMPY and PYGAME (https://carla.readthedocs.io/en/latest/start_quickstart/). 
+Do I need the `--user` option ? What does that even do? I think I know.
 
-`pip3 install numpy pygame`
+`pip3 install --user numpy pygame`
 
 You can also install them with pip and the `requirements.txt` file. I am not sure which is better. Mike seemed to think requirements was not important, and I have seen no difference between these two methods.
 
 `pip3 install -r PythonAPI/examples/requirements.txt`
-
-Do I need the `--user` option ? What does that even do?
-
-On the client side I have had some trouble with the 'no module named carla issue' - https://github.com/carla-simulator/carla/issues/1137
-this is related to properly setting the path for the 'carla' python module from /carla/PythonAPI. Before you can run the client you have to set PYTHONPATH to .egg file. (CARLA_ROOT is just intermediate variable to save length)
-
-`export CARLA_ROOT=~/carla_simulator/carla_0910`
-
-`export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
-
-Then, you can run *some* of the examples in `/PythonAPI/examples` and `/PythonAPI/utils`, but several of the scripts fail.
-
-This starts a client and lets you drive with PYGAME.
-`python3 ${CARLA_ROOT}/PythonAPI/examples/manual_control.py`
 
 
 ### Using CARLA Version 0.8.4
@@ -189,12 +176,9 @@ CONTAINER ID        IMAGE                  COMMAND                  CREATED     
 7b2ab18618af        carlasim/carla:0.8.4   "/bin/bash CarlaUE4.…"   20 minutes ago      Up 20 minutes       0.0.0.0:2000-2002->2000-2002/tcp   elastic_kare
 ```
 
-
 read the goofy name over on the right and that is the 'name' you will use to stop the containers. This goofy name issue is solved with the `--name` option.
 
 `sudo docker stop elastic_kare`
-
-
 
 OK I have made some more progress
 
@@ -215,7 +199,7 @@ Run the client - notice this is my script that I modified. Cool
 
 This requires the more modern nividia drivers, I installed  nvidia450
 
-`sudo docker pull carlasim/carla:0.9.10`
+`sudo docker pull carlasim/carla:0.9.10.1`
 
 I ran into this  errors: sh: 1: xdg-user-dir: not found
 
@@ -229,22 +213,20 @@ There are still some warnings but it seems like the simulation has started.
 ##### run the server in a container
 This will run the script CarlaUE4.sh in the carla container. This starts the server under a random funny name.
 
-`sudo docker run -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10 ./CarlaUE4.sh -opengl`
+`sudo docker run -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
 
 Using the --name option to choose a name is very useful. See below.
 
-`sudo docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10 ./CarlaUE4.sh -opengl`
+`sudo docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
 
 This will run BASH in the carla container without starting the simulator.
 
-`sudo -E docker run --name carlaserver --privileged --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10 bash`
+`sudo -E docker run --name carlaserver --privileged --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10.1 bash`
 
 Do not run the docker as --privileged even though some forums may suggest it. This gives container root access to host, and this is very dangerous.
 Someone suggested this. DO NOT DO IT
 
-`sudo -E docker run --name carlaserver --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw carlasim/carla:0.9.10 /bin/bash ./CarlaUE4.sh -vulkan -benchmark -fps=25`
-
-in version 0.9.10 you can ctrl-c to close the server, but I want to check that this is ok, i think the container is removed so it should be fine
+In version 0.9.10 you can ctrl-c to close the server, but I want to check that this is ok, i think the container is removed so it should be fine
 unless you want to run that same container again with docker start or restart
 
 ##### runnning the server without sudo (root access)
@@ -269,6 +251,19 @@ Now you should be able to run the server with the `docker run` below.
 ##### Running the client in users home directory (~/) of the local (server) machine 
 
 I do not like this option because it seems like it should be available in the container...
+On the client side I have had some trouble with the 'no module named carla issue' - https://github.com/carla-simulator/carla/issues/1137
+this is related to properly setting the path for the 'carla' python module from /carla/PythonAPI. 
+
+Before you can run the client (0.9.10.10) you have to set PYTHONPATH to .egg file. (CARLA_ROOT is just intermediate variable to save length)
+
+`export CARLA_ROOT=~/carla_simulator/carla_09101`
+
+`export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
+
+Then, you can run *some* of the examples in `/PythonAPI/examples` and `/PythonAPI/utils`, but several of the scripts fail.
+
+This starts a client and lets you drive with PYGAME. Also because these scripts at home they will easy to modify.
+`python3 ${CARLA_ROOT}/PythonAPI/examples/manual_control.py`
 
 It works pretty good, but sometimes this throws an error like this:
 
@@ -299,7 +294,7 @@ And this line changes the weather.
 `python3 ${CARLA_ROOT}/PythonAPI/util/config.py --weather HardRainNoon`
 
 
-#### altemnatively run the client in the container - this is what I really want - This does not work yet
+#### alternatively run the client in the container - this is what I really want - This does not work yet
 
 I would really like for the client and server to be in the docker container. To me it seems to make sense for me to be able to run both in the container. 
 
