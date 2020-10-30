@@ -177,7 +177,7 @@ unless you want to run that same container again with docker start or restart
 
 ##### runnning the server without sudo (root access)
 
-If you are a regular user without without access to sudo, you must be added to the docker group. This does not require sudo because <user> owns $XAUTHORITY 
+If you are a regular user without without access to sudo, you must be added to the docker group. This does not require sudo because **user** owns $XAUTHORITY 
 
 `sudo groupadd docker`
 
