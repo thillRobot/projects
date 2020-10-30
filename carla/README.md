@@ -52,6 +52,9 @@ https://usermanual.wiki/Document/CARLASetupGuideUbuntu.271743992/help
 
 #### Required/Related Software
 
+* Python - Python3 is reccomended but apparently the client runs on Python2.
+           This needs to be addressed.
+
 * CARLA - the core of this project
 * NUMPY and PYGAME
 
