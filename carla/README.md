@@ -97,7 +97,7 @@ Also, for the X11 stuff to work the container needs access to $XAUTHORITY , this
 
 `chmod 644 $XAUTHORITY`
 
-Now you should be able to run the server with the `docker run` below. 
+Now you should be able to run the server with the `docker run` below. All remaining `docker` commands should not require sudo.
 
 `docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
 
