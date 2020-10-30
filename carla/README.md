@@ -436,4 +436,9 @@ Nicholas from CARLA team said first test that you can run 'tutorial.py'. OK, let
 - [x] try the stable version (0.8.4 or 0.8.2) - does not have ROS_BRIDGE support
 - [ ] install and test ROS_BRIDGE
 
+- [ ] start the server in a different town, HDMaps/Town02.pcd 
+- [ ] change the town from the cleint side, HDMaps/Town02.pcd 
+
+
+
 
