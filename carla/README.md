@@ -104,15 +104,15 @@ Now you should be able to run the server with the `docker run` below. All remain
 #### pull CARLA images with docker
 then I pulled a older vesion of carla 0.8.4. , this does not need to be repeated unless I change version
 
-`sudo docker pull carlasim/carla:0.8.4`
+`docker pull carlasim/carla:0.8.4`
 
 then I pulled the two more recent version, I as trying to get around the library issues i was having
 
-`sudo docker pull carlasim/carla:0.9.10`
+`docker pull carlasim/carla:0.9.10`
 
 This one in only on the 18.04 'sandbox computer' at the moment
 
-`sudo docker pull carlasim/carla:0.9.10.1 `
+`docker pull carlasim/carla:0.9.10.1 `
 
 Now we have three images to choose from. 
 
@@ -142,7 +142,7 @@ this is a hybrid of approach 1 (download and extract) and method 3 (run in docke
 
 run the default script 'CarlaUE4.sh' in a carla 0.8.4 container and give a name 'carlaserver'
 
-`sudo docker run --name carlaserver -p 2000-2002:2000-2002 --runtime=nvidia --gpus all carlasim/carla:0.8.4 \
+`docker run --name carlaserver -p 2000-2002:2000-2002 --runtime=nvidia --gpus all carlasim/carla:0.8.4 \
 /bin/bash CarlaUE4.sh -quality-level=low -carla-server -benchmark -fps=10`
 
 this starts the server, now it is waiting for a client to connect
@@ -179,11 +179,11 @@ container a persistent name but I have not made this work yet.
 
 For now, to stop the container you must first list the running containers
 
-`sudo docker ps`
+`docker ps`
 
 OR
 
-`sudo docker container ls`
+`docker container ls`
 
 and you will get something like this:
 
@@ -194,13 +194,13 @@ CONTAINER ID        IMAGE                  COMMAND                  CREATED     
 
 read the goofy name over on the right and that is the 'name' you will use to stop the containers. This goofy name issue is solved with the `--name` option.
 
-`sudo docker stop elastic_kare`
+`docker stop elastic_kare`
 
 OK I have made some more progress
 
 Run the server - notice I have added the opengl flag
 
-`sudo docker run -p 2000-2002:2000-2002 --runtime=nvidia --gpus all carlasim/carla:0.8.4 /bin/bash CarlaUE4.sh DISPLAY= ./CarlaUE4.sh -opengl -carla-serve`r
+`docker run -p 2000-2002:2000-2002 --runtime=nvidia --gpus all carlasim/carla:0.8.4 /bin/bash CarlaUE4.sh DISPLAY= ./CarlaUE4.sh -opengl -carla-serve`r
 
 Run the client - notice this is my script that I modified. Cool
 
@@ -215,7 +215,7 @@ Run the client - notice this is my script that I modified. Cool
 
 This requires the more modern nividia drivers, I installed  nvidia450
 
-`sudo docker pull carlasim/carla:0.9.10.1`
+`docker pull carlasim/carla:0.9.10.1`
 
 I ran into this  errors: sh: 1: xdg-user-dir: not found
 
@@ -229,15 +229,15 @@ There are still some warnings but it seems like the simulation has started.
 ##### run the server in a container
 This will run the script CarlaUE4.sh in the carla container. This starts the server under a random funny name.
 
-`sudo docker run -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
+`docker run -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
 
 Using the --name option to choose a name is very useful. See below.
 
-`sudo docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
+`docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
 
 This will run BASH in the carla container without starting the simulator.
 
-`sudo -E docker run --name carlaserver --privileged --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10.1 bash`
+`docker run --name carlaserver --privileged --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10.1 bash`
 
 Do not run the docker as --privileged even though some forums may suggest it. This gives container root access to host, and this is very dangerous.
 Someone suggested this. DO NOT DO IT
