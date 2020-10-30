@@ -47,14 +47,14 @@ There are multple ways to install and run the CARLA package.
   - [ ] CARLA Server -  This appears to be a very involved - requires building CARLA and UNREAL4 (https://carla.readthedocs.io/en/latest/build_linux/)
    
 2. Install CARLA package with APT - this should be very straight forward - but hard to change versions - maybe this is the permanent solution 
-  - [ ] CARLA Client - this needs testing 
-  - [ ] CARLA Server - this needs testing
+  - [ ] CARLA Client - this needs testing - this should be easy 
+  - [ ] CARLA Server - this needs testing - it may be a pain to update versions - maybe not
 
 3. Use Docker to pull and run a CARLA image (https://carla.readthedocs.io/en/latest/build_docker/) 
   - [ ] CARLA Client - This should be easy, but this does not work - see bottom of this document
   - [ ] CARLA Server - This works good, but it did require some figuring out - see middle of this document
 
-I am pursuing the Docker Approach for the server for several reasons. Mainly flexibility in testing. Currently, my working demo is a hybrid of approach 1 and 3 from above. It would nice if we had full functionality in a Docker container (method 3 only) because this would allow for complete portability. This may have to wait. 
+I am pursuing the Docker Approach for the server for several reasons. Mainly flexibility in testing. Currently, my working demo is a hybrid of approach 1 and 3 from above. It would nice if we had full functionality in a Docker container (method 3 only) because this would allow for complete portability. This may have to wait. Option 2 is a good idea also!
 
 #### install docker 
 I installed 'docker CE' and 'nvidia-docker2' following the instructions that I was lead to from the carla docs
@@ -472,7 +472,7 @@ Nicholas from CARLA team said first test that you can run 'tutorial.py'. OK, let
 - [x] try the stable version (0.8.4 or 0.8.2) - does not have ROS_BRIDGE support
 - [ ] install and test ROS_BRIDGE
 
-- [ ] start the server in a different town, HDMaps/Town02.pcd 
+- [x] start the server in a different town, HDMaps/Town02.pcd  - woooo!
 - [ ] change the town from the cleint side, HDMaps/Town02.pcd 
 - [ ] document and test basic use of CARLA - not in a docker container
 
