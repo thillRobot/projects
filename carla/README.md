@@ -52,18 +52,15 @@ https://usermanual.wiki/Document/CARLASetupGuideUbuntu.271743992/help
 
 #### Required/Related Software
 
-* Python - Python3 is reccomended but apparently the client runs on Python2.
-           This needs to be addressed.
 
 * CARLA - the core of this project
+* Python - Python3 is reccomended but apparently the client runs on Python2.
+           This needs to be addressed.
 * NUMPY and PYGAME
-
 * docker CE
 * nvidia-docker2 (this requires nvidia drivers and driver version limits carla version)
-
 * ROS
 * ROS_BRIDGE
-
 
 #### Different Options for Installing CARLA
 There are multple ways to install and run the CARLA package. Which is the right way, who knows.
