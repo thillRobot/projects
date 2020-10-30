@@ -271,6 +271,7 @@ Before you can run the client (0.9.10.10) you have to set PYTHONPATH to .egg fil
 Then, you can run *some* of the examples in `/PythonAPI/examples` and `/PythonAPI/utils`, but several of the scripts fail.
 
 This starts a client and lets you drive with PYGAME. Also because these scripts at home they will easy to modify.
+
 `python3 ${CARLA_ROOT}/PythonAPI/examples/manual_control.py`
 
 It works pretty good, but sometimes this throws an error like this:
