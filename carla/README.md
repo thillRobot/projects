@@ -60,7 +60,22 @@ so now we have three!
 I installed numpy and pygame to run the client on the host
 
 
-#### Software test
+#### Using CARLA in Ubuntu 18.04
+
+Goals:
+
+- [ ] test *standalone* mode
+- [ ] test *server-client* mode - this is not the right name
+- [ ] figure out controls for first demo - drive a car        - Pretty Close
+- [ ] try the stable version (0.8.4 or 0.8.2) - does not have ROS_BRIDGE support
+
+- [ ] install and test ROS_BRIDGE
+- [ ] start the server in a different town, HDMaps/Town02.pcd 
+- [ ] change the town from the cleint side, HDMaps/Town02.pcd 
+- [ ] document and basic use of CARLA - this README for now
+
+
+#### Using CARLA in a docker container
 
 ### CARLA Version 0.8.4 - Nearly Stable  (Stable is 0.8.2)
 
@@ -425,7 +440,7 @@ Nicholas from CARLA team said first test that you can run 'tutorial.py'. OK, let
 ### THINGS TO DO:
 
 
-- [ ] figure out controls for first demo - drive a car        - Pretty Close
+
 - [ ] clean up this document, it is a huge mess - it is a little better - still needs work
 - [x] test client on local machine - not in docker - Done - Working
 - [x] test client on remote machine - not in docker - Done - Working
@@ -433,9 +448,10 @@ Nicholas from CARLA team said first test that you can run 'tutorial.py'. OK, let
 - [x] test server on local machine - in a docker - DONE - Working
 - [ ] test server on local machine - not in a docker - NOT DONE
 
+- [ ] figure out controls for first demo - drive a car        - Pretty Close
 - [x] try the stable version (0.8.4 or 0.8.2) - does not have ROS_BRIDGE support
 - [ ] install and test ROS_BRIDGE
-  
+
 - [ ] start the server in a different town, HDMaps/Town02.pcd 
 - [ ] change the town from the cleint side, HDMaps/Town02.pcd 
 - [ ] document and test basic use of CARLA - not in a docker container
