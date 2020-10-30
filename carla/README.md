@@ -249,7 +249,7 @@ I think this may be another app using that port, but I am not sure.
 
 #### altemnatively run the client in the container - this is what I really want - This does not work yet
 
-To me it seems to make sense for me to be able to run both in the container. 
+I would really like for the client and server to be in the docker container. To me it seems to make sense for me to be able to run both in the container. 
 
 start the carla server in a docker container
 
@@ -272,14 +272,19 @@ I have tried to set the paths the same as the are in the local version, I am not
 `export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
 
 use to -e or --env to set env vars in the container
+
  `--env PYTHONPATH=~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:~/PythonAPI/carla/agents:~/PythonAPI/carla`
 
-I have discovered that if you set the paths CORRECTLY then the python scripts run without import errors, but then there are other errors. Fixing these errors is my main goal in this section. 
+I have discovered that if you set the paths CORRECTLY then the python scripts run without import errors, but then there are other errors. Fixing these errors is my main goal in this section. I also realized that this seems to work just the same. Only the first python path is required (i am not sure if this is ok).
+
+`-e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg`
 
 Start the carla server in a docker container
+
 `sudo docker run --name carla -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10 ./CarlaUE4.sh -opengl`
 
 Then, start the the client in the same container as the server - not working
+
 `sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:/home/carla/PythonAPI/carla/agents:/home/carla/PythonAPI/carla carla python3 PythonAPI/examples/manual_control.py`
 
 `Traceback (most recent call last):
@@ -291,14 +296,14 @@ Then, start the the client in the same container as the server - not working
 ImportError: libxerces-c-3.2.so: cannot open shared object file: No such file or directory
 `
 
-I would really like for the client and server to be in the docker container.
-
 Try something similar. Start the client in a separate container. This throws the same errors.
 
 Start the carla server in a docker container
+
 `sudo docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10 ./CarlaUE4.sh -opengl`
 
 Then, start the the client in the different container as the server
+
 `sudo docker run --name carlaclient2 -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:/home/carla/PythonAPI/carla/agents:/home/carla/PythonAPI/carla -v /tmp/.X11-unix:/tmp/.X11-unix -it --gpus all carlasim/carla:0.9.10 python3 PythonAPI/examples/manual_control.py`
 
 Here Mike was trying to help me fix the missing library file (libxerces-c-3.2.so) issue. This library issue was fixed by installing missinhg librbaries in container. See below. 
@@ -323,7 +328,7 @@ Traceback (most recent call last):
   File "/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg/carla/libcarla.py", line 7, in __bootstrap__
 ImportError: libxerces-c-3.2.so: cannot open shared object file: No such file or directory`
 
-That did not fix the libxerces issue, at least we tried.
+That did not fix the libxerces issue, at least we tried. Thanks Mike.
 
 
 OKIE DOKIE!  I think i figured out the libxerces-c issue. well, maybe not but I think someone else did. Look at version 0.9.10.1
@@ -332,44 +337,30 @@ OKIE DOKIE!  I think i figured out the libxerces-c issue. well, maybe not but I 
 "Fixed dependency of library Xerces-c on package" - I think they might mean 'of'
 Well here we go with the latest version (16 days old).
 
-
-Now we are going to repeat that test with 0.9.10.1
+Now we are going to repeat those tests with carla 0.9.10.1
 
 run bash in the container - works
-sudo -E docker run --name carla --privileged --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10.1 bash
 
+`sudo -E docker run --name carla --privileged --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10.1 bash`
 
 Start the carla server in a docker container
-$ sudo docker run --name carla -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl
+
+`sudo docker run --name carla -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
 
 Then, start the the client in the same container as the server - not working
-$ sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:/home/carla/PythonAPI/carla/agents:/home/carla/PythonAPI/carla carla python3 PythonAPI/examples/manual_control.py
 
-wow, another similar error, differnt library
+`sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:/home/carla/PythonAPI/carla/agents:/home/carla/PythonAPI/carla carla python3 PythonAPI/examples/manual_control.py`
 
-Traceback (most recent call last):
+
+`Traceback (most recent call last):
   File "PythonAPI/examples/manual_control.py", line 77, in <module>
     import carla
   File "/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg/carla/__init__.py", line 8, in <module>
   File "/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg/carla/libcarla.py", line 9, in <module>
   File "/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg/carla/libcarla.py", line 7, in __bootstrap__
-ImportError: libjpeg.so.8: cannot open shared object file: No such file or directory
+ImportError: libjpeg.so.8: cannot open shared object file: No such file or directory`
 
-
-this is the fix ( not in a docker)
-sudo apt-get install libjpeg-turbo8
-
-
-either way i learned something
-
-Start the carla server in a docker container:
-$ sudo docker run --name carla -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl
-
-Then, I had been starting the client like this:
-$ sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:/home/carla/PythonAPI/carla/agents:/home/carla/PythonAPI/carla carla python3 PythonAPI/examples/manual_control.py
-
-I just realized that this seems to work just the same. Only the first python path is required.
-$ sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg carla python3 PythonAPI/examples/manual_control.py
+Wow, another similar error, different library. Does this mean that they fixed the xerces error and not this one? I am a little confused about that. At this point I have spent some time on this. I finally broke down and asked the CARLA team. I posted my question. I was terrified that they would make fun of me, but they were vey helpful and responsive. Here is my post (https://github.com/carla-simulator/carla/issues/3236#issuecomment-711022225):
 
 I am having a similar issue while trying to run the PythonAPI in a carlasim/carla:0.9.10.1 docker container. The server runs with some warnings, but the client does not run and shows the following error when I run the client inside the container.
 
@@ -385,64 +376,57 @@ ImportError: libjpeg.so.8: cannot open shared object file: No such file or direc
 
 Has anyone successfully run the PythonAPI inside a carla docker container? I have read #2909, and #3236, but I have not found a solution yet. I am new to docker and carla so it may be something simple that I am doing wrong.
 
-
-I posted my question. I am terrified that they will make fun of me.
-
-
-
-OK. To mix it up lets try the stable version
-
-$ sudo docker pull carlasim/carla:0.8.4
-
-
+As you can read in the link above the CARLA team was veryh helpful, but their suggestions have only lead me to more issues. Nicoloas said that carla is not runtime for the client (I am not sure what he means exactly), and that I will have to go into the client with bash and install the libraries with `apt-get`. This is very counter intutive to me.
 
 For any of this to work the docker must be able to access the internet, to do this edit the /etc/default/docker file and give DNS ip address
 add this line to the bottom of /etc/default/docker to allow a container to access the internet
 
-DOCKER_OPTS="--dns <your_dns_server_1> --dns <your_dns_server_2>"
+`DOCKER_OPTS="--dns <your_dns_server_1> --dns <your_dns_server_2>"`
 
-here it is in one line
+You can use `echo` to so append the file from the coammand line. It is shown below.
 
-'sudo echo "DOCKER_OPTS=" --dns 192.168.254.254" >> /etc/default/docker"'
+`sudo echo "DOCKER_OPTS=" --dns 192.168.254.254" >> /etc/default/docker"`
 
-'sudo service docker restart'
+Then restart docker.
+
+`sudo service docker restart`
 
 
-OK! We have news....Nicholas from carla team said that the image is not 'runtime' for the client so I have to start bash is the container and intall the library with apt-get
 
-apt-get install vim
 
-Start bash in the running container
+Now that docker can connect to the web, start bash in a running container
 
 `sudo docker exec -it -u 0:0 <container_name> /bin/bash`
 
 `apt-get update`
 
-`apt-get install python3-pip`
+`apt-get install vim` You probably do not need a text editor.
 
-`pip3 install -r PythonAPI/examples/requirements.txt`
 
-`apt-get install libjpeg-turbo8 libtiff-dev libxerces-c3.2`
+`apt-get install python3-pip` This might be the problem. Nicholas said he does not use pip in the container. 
+
+`pip3 install -r PythonAPI/examples/requirements.txt` I do not think running requirements.txt is neccesary
+
+`apt-get install libjpeg-turbo8 libtiff-dev libxerces-c3.2` Notice the `libjpeg` is in `libjpeg-turbo`
+
+
+now execute the client in the running container- throws weird error (document this!)
+
+ `python3 PythonAPI/examples/manual_control.py`
+
+instead, exit bash in the container and run it from the outside - thorus
 
 `exit`
 
-now execute the client in the running container
-
-python3 PythonAPI/examples/manual_control.py
-
-exit
-
 `sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg carlaserver python3 PythonAPI/examples/manual_control.py`
 
-OK, more news! Running the installs in the container gets us past the library issue but, now we are running into another issue with the python client related to the fonts.
+OK, more news! Running the installs in the container get us past the library issue but, now we are running into another issue with the python client related to the fonts and other fun things. 
 
-Again, Nicholas said first test that you can run 'tutorial.py'. OK, lets try.
+Nicholas said first test that you can run 'tutorial.py'. OK, lets try that. 
 
 Also, he said that he uses apt-get and not pip. this makes sense in the docker. let try this one more time.
 
 `sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg carlaserver python3 PythonAPI/examples/tutorial.py`
-
-
 
 
 
@@ -457,3 +441,8 @@ Also, he said that he uses apt-get and not pip. this makes sense in the docker. 
 * test client on local machine - in a docker   - DONE - not working
 * test server on local machine - in a docker - DONE - Working
 * test server on local machine - not in a docker - NOT DONE
+
+* try the stable version (0.8.4 or 0.8.2) - no ROS_BRIDGE
+* turn on ROS_BRIDGE
+
+
