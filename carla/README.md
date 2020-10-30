@@ -1,5 +1,30 @@
 ## TWH logs - CARLA - open source vehicle simulator
-## October 07, 2020 - October 14, 2020 - October 29, 2020
+October 07, 2020 - October 14, 2020 - October 29, 2020
+
+### CARLA Installation
+There are multple ways to install and run the CARLA package.
+
+1. Download and Extract from CARLA package from Github (https://github.com/carla-simulator/carla/releases)
+  [ ] CARLA Client - This is easy - requires numpy and pygame only 
+  [ ] CARLA Server -  This appears to be a very involved - requires build CARLA and UNREAL4 (https://carla.readthedocs.io/en/latest/build_linux/)
+   
+2. Install CARLA package with APT
+  [ ] CARLA Client - this needs testing
+  [ ] CARLA Server - this needs testing
+
+3. Use Docker to pull and run a CARLA image (https://carla.readthedocs.io/en/latest/build_docker/)
+  [ ] CARLA Client - This should be easy, but this does not work - see bottom of this document
+  [ ] CARLA Server - This works good, but it did require some figuring out - see middle of this document
+  
+
+A simple place to start is method **1. Download and Extract from CARLA package from Github**
+
+
+
+
+
+
+It would nice if we had full functionality in a Docker container because this would allow for complete portability. This may have to wait. 
 
 ### Hardware
 
@@ -60,19 +85,7 @@ so now we have three!
 I installed numpy and pygame to run the client on the host
 
 
-#### Using CARLA in Ubuntu 18.04
 
-Goals:
-
-- [ ] test *standalone* mode
-- [ ] test *server-client* mode - this is not the right name
-- [ ] figure out controls for first demo - drive a car        - Pretty Close
-- [ ] try the stable version (0.8.4 or 0.8.2) - does not have ROS_BRIDGE support
-
-- [ ] install and test ROS_BRIDGE
-- [ ] start the server in a different town, HDMaps/Town02.pcd 
-- [ ] change the town from the cleint side, HDMaps/Town02.pcd 
-- [ ] document and basic use of CARLA - this README for now
 
 
 #### Using CARLA in a docker container
