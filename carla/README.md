@@ -94,11 +94,11 @@ then I pulled the two more recent version, I as trying to get around the library
 
 `sudo docker pull carlasim/carla:0.9.10`
 
-this one in only on the 18.04 'sandbox computer' at the moment
+This one in only on the 18.04 'sandbox computer' at the moment
 
 `sudo docker pull carlasim/carla:0.9.10.1 `
 
-so now we have three!
+Now we have three images to choose from. 
 
 #### Download and extract CARLA package (no build/compile attempted yet)
 
@@ -132,7 +132,7 @@ This starts a client and lets you drive with PYGAME.
 `python3 ${CARLA_ROOT}/PythonAPI/examples/manual_control.py`
 
 
-### Using CARLA
+### Using CARLA Version 0.8.4
 this is a hybrid of approach 1 (download and extract) and method 3 (run in docker) from the list above 
 
 #### Start the CARLA server in a CARLA Version 0.8.4 container
@@ -210,7 +210,8 @@ Run the client - notice this is my script that I modified. Cool
 
 
 
-#### CARLA Version 0.9.10 or 0.9.10.1 - Current Development Version
+
+### Using CARLA Version 0.9.10 or 0.9.10.1 - Current Development Version
 
 This requires the more modern nividia drivers, I installed  nvidia450
 
