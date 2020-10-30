@@ -65,15 +65,15 @@ https://usermanual.wiki/Document/CARLASetupGuideUbuntu.271743992/help
 #### Different Options for Installing CARLA
 There are multple ways to install and run the CARLA package. Which is the right way, who knows.
 
-1. Download and Extract from CARLA package from Github (https://github.com/carla-simulator/carla/releases) - if you just need a client
+1. Download and Extract from CARLA package from Github (https://github.com/carla-simulator/carla/releases) - if you just need a client - or do developement
   * CARLA Client - This is easy - requires numpy and pygame only 
   * CARLA Server -  This appears to be a very involved - requires building CARLA and UNREAL4 (https://carla.readthedocs.io/en/latest/build_linux/)
    
-2. Install CARLA package with APT - this should be very straight forward - but hard to change versions - maybe this is the permanent solution 
+2. Install CARLA package with `apt install` - this should be very straight forward - but hard to change versions - for a general user
   * CARLA Client - this needs testing - this should be easy 
   * CARLA Server - this needs testing - it may be a pain to update versions - maybe not
 
-3. Use Docker to pull and run a CARLA image (https://carla.readthedocs.io/en/latest/build_docker/) 
+3. Use Docker to pull and run a CARLA image (https://carla.readthedocs.io/en/latest/build_docker/) - for development and test - portability
   * CARLA Client - This should be easy, but this does not work - see bottom of this document
   * CARLA Server - This works good, but it did require some figuring out - see middle of this document
 
