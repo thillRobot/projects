@@ -139,7 +139,7 @@ Run the client - notice this is my script that I modified. Cool
 
 
 
-### CARLA Version 0.9.10 - Development Version
+### CARLA Version 0.9.10 or 0.9.10.1 - Current Development Version
 
 This requires the more modern nividia drivers, I installed  nvidia450
 
