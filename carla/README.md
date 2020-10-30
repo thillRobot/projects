@@ -194,22 +194,19 @@ Now you should be able to run the server with the `docker run` below.
 
 #### CARLA Client - The client is a car driving in the world
 
-##### run the client in ~/
-
-Download and extract the appropriate version from Github. Here we are using: carla 0.9.10 (https://github.com/carla-simulator/carla)
+##### Running the client in users home directory (~/) of the local (server) machine 
 
 I do not like this option because it seems like it should be available in the container...
 
 On the client side I have had some trouble with the 'no module named carla issue' - https://github.com/carla-simulator/carla/issues/1137
-this is related to properly installing the 'carla' python module from /carla/PythonAPI, i have it working, except not in a docker..
-because that is not working... yet .... boo hoo, I am going to try something else ..
-try to run the client on the local machine - not in container for now. - this seems to work pretty good - still would like both to be in a container
-I bet it is just the paths...yep
+this is related to properly setting the path for the 'carla' python module from /carla/PythonAPI. This is discusses elsewhere.
+
+Download and extract the appropriate version from Github. Here we are using: carla 0.9.10 (https://github.com/carla-simulator/carla)
 
 In Ubuntu 20.04 (server machine) I downloaded and extracted carla 0.9.10 - 'pip3 install pygame' did not work so I had to use 'apt install python3-pygame'
 i had to set the PYTHONPATH for the carla module to work. Basically the PYTHONPATH must include the path to .egg file for the right version of carla, I think that this is the same problem I am having in the docker container 'no module named carla'
 
-Either way, Jared said "but generally we recommed y'all using Miniconda/Anaconda to create your own python 2 & 3 environments without any need for admin."
+Either way, Jared said *but generally we recommed y'all using Miniconda/Anaconda to create your own python 2 & 3 environments without any need for admin.*
 
 The client requires NUMPY and PYGAME
 
@@ -225,10 +222,8 @@ Then, run the client script manual_control.py
 
 `python3 ${CARLA_ROOT}/PythonAPI/examples/manual_control.py`
 
-it works pretty good but...
+It works pretty good, but sometimes this throws an error like this:
 
-
-sometimes this throws an error like this:
 ```
 'No recommended values for 'speed' attribute
 Traceback (most recent call last):
@@ -243,7 +238,6 @@ Traceback (most recent call last):
 RuntimeError: time-out of 2000ms while waiting for the simulator, make sure the simulator is ready and connected to 127.0.0.1:2000'
 ```
 I think this may be another app using that port, but I am not sure.
-
 
 
 
@@ -278,7 +272,7 @@ Next, `run` a client on the server machine this time so there is no ip needed, y
 `sudo docker run -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --net=host -it --gpus all carlasim/carla:0.9.10 /PythonAPI/examples/manual_control.py --env CARLA_ROOT=~/ --env PYTHONPATH=~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:~/PythonAPI/carla/agents:~/PythonAPI/carla`
 
 , 
-##### Alternatively, `run` the carla server in a docker container, and `exec` the the client in the same container as the server - not working 
+##### Alternatively,`run` the carla server in a docker container, and `exec` the the client in the same container as the server - not working 
 
 `sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:/home/carla/PythonAPI/carla/agents:/home/carla/PythonAPI/carla carla python3 PythonAPI/examples/manual_control.py`
 
@@ -290,7 +284,7 @@ Next, `run` a client on the server machine this time so there is no ip needed, y
   File "/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg/carla/libcarla.py", line 7, in __bootstrap__ Actually you are wrong carla is the name of the container and the python module
 ImportError: libxerces-c-3.2.so: cannot open shared object file: No such file or directory
 `
-##### Trying something else: `run` the carla server in a docker container, and then `run` the client in a separate container. 
+##### Something else: `run` the carla server in a docker container, and then `run` the client in a separate container. 
 To do this use the --name option to force the containers to be different.
 
 Start the carla server in a docker container named `carlaserver`
