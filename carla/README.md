@@ -85,6 +85,22 @@ I installed 'docker CE' and 'nvidia-docker2' following the instructions that I w
 * https://carla.readthedocs.io/en/latest/build_docker/#docker-ce Be careful not to install docker CE with apt and the script!
 * https://carla.readthedocs.io/en/latest/build_docker/#nvidia-docker2
 
+##### runnning the server without sudo (root access)
+
+If you are a regular user without without access to sudo, you must be added to the docker group. 
+
+`sudo groupadd docker`
+
+`sudo usermod -aG docker $USER`
+
+Also, for the X11 stuff to work the container needs access to $XAUTHORITY , this is a common issue with GUI in containers. This does not require sudo because **user** owns $XAUTHORITY 
+
+`chmod 644 $XAUTHORITY`
+
+Now you should be able to run the server with the `docker run` below. 
+
+`docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
+
 #### pull CARLA images with docker
 then I pulled a older vesion of carla 0.8.4. , this does not need to be repeated unless I change version
 
@@ -229,21 +245,7 @@ Someone suggested this. DO NOT DO IT
 In version 0.9.10 you can ctrl-c to close the server, but I want to check that this is ok, i think the container is removed so it should be fine
 unless you want to run that same container again with docker start or restart
 
-##### runnning the server without sudo (root access)
 
-If you are a regular user without without access to sudo, you must be added to the docker group. 
-
-`sudo groupadd docker`
-
-`sudo usermod -aG docker $USER`
-
-Also, for the X11 stuff to work the container needs access to $XAUTHORITY , this is a common issue with GUI in containers. This does not require sudo because **user** owns $XAUTHORITY 
-
-`chmod 644 $XAUTHORITY`
-
-Now you should be able to run the server with the `docker run` below. 
-
-`docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
 
 
 #### CARLA Client - The client is a car driving in the world
