@@ -132,12 +132,11 @@ This starts a client and lets you drive with PYGAME.
 `python3 ${CARLA_ROOT}/PythonAPI/examples/manual_control.py`
 
 
-### Using CARLA - this is a hybrid of approach 1 (download and extract) and method 3 (run in docker) from the list above 
-
-### CARLA Version 0.8.4 - Nearly Stable  (Stable is 0.8.2)
+### Using CARLA
+this is a hybrid of approach 1 (download and extract) and method 3 (run in docker) from the list above 
 
 #### Start the CARLA server in a container
-
+#### CARLA Version 0.8.4 - Nearly Stable  (Stable is 0.8.2) 
 run the default script 'CarlaUE4.sh' in a carla 0.8.4 container and give a name 'carlaserver'
 
 `sudo docker run --name carlaserver -p 2000-2002:2000-2002 --runtime=nvidia --gpus all carlasim/carla:0.8.4 \
@@ -211,7 +210,7 @@ Run the client - notice this is my script that I modified. Cool
 
 
 
-### CARLA Version 0.9.10 or 0.9.10.1 - Current Development Version
+#### CARLA Version 0.9.10 or 0.9.10.1 - Current Development Version
 
 This requires the more modern nividia drivers, I installed  nvidia450
 
