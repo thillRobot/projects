@@ -362,7 +362,7 @@ ImportError: libjpeg.so.8: cannot open shared object file: No such file or direc
 
 Wow, another similar error, different library. Does this mean that they fixed the xerces error and not this one? I am a little confused about that. At this point I have spent some time on this. I finally broke down and asked the CARLA team. I posted my question. I was terrified that they would make fun of me, but they were vey helpful and responsive. Here is my post (https://github.com/carla-simulator/carla/issues/3236#issuecomment-711022225):
 
-I am having a similar issue while trying to run the PythonAPI in a carlasim/carla:0.9.10.1 docker container. The server runs with some warnings, but the client does not run and shows the following error when I run the client inside the container.
+*I am having a similar issue while trying to run the PythonAPI in a carlasim/carla:0.9.10.1 docker container. The server runs with some warnings, but the client does not run and shows the following error when I run the client inside the container.
 
 ```
   File "PythonAPI/examples/manual_control.py", line 77, in <module>
@@ -374,7 +374,7 @@ ImportError: libjpeg.so.8: cannot open shared object file: No such file or direc
 
 ```
 
-Has anyone successfully run the PythonAPI inside a carla docker container? I have read #2909, and #3236, but I have not found a solution yet. I am new to docker and carla so it may be something simple that I am doing wrong.
+*Has anyone successfully run the PythonAPI inside a carla docker container? I have read #2909, and #3236, but I have not found a solution yet. I am new to docker and carla so it may be something simple that I am doing wrong.
 
 As you can read in the link above the CARLA team was veryh helpful, but their suggestions have only lead me to more issues. Nicoloas said that carla is not runtime for the client (I am not sure what he means exactly), and that I will have to go into the client with bash and install the libraries with `apt-get`. This is very counter intutive to me.
 
@@ -414,7 +414,7 @@ now execute the client in the running container- throws weird error (document th
 
  `python3 PythonAPI/examples/manual_control.py`
 
-instead, exit bash in the container and run it from the outside - thorus
+instead, exit bash in the container and run it from the outside 
 
 `exit`
 
@@ -422,9 +422,7 @@ instead, exit bash in the container and run it from the outside - thorus
 
 OK, more news! Running the installs in the container get us past the library issue but, now we are running into another issue with the python client related to the fonts and other fun things. 
 
-Nicholas said first test that you can run 'tutorial.py'. OK, lets try that. 
-
-Also, he said that he uses apt-get and not pip. this makes sense in the docker. let try this one more time.
+Nicholas from CARLA team said first test that you can run 'tutorial.py'. OK, lets try that. Also, he said that he uses apt-get and not pip. this makes sense in the docker. let try this one more time.
 
 `sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg carlaserver python3 PythonAPI/examples/tutorial.py`
 
