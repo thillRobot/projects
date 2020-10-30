@@ -424,17 +424,17 @@ Nicholas from CARLA team said first test that you can run 'tutorial.py'. OK, let
 
 ### THINGS TO DO:
 
-* install and test ROS_BRIDGE
-* figure out controls for first demo - drive a car        - Pretty Close
-* clean up this document, it is a huge mess - A little better
 
-* test client on local machine - not in docker - Done - Working
-* test client on remote machine - not in docker - Done - Working
-* test client on local machine - in a docker   - DONE - not working
-* test server on local machine - in a docker - DONE - Working
-* test server on local machine - not in a docker - NOT DONE
+[] figure out controls for first demo - drive a car        - Pretty Close
+[] clean up this document, it is a huge mess - it is a little better - still needs work
 
-* try the stable version (0.8.4 or 0.8.2) - no ROS_BRIDGE
-* turn on ROS_BRIDGE
+[x] test client on local machine - not in docker - Done - Working
+[x] test client on remote machine - not in docker - Done - Working
+[x] test client on local machine - in a docker   - DONE - not working
+[x] test server on local machine - in a docker - DONE - Working
+[] test server on local machine - not in a docker - NOT DONE
+
+[x] try the stable version (0.8.4 or 0.8.2) - does not have ROS_BRIDGE support
+[] install and test ROS_BRIDGE
 
 
