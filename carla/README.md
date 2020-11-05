@@ -512,6 +512,31 @@ rosdep install --from-paths src --ignore-src -r
 catkin_make
 ```
 
+##### run the server
+
+`docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
+
+##### run the ROS BRIDGE (with client)
+
+`export CARLA_ROOT=~/carla_simulator/carla_09101`
+
+`export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py2.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
+
+`roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch`
+
+##### run rostopic to test
+
+`rostopic list`
+
+`rostopic echo /carla/ego_vehicle/imu/imu1`
+
+You should now be able to see the data from the simulator in ROS, cool.
+
+
+
+
+
+
 
 
 
