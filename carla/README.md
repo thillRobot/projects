@@ -483,4 +483,32 @@ Nicholas from CARLA team said first test that you can run 'tutorial.py'. OK, let
 `sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg carlaserver python3 PythonAPI/examples/tutorial.py`
 
 
+#### CARLA ROS-BRIDGE - This should give us access to data from the simulation
+
+Follow the instructions on the ROS-BRIDGE github (https://github.com/carla-simulator/ros-bridge)
+
+Create a catkin workspace and install carla_ros_bridge package
+```
+#setup folder structure
+mkdir -p ~/carla-ros-bridge/catkin_ws/src
+cd ~/carla-ros-bridge
+git clone https://github.com/carla-simulator/ros-bridge.git
+cd ros-bridge
+git submodule update --init
+cd ../catkin_ws/src
+ln -s ../../ros-bridge
+source /opt/ros/<kinetic or melodic or noetic>/setup.bash
+cd ..
+
+#install required ros-dependencies
+rosdep update
+rosdep install --from-paths src --ignore-src -r
+
+#build
+catkin_make
+```
+
+
+
+
 
