@@ -5,7 +5,7 @@ October 07, 2020 - October 14, 2020 - October 29, 2020
 
 - [ ] figure out controls for first demo - testdrive an autonomous car - Pretty Close
 
-- [ ] install and test ROS_BRIDGE
+- [x] install and test ROS_BRIDGE - Boom!
 - [ ] record a *metric*
 
 - [ ] start the server in a different town, HDMaps/Town02.pcd  
