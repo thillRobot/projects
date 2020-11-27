@@ -3,12 +3,13 @@ October 07, 2020 - October 14, 2020 - October 29, 2020
 
 ### Goals:
 
+- [x] install and test ROS_BRIDGE in ros melodic
+- [ ] install and test ROS_BRIDGE in ros noetic
+- [ ] figure out steering wheel and pedal controls for demo - testdrive an autonomous car - Jon H. worked on this 
+- [ ] record a *metric* for Dr. Canfeild
+- [ ] use RVIZ to visualize the data from carla
+
 - [x] learn to use CONDA for python client - this will help with testing - done - big improvement
-- [ ] figure out controls for first demo - testdrive an autonomous car - Pretty Close
-
-- [x] install and test ROS_BRIDGE - Boom!
-- [ ] record a *metric*
-
 - [x] start the server in a different town, HDMaps/Town02.pcd  
 - [x] change the town from the client side, HDMaps/Town02.pcd 
 - [ ] document and test basic use of CARLA - not in a docker container
@@ -550,13 +551,3 @@ catkin_make
 `rostopic echo /carla/ego_vehicle/imu/imu1`
 
 You should now be able to see the data from the simulator in ROS, cool.
-
-
-
-
-
-
-
-
-
-
