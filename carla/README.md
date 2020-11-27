@@ -121,7 +121,7 @@ This one in only on the 18.04 'sandbox computer' at the moment
 
 Now we have three images to choose from. 
 
-#### Download and extract CARLA package (no build/compile attempted yet)
+#### Download and extract CARLA pre-compiled package from Github (reccomended option by CARAL for choosing versions)
 
 Download and extract the appropriate version from Github. Here we are using: carla 0.9.10 (https://github.com/carla-simulator/carla)
 
