@@ -288,7 +288,8 @@ OR if you are using Python2.7 use the appropriate .egg file
 
 Then, you can run *some* of the examples in `/PythonAPI/examples` and `/PythonAPI/utils`, but several of the scripts fail.
 
-UPDATE: instead you can use the virtual environment I have setup for convience. This way you do not have to mess with the paths.
+##### UPDATE: Run the Client in CONDA - This saves time and is preferred method during testing
+Use CONDA ro the virtual environment I have setup for convience. This way you do not have to mess with the paths.
 
 `conda activate carla09101`
 
