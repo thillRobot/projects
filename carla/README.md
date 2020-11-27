@@ -3,7 +3,7 @@ October 07, 2020 - October 14, 2020 - October 29, 2020
 
 ### Goals:
 
-- [ ] learn to use CONDA for python client - this will help with testing 
+- [x] learn to use CONDA for python client - this will help with testing - done - big improvement
 - [ ] figure out controls for first demo - testdrive an autonomous car - Pretty Close
 
 - [x] install and test ROS_BRIDGE - Boom!
@@ -129,15 +129,24 @@ In Ubuntu 20.04 (server machine) I downloaded and extracted carla 0.9.10 - 'pip3
 i had to set the PYTHONPATH for the carla module to work. Basically the PYTHONPATH must include the path to .egg file for the right version of carla, I think that this is the same problem I am having in the docker container 'no module named carla'
 
 Either way, Jared said *but generally we recommed y'all using Miniconda/Anaconda to create your own python 2 & 3 environments without any need for admin.*
+So, I finally tested it with CONDA . Install conda following instructions here (https://docs.anaconda.com/anaconda/install/linux/)
 
 The client requires NUMPY and PYGAME (https://carla.readthedocs.io/en/latest/start_quickstart/). 
 Do I need the `--user` option ? What does that even do? I think I know.
 
+Create a environment to use the client in (this only needs to be done once)
+`conda create --name carla09101 python=3.7`
+
+then actitvate the environment (this needs to be done at the start of each session)
+`conda activate carla09101`
+
+the first time you may need to install `numpy` and `pygame`
 `pip3 install --user numpy pygame`
 
 You can also install them with pip and the `requirements.txt` file. I am not sure which is better. Mike seemed to think requirements was not important, and I have seen no difference between these two methods.
 
 `pip3 install -r PythonAPI/examples/requirements.txt`
+
 
 
 ### Using CARLA Version 0.8.4
@@ -278,6 +287,10 @@ OR if you are using Python2.7 use the appropriate .egg file
 `export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py2.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
 
 Then, you can run *some* of the examples in `/PythonAPI/examples` and `/PythonAPI/utils`, but several of the scripts fail.
+
+UPDATE: instead you can use the virtual environment I have setup for convience. This way you do not have to mess with the paths.
+
+`conda activate carla09101`
 
 This starts a client and lets you drive with PYGAME. Also because these scripts at home they will easy to modify.
 
