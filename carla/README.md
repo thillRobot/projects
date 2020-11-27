@@ -3,6 +3,7 @@ October 07, 2020 - October 14, 2020 - October 29, 2020
 
 ### Goals:
 
+- [ ] learn to use CONDA for python client - this will help with testing 
 - [ ] figure out controls for first demo - testdrive an autonomous car - Pretty Close
 
 - [x] install and test ROS_BRIDGE - Boom!
