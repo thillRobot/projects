@@ -93,6 +93,10 @@ If you are a regular user without without access to sudo, you must be added to t
 
 `sudo usermod -aG docker $USER`
 
+Also run the following command to activate the changes to groups:
+
+` newgrp docker`
+
 Also, for the X11 stuff to work the container needs access to $XAUTHORITY , this is a common issue with GUI in containers. This does not require sudo because **user** owns $XAUTHORITY 
 
 `chmod 644 $XAUTHORITY`
