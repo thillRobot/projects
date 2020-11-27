@@ -9,7 +9,7 @@ October 07, 2020 - October 14, 2020 - October 29, 2020
 - [x] install and test ROS_BRIDGE - Boom!
 - [ ] record a *metric*
 
-- [ ] start the server in a different town, HDMaps/Town02.pcd  
+- [x] start the server in a different town, HDMaps/Town02.pcd  
 - [x] change the town from the client side, HDMaps/Town02.pcd 
 - [ ] document and test basic use of CARLA - not in a docker container
 - [ ] clean up this document, it is a huge mess - it is a little better
