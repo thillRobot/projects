@@ -247,7 +247,7 @@ This will run the script CarlaUE4.sh in the carla container. This starts the ser
 
 Using the --name option to choose a name is very useful. See below.
 
-`sudo docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
+`sudo docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl -benchmark fps=20`
 
 If you are not using sudo (preferred) then use the following line. 
 
