@@ -149,9 +149,13 @@ this line shows to set a env var permanently in the conda environment
 
 `conda env config vars set CARLA_ROOT=~/carla_simulator/carla_09101`
 
+re-actitvate the environment after setting vars 
+
+`conda activate carla09101`
+
 `conda env config vars set PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
 
-then re-actitvate the environment after setting vars
+re-actitvate the environment after setting vars again (could this be combined?)
 `conda activate carla09101`
 
 You need to have `numpy` and `pygame` installed. The CARLA website reccomends doing like this. 
