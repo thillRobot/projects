@@ -136,17 +136,24 @@ The client requires NUMPY and PYGAME (https://carla.readthedocs.io/en/latest/sta
 Do I need the `--user` option ? What does that even do? I think I know.
 
 Create a environment to use the client in (this only needs to be done once)
+
 `conda create --name carla09101 python=3.7`
 
 then actitvate the environment (this needs to be done at the start of each session)
+
 `conda activate carla09101`
 
 the first time you may need to install `numpy` and `pygame`
+
 `pip3 install --user numpy pygame`
 
 You can also install them with pip and the `requirements.txt` file. I am not sure which is better. Mike seemed to think requirements was not important, and I have seen no difference between these two methods.
 
 `pip3 install -r PythonAPI/examples/requirements.txt`
+
+or
+
+`pip3 install -r ${CARLA_ROOT}/PythonAPI/examples/requirements.txt`
 
 finally add the paths to the conda environment so that you do not have to do this each time
 this line shows to set a env var permanently in the conda environment
