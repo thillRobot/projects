@@ -97,7 +97,7 @@ If you are a regular user without without access to sudo, you must be added to t
 
 Also run the following command to activate the changes to groups:
 
-` newgrp docker`
+`newgrp docker`
 
 Also, for the X11 stuff to work the container needs access to $XAUTHORITY , this is a common issue with GUI in containers. This does not require sudo because **user** owns $XAUTHORITY 
 
@@ -124,55 +124,12 @@ Now we have three images to choose from.
 
 #### Download and extract CARLA pre-compiled package from Github (reccomended option by CARAL for choosing versions)
 
-Download and extract the appropriate version from Github. Here we are using: carla 0.9.10 (https://github.com/carla-simulator/carla)
-
-In Ubuntu 20.04 (server machine) I downloaded and extracted carla 0.9.10 - 'pip3 install pygame' did not work so I had to use 'apt install python3-pygame'
-i had to set the PYTHONPATH for the carla module to work. Basically the PYTHONPATH must include the path to .egg file for the right version of carla, I think that this is the same problem I am having in the docker container 'no module named carla'
-
-Either way, Jared said *but generally we recommed y'all using Miniconda/Anaconda to create your own python 2 & 3 environments without any need for admin.*
-So, I finally tested it with CONDA . Install conda following instructions here (https://docs.anaconda.com/anaconda/install/linux/)
-
-The client requires NUMPY and PYGAME (https://carla.readthedocs.io/en/latest/start_quickstart/). 
-Do I need the `--user` option ? What does that even do? I think I know.
-
-Create a environment to use the client in (this only needs to be done once)
-this environment will have python3.7 installed
-
-`conda create --name carla09101 python=3.7`
-
-then actitvate the environment (this needs to be done at the start of each session)
-
-`conda activate carla09101`
-
-finally add the paths to the conda environment so that you do not have to do this each time
-this line shows to set a env var permanently in the conda environment
-
-`conda env config vars set CARLA_ROOT=~/carla_simulator/carla_09101`
-
-re-actitvate the environment after setting vars 
-
-`conda activate carla09101`
-
-`conda env config vars set PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
-
-re-actitvate the environment after setting vars again (could this be combined?)
-`conda activate carla09101`
-
-You need to have `numpy` and `pygame` installed. The CARLA website reccomends doing like this. 
-
-`pip3 install --user numpy pygame`
-
-You can also install them with pip and the `requirements.txt` file. I am not sure which is better. It seems that using the requirements.txt in conda takes long time. What does this mean, I dont know.
-
-now that CARLA_ROOT is set you can install the python requirements with the folllowing:
-
-`pip3 install -r PythonAPI/examples/requirements.txt` 
-
-or
-
-`pip3 install -r ${CARLA_ROOT}/PythonAPI/examples/requirements.txt`
-
-
+Download and extract the appropriate version from Github. (https://github.com/carla-simulator/carla)
+Here we show two versions are using: 
+ 
+ * carla 0.8.4
+ 
+ * carla 0.9.10 
 
 ### Using CARLA Version 0.8.4
 this is a hybrid of approach 1 (download and extract) and method 3 (run in docker) from the list above 
@@ -250,7 +207,18 @@ Run the client - notice this is my script that I modified. Cool
 
 
 
+
+ 
+
+
+
+
+
+
+
 ### Using CARLA Version 0.9.10 or 0.9.10.1 - Current Development Version
+
+
 
 This requires the more modern nividia drivers, I installed  nvidia450
 
@@ -295,11 +263,16 @@ For now, you have to remove the container before you can start it again. This sh
 
 #### CARLA Client - The client is a car driving in the world
 
-##### Running the client in users home directory (~/) of the local (server) machine 
-
 I do not like this option because it seems like it should be available in the container...
 On the client side I have had some trouble with the 'no module named carla issue' - https://github.com/carla-simulator/carla/issues/1137
 this is related to properly setting the path for the 'carla' python module from /carla/PythonAPI. 
+
+In Ubuntu 20.04 (server machine) I downloaded and extracted carla 0.9.10 - 'pip3 install pygame' did not work so I had to use 'apt install python3-pygame'
+i had to set the PYTHONPATH for the carla module to work. Basically the PYTHONPATH must include the path to .egg file for the right version of carla, I think that this is the same problem I am having in the docker container 'no module named carla'
+
+##### Running the client in users home directory (~/) of the local (server) machine 
+The client requires NUMPY and PYGAME (https://carla.readthedocs.io/en/latest/start_quickstart/). 
+Do I need the `--user` option ? What does that even do? I think I know.
 
 Before you can run the client (0.9.10.10) you have to set PYTHONPATH to .egg file. (CARLA_ROOT is just intermediate variable to save length)
 
@@ -314,7 +287,47 @@ OR if you are using Python2.7 use the appropriate .egg file
 Then, you can run *some* of the examples in `/PythonAPI/examples` and `/PythonAPI/utils`, but several of the scripts fail.
 
 ##### UPDATE: Run the Client in CONDA - This saves time and is preferred method during testing
+Either way, Jared said *but generally we recommed y'all using Miniconda/Anaconda to create your own python 2 & 3 environments without any need for admin.*
+So, I finally tested it with CONDA . Install conda following instructions here (https://docs.anaconda.com/anaconda/install/linux/)
+
 Use CONDA for a virtual environment I have setup for conveinence. This way you do not have to set the paths each time.
+
+Create a environment to use the client in (this only needs to be done once)
+this environment will have python3.7 installed
+
+`conda create --name carla09101 python=3.7`
+
+then actitvate the environment (this needs to be done at the start of each session)
+
+`conda activate carla09101`
+
+finally add the paths to the conda environment so that you do not have to do this each time
+this line shows to set a env var permanently in the conda environment
+
+`conda env config vars set CARLA_ROOT=~/carla_simulator/carla_09101`
+
+re-actitvate the environment after setting vars 
+
+`conda activate carla09101`
+
+`conda env config vars set PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
+
+re-actitvate the environment after setting vars again (could this be combined?)
+`conda activate carla09101`
+
+You need to have `numpy` and `pygame` installed. The CARLA website reccomends doing like this. 
+
+`pip3 install --user numpy pygame`
+
+You can also install them with pip and the `requirements.txt` file. I am not sure which is better. It seems that using the requirements.txt in conda takes long time. What does this mean, I dont know.
+
+now that CARLA_ROOT is set you can install the python requirements with the folllowing:
+
+`pip3 install -r ${CARLA_ROOT}/PythonAPI/examples/requirements.txt`
+
+`automatic_control.py` requires the networkx module to be install - i used conda to install it (the env most still be active of course)
+
+`conda install networkx`
 
 `conda activate carla09101`
 
@@ -322,7 +335,11 @@ This starts a client and lets you drive with PYGAME. Also because these scripts 
 
 `python3 ${CARLA_ROOT}/PythonAPI/examples/manual_control.py`
 
-It works pretty good, but sometimes this throws an error like this:
+If the client is remote then you have to inlcude the IP address of the host.
+
+`python3 ${CARLA_ROOT}/PythonAPI/examples/manual_control.py --host 192.168.254.45` 
+
+Sometimes is throws an error like this. Typically if you try again it will work...
 
 ```
 'No recommended values for 'speed' attribute
@@ -349,6 +366,7 @@ Here is an example that shows how to change the town map.
 And this line changes the weather. 
 
 `python3 ${CARLA_ROOT}/PythonAPI/util/config.py --weather HardRainNoon`
+
 
 
 #### alternatively run the client in the container - this is what I really want - This does not work yet
