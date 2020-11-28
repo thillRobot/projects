@@ -148,6 +148,15 @@ You can also install them with pip and the `requirements.txt` file. I am not sur
 
 `pip3 install -r PythonAPI/examples/requirements.txt`
 
+finally add the paths to the conda environment so that you do not have to do this each time
+this line shows to set a env var permanently in the conda environment
+
+`conda env config vars set CARLA_ROOT=~/carla_simulator/carla_09101`
+
+`conda env config vars set PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
+
+then re-actitvate the environment after setting vars
+`conda activate carla09101`
 
 
 ### Using CARLA Version 0.8.4
