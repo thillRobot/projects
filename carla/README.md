@@ -232,7 +232,7 @@ This will run BASH in the carla container without starting the simulator.
 
 `sudo docker run --name carlaserver --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10.1 bash`
 
-Do not run the docker as --privileged even though some forums may suggest it. This gives container root access to host, and this is very dangerous.
+Do not run the docker as `--privileged` even though some forums may suggest it. This gives container root access to host, and this is very dangerous.
 Someone suggested this in a forum somewhere, but that does not mean it is a good idea.
 
 In version 0.9.10 you can ctrl-c to close the server, but I want to check that this is ok, i think the container is removed so it should be fine
