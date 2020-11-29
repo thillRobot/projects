@@ -122,14 +122,16 @@ This one in only on the 18.04 'sandbox computer' at the moment
 
 Now we have three images to choose from. 
 
-#### Download and extract CARLA pre-compiled package from Github (reccomended option by CARAL for choosing versions)
+#### Download and extract CARLA pre-compiled package from Github (reccomended option by CARLA for choosing versions)
 
 Download and extract the appropriate version from Github. (https://github.com/carla-simulator/carla)
-Here we show two versions are using: 
+I am currently putting the package in ` ~/carla_simulator/carla_<version number> `
+Here we show versions: 
  
  * carla 0.8.4
- 
  * carla 0.9.10 
+ * carla 0.9.10.1 
+
 
 ### Using CARLA Version 0.8.4
 this is a hybrid of approach 1 (download and extract) and method 3 (run in docker) from the list above 
@@ -204,23 +206,9 @@ Run the client - notice this is my script that I modified. Cool
 
 `/.manual_control_twh.py --autopilot --host 192.168.1.2 -q Low`
 
-
-
-
-
- 
-
-
-
-
-
-
-
 ### Using CARLA Version 0.9.10 or 0.9.10.1 - Current Development Version
 
-
-
-This requires the more modern nividia drivers, I installed  nvidia450
+This requires the more modern nividia drivers, I installed  nvidia450 -> nvidia455
 
 `docker pull carlasim/carla:0.9.10.1`
 
@@ -251,13 +239,12 @@ This will run BASH in the carla container without starting the simulator.
 `sudo docker run --name carlaserver --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10.1 bash`
 
 Do not run the docker as --privileged even though some forums may suggest it. This gives container root access to host, and this is very dangerous.
-Someone suggested this. DO NOT DO IT
+Someone suggested this in a forum somewhere, but that does not mean it is a good idea.
 
 In version 0.9.10 you can ctrl-c to close the server, but I want to check that this is ok, i think the container is removed so it should be fine
 unless you want to run that same container again with docker start or restart
 
-For now, you have to remove the container before you can start it again. This should be fixed.
-
+For now, you have to remove the container before you can start it again. This should be fixed but it is not at the moment.
 `docker container rm carlaserver`
 
 
@@ -286,11 +273,9 @@ OR if you are using Python2.7 use the appropriate .egg file
 
 Then, you can run *some* of the examples in `/PythonAPI/examples` and `/PythonAPI/utils`, but several of the scripts fail.
 
-##### UPDATE: Run the Client in CONDA - This saves time and is preferred method during testing
+##### Run the Client in CONDA Environment - This saves time and is preferred method during testing
 Either way, Jared said *but generally we recommed y'all using Miniconda/Anaconda to create your own python 2 & 3 environments without any need for admin.*
-So, I finally tested it with CONDA . Install conda following instructions here (https://docs.anaconda.com/anaconda/install/linux/)
-
-Use CONDA for a virtual environment I have setup for conveinence. This way you do not have to set the paths each time.
+So, I finally tested it with CONDA . Install conda following instructions here (https://docs.anaconda.com/anaconda/install/linux/). Use CONDA for a virtual environment I have setup for conveinence. This way you do not have to set the paths each time.
 
 Create a environment to use the client in (this only needs to be done once)
 this environment will have python3.7 installed
@@ -368,6 +353,52 @@ And this line changes the weather.
 `python3 ${CARLA_ROOT}/PythonAPI/util/config.py --weather HardRainNoon`
 
 
+#### CARLA ROS-BRIDGE - This should give us access to data from the simulation
+
+Follow the instructions on the ROS-BRIDGE github (https://github.com/carla-simulator/ros-bridge)
+
+Create a catkin workspace and install carla_ros_bridge package
+```
+#setup folder structure
+mkdir -p ~/carla-ros-bridge/catkin_ws/src
+cd ~/carla-ros-bridge
+git clone https://github.com/carla-simulator/ros-bridge.git
+cd ros-bridge
+git submodule update --init
+cd ../catkin_ws/src
+ln -s ../../ros-bridge
+source /opt/ros/<kinetic or melodic or noetic>/setup.bash
+cd ..
+
+#install required ros-dependencies
+rosdep update
+rosdep install --from-paths src --ignore-src -r
+
+#build
+catkin_make
+```
+
+##### run the server
+
+`docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
+
+##### run the ROS BRIDGE (with client)
+
+`export CARLA_ROOT=~/carla_simulator/carla_09101`
+
+`export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py2.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
+
+`roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch`
+
+##### run rostopic to test
+
+`rostopic list`
+
+`rostopic echo /carla/ego_vehicle/imu/imu1`
+
+You should now be able to see the data from the simulator in ROS, cool.
+
+
 
 #### alternatively run the client in the container - this is what I really want - This does not work yet
 
@@ -378,7 +409,6 @@ I would really like for the client and server to be in the docker container. To 
 Start the carla server in a docker container. Apparantely I was not using the name option. I need to add the name option here. 
 
 `sudo docker run -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10 ./CarlaUE4.sh -opengl`
-
 
 I have discovered that if you set the paths CORRECTLY then the python scripts run without import errors, but then there are other errors. Fixing these errors is my main goal in this section. I also realized that this seems to work just the same. Only the first python path is required (i am not sure if this is ok). 
 
@@ -469,7 +499,6 @@ Then, start the the client in the same container as the server - not working
 
 `sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:/home/carla/PythonAPI/carla/agents:/home/carla/PythonAPI/carla carla python3 PythonAPI/examples/manual_control.py`
 
-
 `Traceback (most recent call last):
   File "PythonAPI/examples/manual_control.py", line 77, in <module>
     import carla
@@ -513,17 +542,13 @@ Then restart docker.
 
 `sudo service docker restart`
 
-
-
-
 Now that docker can connect to the web, start bash in a running container
 
 `sudo docker exec -it -u 0:0 <container_name> /bin/bash`
 
 `apt-get update`
 
-`apt-get install vim` You probably do not need a text editor.
-
+`apt-get install vim` You probably do not need a text editor, but it cannot hurt right?
 
 `apt-get install python3-pip` This might be the problem. Nicholas said he does not use pip in the container. 
 
@@ -549,47 +574,3 @@ Nicholas from CARLA team said first test that you can run 'tutorial.py'. OK, let
 `sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg carlaserver python3 PythonAPI/examples/tutorial.py`
 
 
-#### CARLA ROS-BRIDGE - This should give us access to data from the simulation
-
-Follow the instructions on the ROS-BRIDGE github (https://github.com/carla-simulator/ros-bridge)
-
-Create a catkin workspace and install carla_ros_bridge package
-```
-#setup folder structure
-mkdir -p ~/carla-ros-bridge/catkin_ws/src
-cd ~/carla-ros-bridge
-git clone https://github.com/carla-simulator/ros-bridge.git
-cd ros-bridge
-git submodule update --init
-cd ../catkin_ws/src
-ln -s ../../ros-bridge
-source /opt/ros/<kinetic or melodic or noetic>/setup.bash
-cd ..
-
-#install required ros-dependencies
-rosdep update
-rosdep install --from-paths src --ignore-src -r
-
-#build
-catkin_make
-```
-
-##### run the server
-
-`docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
-
-##### run the ROS BRIDGE (with client)
-
-`export CARLA_ROOT=~/carla_simulator/carla_09101`
-
-`export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py2.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
-
-`roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch`
-
-##### run rostopic to test
-
-`rostopic list`
-
-`rostopic echo /carla/ego_vehicle/imu/imu1`
-
-You should now be able to see the data from the simulator in ROS, cool.
