@@ -184,7 +184,6 @@ and you will get something like this:
 CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS                              NAMES
 7b2ab18618af        carlasim/carla:0.8.4   "/bin/bash CarlaUE4.…"   20 minutes ago      Up 20 minutes       0.0.0.0:2000-2002->2000-2002/tcp   elastic_kare
 ```
-
 read the goofy name over on the right and that is the 'name' you will use to stop the containers. This goofy name issue is solved with the `--name` option.
 
 `docker stop elastic_kare`
@@ -243,7 +242,7 @@ For now, you have to remove the container before you can start it again. This sh
 
 `docker container rm carlaserver`
 
-#### CARLA Client - The client is a car driving in the world
+#### CARLA Client - The client is a car driving in the world server
 
 I do not like this option because it seems like it should be available in the container...
 On the client side I have had some trouble with the 'no module named carla issue' - https://github.com/carla-simulator/carla/issues/1137
