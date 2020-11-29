@@ -130,7 +130,6 @@ Here we show versions:
  * carla 0.9.10 
  * carla 0.9.10.1 
 
-
 ### Using CARLA Version 0.8.4
 this is a hybrid of approach 1 (download and extract) and method 3 (run in docker) from the list above 
 
@@ -150,7 +149,6 @@ change to the PythonClient directory and run one of the example scripts
 `cd ~/carla_simulator/carla_084/PythonClient`
 `./manual_control.py --autopilot`
 
-
 #### Start a client (0.8.4) on a remote computer - This works
 
 First change to the PythonClient directory and run one of the example scripts
@@ -163,7 +161,6 @@ First change to the PythonClient directory and run one of the example scripts
 You have to take the parking break off first! At the moment the server<--->client relationship works!
 
 Note: the directory `/PythonClient` has changed `/PythonAPI` in the later versions 
-
 
 #### Shutdown the CARLA server 
 
@@ -243,8 +240,8 @@ In version 0.9.10 you can ctrl-c to close the server, but I want to check that t
 unless you want to run that same container again with docker start or restart
 
 For now, you have to remove the container before you can start it again. This should be fixed but it is not at the moment.
-`docker container rm carlaserver`
 
+`docker container rm carlaserver`
 
 #### CARLA Client - The client is a car driving in the world
 
@@ -296,15 +293,16 @@ re-actitvate the environment after setting vars
 `conda env config vars set PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
 
 re-actitvate the environment after setting vars again (could this be combined?)
+
 `conda activate carla09101`
 
 You need to have `numpy` and `pygame` installed. The CARLA website reccomends doing like this. 
 
 `pip3 install --user numpy pygame`
 
-You can also install them with pip and the `requirements.txt` file. I am not sure which is better. It seems that using the requirements.txt in conda takes long time. What does this mean, I dont know.
+However, you can also install them with pip and the `requirements.txt` file. I am not sure which is better. It seems that using the requirements.txt in conda takes long time. What does this mean, I dont know.
 
-now that CARLA_ROOT is set you can install the python requirements with the folllowing:
+now that `CARLA_ROOT` is set you can install the python requirements with the folllowing:
 
 `pip3 install -r ${CARLA_ROOT}/PythonAPI/examples/requirements.txt`
 
@@ -351,7 +349,7 @@ And this line changes the weather.
 `python3 ${CARLA_ROOT}/PythonAPI/util/config.py --weather HardRainNoon`
 
 
-#### CARLA ROS-BRIDGE - This should give us access to data from the simulation
+#### CARLA ROS-BRIDGE - This gives us access to data from the simulation in ROS
 
 Follow the instructions on the ROS-BRIDGE github (https://github.com/carla-simulator/ros-bridge)
 
