@@ -267,9 +267,8 @@ OR if you are using Python2.7 use the appropriate .egg file
 
 Then, you can run *some* of the examples in `/PythonAPI/examples` and `/PythonAPI/utils`, but several of the scripts fail.
 
-##### Run the Client in CONDA Environment - This saves time and is preferred method during testing
-Either way, Jared said *but generally we recommed y'all using Miniconda/Anaconda to create your own python 2 & 3 environments without any need for admin.*
-So, I finally tested it with CONDA . Install conda following instructions here (https://docs.anaconda.com/anaconda/install/linux/). Use CONDA for a virtual environment I have setup for conveinence. This way you do not have to set the paths each time.
+##### Setup CONDA Environment for CARLA client - This saves time and is preferred method during testing
+Install conda following instructions here (https://docs.anaconda.com/anaconda/install/linux/). Use CONDA for a virtual environment I have setup for conveinence. This way you do not have to set the paths each time or install dependencies. 
 
 Create a environment to use the client in (this only needs to be done once)
 this environment will have python3.7 installed
@@ -308,6 +307,8 @@ now that `CARLA_ROOT` is set you can install the python requirements with the fo
 `automatic_control.py` requires the networkx module to be install - i used conda to install it (the env most still be active of course)
 
 `conda install networkx`
+
+##### run CARLA client in CONDA Environment 
 
 `conda activate carla09101`
 
