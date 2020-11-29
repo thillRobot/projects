@@ -87,9 +87,9 @@ I installed 'docker CE' and 'nvidia-docker2' following the instructions that I w
 * https://carla.readthedocs.io/en/latest/build_docker/#docker-ce Be careful not to install docker CE with apt and the script!
 * https://carla.readthedocs.io/en/latest/build_docker/#nvidia-docker2
 
-##### runnning the server without sudo (root access)
+##### using docker without sudo (root access)
 
-If you are a regular user without without access to sudo, you must be added to the docker group. 
+If you are a regular user without without access to sudo, you must be added to the docker group. More details are dicsussed in the *post-installation steps*  here (https://docs.docker.com/engine/install/linux-postinstall/).
 
 `sudo groupadd docker`
 
@@ -99,13 +99,11 @@ Also run the following command to activate the changes to groups:
 
 `newgrp docker`
 
-Also, for the X11 stuff to work the container needs access to $XAUTHORITY , this is a common issue with GUI in containers. This does not require sudo because **user** owns $XAUTHORITY 
+Also, to run CARLA server with docker (the X11 port stuff), the container needs access to $XAUTHORITY , this is a common issue with GUI in containers. This does not require sudo because **user** owns $XAUTHORITY 
 
 `chmod 644 $XAUTHORITY`
 
-Now you should be able to run the server with the `docker run` below. All remaining `docker` commands should not require sudo.
-
-`docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
+Now you should be able to run the `docker` commands below. All remaining `docker` commands should not require sudo.
 
 #### pull CARLA images with docker
 then I pulled a older vesion of carla 0.8.4. , this does not need to be repeated unless I change version
