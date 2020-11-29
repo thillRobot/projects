@@ -6,14 +6,13 @@ October 07, 2020 - October 14, 2020 - October 29, 2020
 - [x] install and test ROS_BRIDGE in ros melodic
 - [ ] install and test ROS_BRIDGE in ros noetic
 - [ ] figure out steering wheel and pedal controls for demo - testdrive an autonomous car - Jon H. worked on this 
-- [ ] record a *metric* for Dr. Canfeild
+- [ ] record a *metric* for Dr. Canfield
 - [ ] use RVIZ to visualize the data from carla
 
 - [x] learn to use CONDA for python client - this will help with testing - done - big improvement
 - [x] start the server in a different town, HDMaps/Town02.pcd  
 - [x] change the town from the client side, HDMaps/Town02.pcd 
 - [ ] document and test basic use of CARLA - not in a docker container
-- [ ] clean up this document, it is a huge mess - it is a little better
 
 - [x] try the stable version (0.8.4 or 0.8.2) - does not have ROS_BRIDGE support I do not think
 - [x] test client on local machine - not in docker - Done - Working
@@ -21,6 +20,7 @@ October 07, 2020 - October 14, 2020 - October 29, 2020
 - [x] test client on local machine - in a docker   - DONE - not working
 - [x] test server on local machine - in a docker - DONE - Working
 - [ ] test server on local machine - not in a docker - NOT DONE
+- [ ] clean up this document, it is a huge mess - it is a little better
 
 ### Useful Resources
 
