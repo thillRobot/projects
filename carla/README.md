@@ -29,7 +29,7 @@ https://carla.readthedocs.io/en/latest/
 I am not the first one doing this... what a surprise
 https://usermanual.wiki/Document/CARLASetupGuideUbuntu.271743992/help  
 
-This group is using CARLA 0.9.10.1 in a docker - nice
+This group is using COROS + CARLA 0.9.10.1 in a docker
 https://hub.docker.com/r/johannhaselberger/coros
 
 
@@ -85,7 +85,7 @@ There are multple ways to install and run the CARLA package. Which is the right 
 I am pursuing the Docker Approach for the server for several reasons. Mainly flexibility in testing. Currently, my working demo is a hybrid of approach 1 and 3 from above. It would nice if we had full functionality in a Docker container (method 3 only) because this would allow for complete portability. This may have to wait. Option 2 is a good idea also!
 
 #### install docker 
-I installed 'docker CE' and 'nvidia-docker2' following the instructions that I was lead to from the carla docs
+I installed 'docker CE' and 'nvidia-docker2' following the instructions that I was lead to from the carla docs. This requires the nvidia drivers.
 * https://carla.readthedocs.io/en/latest/build_docker/
 * https://carla.readthedocs.io/en/latest/build_docker/#docker-ce Be careful not to install docker CE with apt and the script!
 * https://carla.readthedocs.io/en/latest/build_docker/#nvidia-docker2
@@ -135,8 +135,9 @@ Here we show versions:
  * carla 0.8.4
  * carla 0.9.10 
  * carla 0.9.10.1 
-
-### Using CARLA Version 0.8.4
+ * carla latest=
+ 
+### CARLA Version 0.8.4
 this is a hybrid of approach 1 (download and extract) and method 3 (run in docker) from the list above 
 
 #### Start the CARLA server in a CARLA Version 0.8.4 container
@@ -206,7 +207,7 @@ Run the client - notice this is my script that I modified. Cool
 
 `/.manual_control_twh.py --autopilot --host 192.168.1.2 -q Low`
 
-### Using CARLA Version 0.9.10 or 0.9.10.1 - Current Development Version
+### Using CARLA Version 0.9.10 or 0.9.10.1 - Current Development Version latest
 
 This requires the more modern nividia drivers, I installed  nvidia450 -> nvidia455
 
@@ -234,32 +235,40 @@ If you are not using sudo (preferred) then use the following line.
 
 `docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
 
+You can choose to run in `Low` or `Epic` quality mode.
+
+`docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -quality-level=Low -opengl`
+
+`docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -quality-level=Epic -opengl`
+
 This will run BASH in the carla container without starting the simulator.
 
 `sudo docker run --name carlaserver --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10.1 bash`
 
 Do not run the docker as `--privileged` even though some forums may suggest it. This gives container root access to host, and this is very dangerous.
-Someone suggested this in a forum somewhere, but that does not mean it is a good idea.
+Someone suggested this in a forum somewhere, but that does not mean it is a good idea. It is even suggested to do so in the dockerfile!
 
 In version 0.9.10 you can ctrl-c to close the server, but I want to check that this is ok, i think the container is removed so it should be fine
-unless you want to run that same container again with docker start or restart
-
-For now, you have to remove the container before you can start it again. This should be fixed but it is not at the moment.
+unless you want to run that same container again with docker start or restart. For now, you have to remove the container before you can start it again. This should be fixed but it is not at the moment.
 
 `docker container rm carlaserver`
 
- docker run -it -e SDL_VIDEODRIVER='offscreen' carlasim/carla:0.9.10.1 ./CarlaUE4.sh Town02 -quality-level=Low -carla-server
+You can run the server headless using `SDL_VIDEODRIVER=offscreen` with no screen. It does not seem to greatly the FPS however. The low setting seems to increase the fps. This seems to increase the FPS significantly, but it caused a weird 'white screen' error that seems to be known issue in previous versions (not so much in 9.10.1)
 
- using SDL_VIDEODRIVER=offscreen turns on the server with no screen. It does not seem to have increased the FPS however 
- 
+`docker run -it -e SDL_VIDEODRIVER='offscreen' carlasim/carla:0.9.10.1 ./CarlaUE4.sh Town02 -quality-level=Low -carla-server`
+
+ or shown below so you can read the commands
+
+```
  sudo docker run \
-   -e SDL_VIDEODRIVER=offscreen \
-   -e DISPLAY=:99 \
-   -v /tmp/.X11-unix:/tmp/.X11-unix \
-   -p 2000-2002:2000-2002 \
-   -it \
-   --gpus all \
-   carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl
+    -e SDL_VIDEODRIVER=offscreen \
+    -e DISPLAY=:99 \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -p 2000-2002:2000-2002 \
+    -it \
+    --gpus all \
+    carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl
+ ```   
    
    docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl -quality_level=Epic
 
