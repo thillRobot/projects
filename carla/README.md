@@ -1,5 +1,5 @@
 ## TWH logs - CARLA - open source vehicle simulator
-October 07, 2020 - October 14, 2020 - October 29, 2020
+October 07, 2020 - October 14, 2020 - October 29, 2020 - December 03, 2020
 
 ### Goals:
 
@@ -56,7 +56,6 @@ https://hub.docker.com/r/johannhaselberger/coros
 
 
 #### Required/Related Software
-
 
 * CARLA - the core of this project
 * Python - Python3 is reccomended but apparently the client runs on Python2.
