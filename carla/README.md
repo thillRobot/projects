@@ -29,6 +29,9 @@ https://carla.readthedocs.io/en/latest/
 I am not the first one doing this... what a surprise
 https://usermanual.wiki/Document/CARLASetupGuideUbuntu.271743992/help  
 
+This group is using CARLA 0.9.10.1 in a docker - nice
+https://hub.docker.com/r/johannhaselberger/coros
+
 
 ### Hardware
 
@@ -118,7 +121,10 @@ This one in only on the 18.04 'sandbox computer' at the moment
 
 `docker pull carlasim/carla:0.9.10.1 `
 
-Now we have three images to choose from. 
+Now we have three images to choose from. I believe 'latest' is the same as 0.9.10.1
+
+`docker pull carlasim/carla:latest`
+
 
 #### Download and extract CARLA pre-compiled package from Github (reccomended option by CARLA for choosing versions)
 
@@ -242,6 +248,21 @@ For now, you have to remove the container before you can start it again. This sh
 
 `docker container rm carlaserver`
 
+ docker run -it -e SDL_VIDEODRIVER='offscreen' carlasim/carla:0.9.10.1 ./CarlaUE4.sh Town02 -quality-level=Low -carla-server
+
+ using SDL_VIDEODRIVER=offscreen turns on the server with no screen. It does not seem to have increased the FPS however 
+ 
+ sudo docker run \
+   -e SDL_VIDEODRIVER=offscreen \
+   -e DISPLAY=:99 \
+   -v /tmp/.X11-unix:/tmp/.X11-unix \
+   -p 2000-2002:2000-2002 \
+   -it \
+   --gpus all \
+   carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl
+   
+   docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl -quality_level=Epic
+
 #### CARLA Client - The client is a car driving in the world server
 
 I do not like this option because it seems like it should be available in the container...
@@ -255,7 +276,7 @@ i had to set the PYTHONPATH for the carla module to work. Basically the PYTHONPA
 The client requires NUMPY and PYGAME (https://carla.readthedocs.io/en/latest/start_quickstart/). 
 Do I need the `--user` option ? What does that even do? I think I know.
 
-Before you can run the client (0.9.10.10) you have to set PYTHONPATH to .egg file. (CARLA_ROOT is just intermediate variable to save length)
+Before you can run the client (0.9.10.1) you have to set PYTHONPATH to .egg file. (CARLA_ROOT is just intermediate variable to save length)
 
 `export CARLA_ROOT=~/carla_simulator/carla_09101`
 
