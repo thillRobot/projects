@@ -4,7 +4,7 @@ October 07, 2020 - October 14, 2020 - October 29, 2020
 ### Goals:
 
 - [x] install and test ROS_BRIDGE in ros melodic
-- [ ] install and test ROS_BRIDGE in ros noetic
+- [ ] install and test ROS_BRIDGE in ros noetic (this is not clearly supported yet)
 - [ ] figure out steering wheel and pedal controls for demo - testdrive an autonomous car - Jon H. worked on this 
 - [ ] record a *metric* for Dr. Canfield
 - [ ] use RVIZ to visualize the data from carla
