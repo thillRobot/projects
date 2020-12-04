@@ -222,15 +222,9 @@ There are still some warnings but it seems like the simulation has started.
 #### CARLA Server - The server is the world simulation
 
 ##### run the server in a container
-This will run the script CarlaUE4.sh in the carla container. This starts the server under a random funny name.
-
-`sudo docker run -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
-
-Using the --name option to choose a name is very useful. See below.
+This will run the script CarlaUE4.sh in the carla container. Using the `--name` option to choose a name for the container or the container starts with a random funny name. If these lines require `sudo` see instructions above for configuring permissions.
 
 `sudo docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl -benchmark fps=20`
-
-If you are not using sudo (preferred) then use the following line. See instructions above for setting this up.
 
 `docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
 
@@ -238,24 +232,21 @@ You can choose to run in `Low` or `Epic` quality mode. Currently I am having whi
 
 `docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -quality-level=Epic -opengl`
 
+##### Open `bash` in the container
 This will run BASH in the carla container without starting the simulator.
 
-`sudo docker run --name carlaserver --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10.1 bash`
+`docker run --name carlaserver --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10.1 bash`
 
-Do not run the docker as `--privileged` even though some forums may suggest it. This gives container root access to host, and this is very dangerous.
-Someone suggested this in a forum somewhere, but that does not mean it is a good idea. It is even suggested to do so in the dockerfile!
+You can start the server from inside the container. I am not sure why you would want to do this, but the link I mentioned does it this way.
 
-In version 0.9.10 you can ctrl-c to close the server, but I want to check that this is ok, i think the container is removed so it should be fine
-unless you want to run that same container again with docker start or restart. For now, you have to remove the container before you can start it again. This should be fixed but it is not at the moment.
+`SDL_VIDEODRIVER=x11 ./CarlaUE4.sh -opengl`
 
-`docker container rm carlaserver`
-
+##### Running Headless
 You can run the server headless using `SDL_VIDEODRIVER=offscreen` with no screen. It does not seem to greatly the FPS however. The low setting seems to increase the fps. This seems to increase the FPS significantly, but it caused a weird 'white screen' error that seems to be known issue in previous versions (not so much in 9.10.1)
 
 ``` docker run -e SDL_VIDEODRIVER=offscreen -e DISPLAY=:99 -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl ```
 
-
- or shown below so you can read the commands
+or shown below so you can read the commands
 
 ```
  sudo docker run \
@@ -266,7 +257,19 @@ You can run the server headless using `SDL_VIDEODRIVER=offscreen` with no screen
     -it \
     --gpus all \
     carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl
- ```   
+ ```
+ 
+##### Closing the Server
+In version 0.9.10 you can ctrl-c to close the server, but I want to check that this is ok, i think the container is removed so it should be fine
+unless you want to run that same container again with docker start or restart. For now, you have to remove the container before you can start it again. This should be fixed but it is not at the moment.
+
+##### Cleaning up 
+You sometime need to remove the container before you can start the server again. I think there is an easy fix for this. 
+`docker container rm carlaserver`
+
+##### Warning 
+Do not run the docker as `--privileged` even though some forums may suggest it. This gives container root access to host, and this is very dangerous.
+Someone suggested this in a forum somewhere, but that does not mean it is a good idea. It is even suggested to do so in the dockerfile!
 
 #### CARLA PythonAPI - this is a set of tools and example for interacting with the CARLA server
 There are all kinds of things that you can try. "get in the there and mess around" - CARLA docs
@@ -615,5 +618,3 @@ OK, more news! Running the installs in the container get us past the library iss
 Nicholas from CARLA team said first test that you can run 'tutorial.py'. OK, lets try that. Also, he said that he uses apt-get and not pip. this makes sense in the docker. let try this one more time.
 
 `sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg carlaserver python3 PythonAPI/examples/tutorial.py`
-
-
