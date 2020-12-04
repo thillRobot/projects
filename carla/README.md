@@ -270,35 +270,15 @@ You can run the server headless using `SDL_VIDEODRIVER=offscreen` with no screen
    
    docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl -quality_level=Epic
 
-#### CARLA Client - The client is a car driving in the world server
+#### PythonAPI - this is a set of tools and example for interacting with the CARLA server
+There are all kinds of things that you can try. "get in the there and mess around" - CARLA docs
 
-I do not like this option because it seems like it should be available in the container...
-On the client side I have had some trouble with the 'no module named carla issue' - https://github.com/carla-simulator/carla/issues/1137
-this is related to properly setting the path for the 'carla' python module from /carla/PythonAPI. 
+##### Setup Option 1 (reccomended): Use the PythonAPI CONDA Environment - This saves time and is preferred method during testing
+Once way to use the PythonAPI in Ubuntu 20.04 in with CONDA. Install conda following instructions here (https://docs.anaconda.com/anaconda/install/linux/). Use CONDA for a virtual environment I have setup for conveinence. This way you do not have to set the paths each time or install dependencies. 
 
-In Ubuntu 20.04 (server machine) I downloaded and extracted carla 0.9.10 - 'pip3 install pygame' did not work so I had to use 'apt install python3-pygame'
-i had to set the PYTHONPATH for the carla module to work. Basically the PYTHONPATH must include the path to .egg file for the right version of carla, I think that this is the same problem I am having in the docker container 'no module named carla'
+This turtorial (https://antc2lt.medium.com/carla-on-ubuntu-20-04-with-docker-5c2ccdfe2f71) shows a similar way that uses `virtualenv`. There are one or two bugs in the tutorial, but overall it was very useful to read because this person is doing something very similar to me. 
 
-##### Running the client in users home directory (~/) of the local (server) machine 
-The client requires NUMPY and PYGAME (https://carla.readthedocs.io/en/latest/start_quickstart/). 
-Do I need the `--user` option ? What does that even do? I think I know.
-
-Before you can run the client (0.9.10.1) you have to set PYTHONPATH to .egg file. (CARLA_ROOT is just intermediate variable to save length)
-
-`export CARLA_ROOT=~/carla_simulator/carla_09101`
-
-`export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
-
-OR if you are using Python2.7 use the appropriate .egg file
-
-`export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py2.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
-
-Then, you can run *some* of the examples in `/PythonAPI/examples` and `/PythonAPI/utils`, but several of the scripts fail.
-
-##### Setup CONDA Environment for CARLA client - This saves time and is preferred method during testing
-Install conda following instructions here (https://docs.anaconda.com/anaconda/install/linux/). Use CONDA for a virtual environment I have setup for conveinence. This way you do not have to set the paths each time or install dependencies. 
-
-Create a environment to use the client in (this only needs to be done once)
+Create a environment to use the PythonAPI in (this only needs to be done once)
 this environment will have python3.7 installed
 
 `conda create --name carla09101 python=3.7`
@@ -335,6 +315,43 @@ now that `CARLA_ROOT` is set you can install the python requirements with the fo
 `automatic_control.py` requires the networkx module to be install - i used conda to install it (the env most still be active of course)
 
 `conda install networkx`
+
+now you can test the different features included in the API
+
+##### Setup Option 2 (not reccomended): install neccesary deps with apt and/or pip (not in conda or virualenv)
+The PythonAPI requires NUMPY and PYGAME (https://carla.readthedocs.io/en/latest/start_quickstart/). 
+Do I need the `--user` option ? What does that even do? I think I know.
+
+Before you can run the client (0.9.10.1) you have to set PYTHONPATH to .egg file. (CARLA_ROOT is just intermediate variable to save length)
+
+`export CARLA_ROOT=~/carla_simulator/carla_09101`
+
+`export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
+
+OR if you are using Python2.7 use the appropriate .egg file
+
+`export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py2.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
+
+Then, you can run *some* of the examples in `/PythonAPI/examples` and `/PythonAPI/utils`, but several of the scripts tend to fail.
+
+
+##### Spawm (N) NPC Vehicles and Pedestrains 
+
+`python3 ${CARLA_ROOT}/PythonAPI/examples/spawn_npc.py -n 20`
+
+##### Start a CARLA Client - The client is a vehicle driving in the world server
+
+I origanally wanted the client to be run from inside the container. I am not sure exactly why. It seems like it should be available in the container...
+On the client side I have had some trouble with the 'no module named carla issue' - https://github.com/carla-simulator/carla/issues/1137
+this is related to properly setting the path for the 'carla' python module from /carla/PythonAPI. 
+
+In Ubuntu 20.04 (server machine) I downloaded and extracted carla 0.9.10 - 'pip3 install pygame' did not work so I had to use 'apt install python3-pygame'
+i had to set the PYTHONPATH for the carla module to work. Basically the PYTHONPATH must include the path to .egg file for the right version of carla, I think that this is the same problem I am having in the docker container 'no module named carla'
+
+##### Running the client in users home directory (~/) of the local (server) machine 
+
+
+
 
 ##### run CARLA client in CONDA Environment 
 
