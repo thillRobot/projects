@@ -377,6 +377,9 @@ And this line changes the weather.
 
 `python3 ${CARLA_ROOT}/PythonAPI/util/config.py --weather HardRainNoon`
 
+This sets the fixed rate frames per second. T
+`python3 ${CARLA_ROOT}/PythonAPI/util/config.py --fps 10`
+
 
 #### CARLA ROS-BRIDGE - This gives us access to data from the simulation in ROS
 
