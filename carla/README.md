@@ -227,7 +227,7 @@ There are still some warnings but it seems like the simulation has started.
 ##### run the server in a docker container
 This will run the script CarlaUE4.sh in the carla container. Using the `--name` option to choose a name for the container or the container starts with a random funny name. If these lines require `sudo` see instructions above for configuring permissions.
 
-You can choose to run in `Low` or `Epic` quality mode. Currently I am having white screen issues in Low. I want to fix this.
+You can choose to run in `Low` or `Epic` quality mode. Currently I am having white screen issues with `Low`. I want to fix this.
 
 `docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -quality-level=Epic -opengl`
 
@@ -264,7 +264,7 @@ or shown below so you can read the commands
 ##### Running with `vulkan` versus `opengl`
 Previously i was unable to run the server in `vulkan` mode. This is a known issue with 0.9.10.1, but I finally found the solution here (https://github.com/carla-simulator/carla/issues/3377). The fix is `--gpus 'all,"capabilities=graphics,utility,display,video,compute"'`. We were previously using `--gpus all`. With this change you can now run with out without the `-opengl` flag. I wonder why the fix was so obscure and hard to find.
 
-Running in `vulkan` fixed the over exposure white screen issues. The white screen issue still happens with `-opengl`.
+Running in `vulkan` fixed the over exposure white screen issues. The white screen issue still happens with `-opengl` and `-quality-level=Low`.
  
 ##### Closing the Server
 In version 0.9.10 you can ctrl-c to close the server, but I want to check that this is ok, i think the container is removed so it should be fine
