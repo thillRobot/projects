@@ -261,7 +261,8 @@ or shown below so you can read the commands
     --gpus all \
     carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl
  ```
-##### Running with `vulkan` versus `opengl`
+ 
+##### Running graphics with `vulkan` versus `opengl`
 Previously i was unable to run the server in `vulkan` mode. This is a known issue with 0.9.10.1, but I finally found the solution here (https://github.com/carla-simulator/carla/issues/3377). The fix is `--gpus 'all,"capabilities=graphics,utility,display,video,compute"'`. We were previously using `--gpus all`. With this change you can now run with out without the `-opengl` flag. I wonder why the fix was so obscure and hard to find.
 
 Running in `vulkan` fixed the over exposure white screen issues. The white screen issue still happens with `-opengl` and `-quality-level=Low`.
@@ -413,12 +414,15 @@ Follow the instructions on the ROS-BRIDGE github (https://github.com/carla-simul
 
 ##### option 2 (for users): install with `apt`
 
+```
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1AF1527DE64CB8D9
 sudo add-apt-repository "deb [arch=amd64] http://dist.carla.org/carla $(lsb_release -sc) main"
+```
 Then simply install the ROS bridge:
-
+```
 sudo apt-get update
 sudo apt-get install carla-ros-bridge
+```
 
 ##### option 1 (developers): compile from source 
 Create a catkin workspace and install carla_ros_bridge package
