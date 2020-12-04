@@ -224,16 +224,16 @@ There are still some warnings but it seems like the simulation has started.
 
 #### CARLA Server - The server is the world simulation
 
-##### run the server in a container
+##### run the server in a docker container
 This will run the script CarlaUE4.sh in the carla container. Using the `--name` option to choose a name for the container or the container starts with a random funny name. If these lines require `sudo` see instructions above for configuring permissions.
-
-`sudo docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl -benchmark fps=20`
-
-`docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
 
 You can choose to run in `Low` or `Epic` quality mode. Currently I am having white screen issues in Low. I want to fix this.
 
 `docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -quality-level=Epic -opengl`
+
+You are supposed to be able to set the frame rate with `-benchmark` and `fps=`, but I have not made this work yet. There is an example below of changing the the frame rate using `PythonAPI/utils/config.py --fps 20` but this is not working either.
+
+`sudo docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl -benchmark fps=20`
 
 ##### Open `bash` in the container
 This will run BASH in the carla container without starting the simulator.
@@ -268,6 +268,7 @@ unless you want to run that same container again with docker start or restart. F
 
 ##### Cleaning up 
 You sometime need to remove the container before you can start the server again. I think there is an easy fix for this. 
+
 `docker container rm carlaserver`
 
 ##### Warning 
