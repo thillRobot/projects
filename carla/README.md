@@ -411,7 +411,16 @@ editing line 1038 in `manual_control.py`. I wonder why it defaults to something 
 
 Follow the instructions on the ROS-BRIDGE github (https://github.com/carla-simulator/ros-bridge)
 
-##### option 1: compile from source (developer)
+##### option 2 (for users): install with `apt`
+
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1AF1527DE64CB8D9
+sudo add-apt-repository "deb [arch=amd64] http://dist.carla.org/carla $(lsb_release -sc) main"
+Then simply install the ROS bridge:
+
+sudo apt-get update
+sudo apt-get install carla-ros-bridge
+
+##### option 1 (developers): compile from source 
 Create a catkin workspace and install carla_ros_bridge package
 ```
 #setup folder structure
@@ -432,8 +441,7 @@ rosdep install --from-paths src --ignore-src -r
 #build
 catkin_make
 ```
-
-##### option 2: install with `apt`
+NOTE: using conda conflicts with ROS somehow. I need to figure this out somehow.
 
 ##### run the server before testing
 
@@ -617,7 +625,6 @@ Now that docker can connect to the web, start bash in a running container
 `pip3 install -r PythonAPI/examples/requirements.txt` I do not think running requirements.txt is neccesary
 
 `apt-get install libjpeg-turbo8 libtiff-dev libxerces-c3.2` Notice the `libjpeg` is in `libjpeg-turbo`
-
 
 now execute the client in the running container- throws weird error (document this!)
 
