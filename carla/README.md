@@ -261,6 +261,10 @@ or shown below so you can read the commands
     --gpus all \
     carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl
  ```
+##### Running with `vulkan` versus `opengl`
+Previously i was unable to run the server in `vulkan` mode. This is a known issue with 0.9.10.1, but I finally found the solution here (https://github.com/carla-simulator/carla/issues/3377). The fix is `--gpus 'all,"capabilities=graphics,utility,display,video,compute"'`. We were previously using `--gpus all`. With this change you can now run with out without the `-opengl` flag. I wonder why the fix was so obscure and hard to find.
+
+Running in `vulkan' fixed the over exposure white screen issues. The white screen issue still happens with `-opengl`.
  
 ##### Closing the Server
 In version 0.9.10 you can ctrl-c to close the server, but I want to check that this is ok, i think the container is removed so it should be fine
