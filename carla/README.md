@@ -399,7 +399,8 @@ And this line changes the weather.
 
 `python3 ${CARLA_ROOT}/PythonAPI/util/config.py --weather HardRainNoon`
 
-This sets the fixed rate frames per second. T
+This sets the fixed rate frames per second.
+
 `python3 ${CARLA_ROOT}/PythonAPI/util/config.py --fps 10`
 
 
