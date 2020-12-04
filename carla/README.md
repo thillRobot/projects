@@ -34,6 +34,7 @@ This group is using COROS + CARLA 0.9.10.1 in a docker
 https://hub.docker.com/r/johannhaselberger/coros
 
 This shows how to use CARLA with `docker` and `virtualenv` in Ubuntu 20.04
+https://antc2lt.medium.com/carla-on-ubuntu-20-04-with-docker-5c2ccdfe2f71
 
 ### Hardware
 
