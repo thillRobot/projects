@@ -24,6 +24,7 @@ October 07, 2020 - October 14, 2020 - October 29, 2020 - December 03, 2020
 
 ### Useful Resources
 
+Official Carla Documentation
 https://carla.readthedocs.io/en/latest/
 
 I am not the first one doing this... what a surprise
@@ -32,6 +33,7 @@ https://usermanual.wiki/Document/CARLASetupGuideUbuntu.271743992/help
 This group is using COROS + CARLA 0.9.10.1 in a docker
 https://hub.docker.com/r/johannhaselberger/coros
 
+This shows how to use CARLA with `docker` and `virtualenv` in Ubuntu 20.04
 
 ### Hardware
 
