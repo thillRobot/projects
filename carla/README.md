@@ -357,8 +357,6 @@ i had to set the PYTHONPATH for the carla module to work. Basically the PYTHONPA
 ##### Running the client in users home directory (~/) of the local (server) machine 
 
 
-
-
 ##### run CARLA client in CONDA Environment 
 
 `conda activate carla09101`
@@ -409,6 +407,7 @@ editing line 1038 in `manual_control.py`. I wonder why it defaults to something 
 
 Follow the instructions on the ROS-BRIDGE github (https://github.com/carla-simulator/ros-bridge)
 
+##### option 1: compile from source (developer)
 Create a catkin workspace and install carla_ros_bridge package
 ```
 #setup folder structure
@@ -430,17 +429,22 @@ rosdep install --from-paths src --ignore-src -r
 catkin_make
 ```
 
-##### run the server
+##### option 2: install with `apt`
+
+##### run the server before testing
 
 `docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
 
-##### run the ROS BRIDGE (with client)
+##### run the CARLA ROS BRIDGE (with client)
+NOTE: the `carla-ros-bridge` 
 
 `export CARLA_ROOT=~/carla_simulator/carla_09101`
 
 `export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py2.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
 
-`roslaunch carla_ros_bridge carla_ros_bridge.launch`
+`roslaunch carla_ros_bridge carla_ros_bridge.launch host:=192.168.254.45`
+
+ or start with an `ego vehicle` instead
 
 `roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch`
 
