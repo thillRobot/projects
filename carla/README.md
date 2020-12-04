@@ -371,23 +371,6 @@ If the client is remote then you have to inlcude the IP address of the host.
 
 `python3 ${CARLA_ROOT}/PythonAPI/examples/manual_control.py --host 192.168.254.45` 
 
-Sometimes is throws an error like this. Typically if you try again it will work...
-
-```
-'No recommended values for 'speed' attribute
-Traceback (most recent call last):
-  File "/home/thill/carla_simulator/carla_0910//PythonAPI/examples/manual_control.py", line 1137, in <module>
-    main()
-  File "/home/thill/carla_simulator/carla_0910//PythonAPI/examples/manual_control.py", line 1129, in main
-    game_loop(args)
-  File "/home/thill/carla_simulator/carla_0910//PythonAPI/examples/manual_control.py", line 1046, in game_loop
-    controller = KeyboardControl(world, args.autopilot)
-  File "/home/thill/carla_simulator/carla_0910//PythonAPI/examples/manual_control.py", line 292, in __init__
-    world.player.set_autopilot(self._autopilot_enabled)
-RuntimeError: time-out of 2000ms while waiting for the simulator, make sure the simulator is ready and connected to 127.0.0.1:2000'
-```
-I think this may be another app using that port, but I am not sure.
-
 ##### Configuring the CARLA server from a client
 A new useful feature I have just discovered is `/PythonAPI/utils/config.py`. This scripts is used to configure a running CARLA server. You can do things like change the town map and other things. This is very useful becuase is it a pain (so much that I was unable to do so!) from the server side. I guess this makes sensse...
 
@@ -402,6 +385,24 @@ And this line changes the weather.
 This sets the fixed rate frames per second.
 
 `python3 ${CARLA_ROOT}/PythonAPI/util/config.py --fps 10`
+
+##### Timeout Error with REMOTE use of PythonAPI
+Sometimes running the PythonAPT remote throws an error like this. 
+```
+'No recommended values for 'speed' attribute
+Traceback (most recent call last):
+  File "/home/thill/carla_simulator/carla_0910//PythonAPI/examples/manual_control.py", line 1137, in <module>
+    main()
+  File "/home/thill/carla_simulator/carla_0910//PythonAPI/examples/manual_control.py", line 1129, in main
+    game_loop(args)
+  File "/home/thill/carla_simulator/carla_0910//PythonAPI/examples/manual_control.py", line 1046, in game_loop
+    controller = KeyboardControl(world, args.autopilot)
+  File "/home/thill/carla_simulator/carla_0910//PythonAPI/examples/manual_control.py", line 292, in __init__
+    world.player.set_autopilot(self._autopilot_enabled)
+RuntimeError: time-out of 2000ms while waiting for the simulator, make sure the simulator is ready and connected to 127.0.0.1:2000'
+```
+This can be fixed by increasing the connection timeout that is set in the python scripts. For example I increased it to 5 seconds by
+editing line 1038 in `manual_control.py`. I wonder why it defaults to something that works so poorly. 
 
 
 #### CARLA ROS-BRIDGE - This gives us access to data from the simulation in ROS
