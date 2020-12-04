@@ -253,7 +253,7 @@ unless you want to run that same container again with docker start or restart. F
 You can run the server headless using `SDL_VIDEODRIVER=offscreen` with no screen. It does not seem to greatly the FPS however. The low setting seems to increase the fps. This seems to increase the FPS significantly, but it caused a weird 'white screen' error that seems to be known issue in previous versions (not so much in 9.10.1)
 
 ``` docker run -e SDL_VIDEODRIVER=offscreen -e DISPLAY=:99 -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl ```
-`
+
 
  or shown below so you can read the commands
 
@@ -267,11 +267,10 @@ You can run the server headless using `SDL_VIDEODRIVER=offscreen` with no screen
     --gpus all \
     carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl
  ```   
-   
-   docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl -quality_level=Epic
 
-#### PythonAPI - this is a set of tools and example for interacting with the CARLA server
+#### CARLA PythonAPI - this is a set of tools and example for interacting with the CARLA server
 There are all kinds of things that you can try. "get in the there and mess around" - CARLA docs
+the API is located in the carla directory `/carla/PythonAPI`
 
 ##### Setup Option 1 (reccomended): Use the PythonAPI CONDA Environment - This saves time and is preferred method during testing
 Once way to use the PythonAPI in Ubuntu 20.04 in with CONDA. Install conda following instructions here (https://docs.anaconda.com/anaconda/install/linux/). Use CONDA for a virtual environment I have setup for conveinence. This way you do not have to set the paths each time or install dependencies. 
