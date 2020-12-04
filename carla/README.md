@@ -329,7 +329,7 @@ now that `CARLA_ROOT` is set you can install the python requirements with the fo
 
 now you can test the different features included in the API
 
-##### Setup Option 2 (not reccomended): install neccesary deps with apt and/or pip (not in conda or virualenv)
+##### Setup Option 2: install neccesary deps with apt and/or pip (not in conda or virualenv)
 The PythonAPI requires NUMPY and PYGAME (https://carla.readthedocs.io/en/latest/start_quickstart/). 
 Do I need the `--user` option ? What does that even do? I think I know.
 
@@ -412,8 +412,7 @@ editing line 1038 in `manual_control.py`. I wonder why it defaults to something 
 
 Follow the instructions on the ROS-BRIDGE github (https://github.com/carla-simulator/ros-bridge)
 
-##### option 2 (for users): install with `apt`
-
+##### Install Option A (for users): install with `apt`
 ```
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1AF1527DE64CB8D9
 sudo add-apt-repository "deb [arch=amd64] http://dist.carla.org/carla $(lsb_release -sc) main"
@@ -424,7 +423,7 @@ sudo apt-get update
 sudo apt-get install carla-ros-bridge
 ```
 
-##### option 1 (developers): compile from source 
+##### Install Option B (developers): compile from source 
 Create a catkin workspace and install carla_ros_bridge package
 ```
 #setup folder structure
