@@ -299,11 +299,11 @@ This turtorial (https://antc2lt.medium.com/carla-on-ubuntu-20-04-with-docker-5c2
 
 Create a environment to use the PythonAPI in (this only needs to be done once). 
 
-If you are using Python2.7:
+If you are using **Python2.7**:
 
 `conda create --name carla09101 python=2.7`
 
-**Or**, if you are using Python3.7:
+**or**, if you are using **Python3.7**:
 
 `conda create --name carla09101 python=3.7`
 
@@ -320,11 +320,11 @@ re-actitvate the environment after setting vars
 
 `conda activate carla09101`
 
-If you are using Python2.7:
+If you are using **Python2.7**:
 
 `conda env config vars set PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py2.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
 
-**Or**, if you are using Python3.7:
+**or**, if you are using **Python3.7**:
 
 `conda env config vars set PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
 
@@ -358,11 +358,11 @@ Before you can run the client (0.9.10.1) you have to set PYTHONPATH to .egg file
 
 Choose the appropriate version of Python and set `PYTHON_PATH`.
 
-If you are using Python2.7:
+If you are using **Python2.7**:
 
 ```export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py2.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla```
 
-**Or**, if you are using Python3.7:
+**or**, if you are using **Python3.7**:
 
 ```export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla```
 
