@@ -224,25 +224,23 @@ There are still some warnings but it seems like the simulation has started.
 
 #### CARLA Server - The server is the world simulation
 
-##### run the server in a docker container
-This will run the script CarlaUE4.sh in the carla container. Using the `--name` option to choose a name for the container or the container starts with a random funny name. If these lines require `sudo` see instructions above for configuring permissions.
+##### Run the server in a docker container
+This will run the script `CarlaUE4.sh` in the carla container. Using the `--name` option to choose a name for the container or the container starts with a random funny name. If these lines require `sudo` see instructions above for configuring permissions.
 
-You can choose to run in `Low` or `Epic` quality mode. Currently I am having white screen issues with `Low`. I want to fix this.
+`docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus 'all,"capabilities=graphics,utility,display,video,compute"' -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -quality-level=Epic`
 
-`docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -quality-level=Epic -opengl`
+##### Graphics Quality 
+There are two options for graphics quailty. Choose to run graphics in `Low` or `Epic` quality mode. 
 
-You are supposed to be able to set the frame rate with `-benchmark` and `fps=`, but I have not made this work yet. There is an example below of changing the the frame rate using `PythonAPI/utils/config.py --fps 20` but this is not working either.
+##### Framerate
+You can set the frame rate with `-benchmark` and `fps=`,. There is an example below of changing the the frame rate using `PythonAPI/utils/config.py --fps 20`. Note: this will change the  simulation time, not the display time....
 
-`sudo docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl -benchmark fps=20`
+##### Running graphics with `vulkan` versus `opengl`
+Previously i was unable to run the server in `vulkan` mode. This is a known issue with 0.9.10.1, but I finally found the solution here (https://github.com/carla-simulator/carla/issues/3377). The fix is `--gpus 'all,"capabilities=graphics,utility,display,video,compute"'`. We were previously using `--gpus all`. With this change you can now run with out without the `-opengl` flag. I wonder why the fix was so obscure and hard to find.
 
-##### Open `bash` in the container
-This will run BASH in the carla container without starting the simulator.
+Running in `vulkan` fixed the over exposure white screen issues. The white screen issue still happens with `-opengl` and `-quality-level=Low`.
 
-`docker run --name carlaserver --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10.1 bash`
-
-You can start the server from inside the container. I am not sure why you would want to do this, but the link I mentioned does it this way.
-
-`SDL_VIDEODRIVER=x11 ./CarlaUE4.sh -opengl`
+`docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus 'all,"capabilities=graphics,utility,display,video,compute"' -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -quality-level=Epic -opengl -benchmark fps=20`
 
 ##### Running Headless
 You can run the server headless using `SDL_VIDEODRIVER=offscreen` with no screen. It does not seem to greatly the FPS however. The low setting seems to increase the fps. This seems to increase the FPS significantly, but it caused a weird 'white screen' error that seems to be known issue in previous versions (not so much in 9.10.1)
@@ -261,12 +259,15 @@ or shown below so you can read the commands
     --gpus all \
     carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl
  ```
- 
-##### Running graphics with `vulkan` versus `opengl`
-Previously i was unable to run the server in `vulkan` mode. This is a known issue with 0.9.10.1, but I finally found the solution here (https://github.com/carla-simulator/carla/issues/3377). The fix is `--gpus 'all,"capabilities=graphics,utility,display,video,compute"'`. We were previously using `--gpus all`. With this change you can now run with out without the `-opengl` flag. I wonder why the fix was so obscure and hard to find.
+##### running `bash` in the container
+This will run BASH in the carla container without starting the simulator.
 
-Running in `vulkan` fixed the over exposure white screen issues. The white screen issue still happens with `-opengl` and `-quality-level=Low`.
- 
+`docker run --name carlaserver --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10.1 bash`
+
+You can start the server from inside the container. I am not sure why you would want to do this, but the link I mentioned does it this way.
+
+`SDL_VIDEODRIVER=x11 ./CarlaUE4.sh -opengl` 
+
 ##### Closing the Server
 In version 0.9.10 you can ctrl-c to close the server, but I want to check that this is ok, i think the container is removed so it should be fine
 unless you want to run that same container again with docker start or restart. For now, you have to remove the container before you can start it again. This should be fixed but it is not at the moment.
