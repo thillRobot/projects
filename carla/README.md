@@ -236,14 +236,13 @@ This will run the script `CarlaUE4.sh` in the carla container. Using the `--name
  docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus 'all,"capabilities=graphics,utility,display,video,compute"' -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -quality-level=Epic -opengl -benchmark fps=20
  ```
  
-##### Graphics Quality
-Choose to run the graphics in `Low` or `Epic` quality mode. The `Low` setting increases the display framerate significantly. If you run `0.9.10.1` in `Low` with `-opengl` the screen appears washed out with white and other colors. This is an over exposure issue related to the quality setting transistion that seems to be known in previous versions (not talked about much it in 0.9.10.1). If you run in `Low` then use `vulkan`. If you run in `Epic` you can use either `opengl` or `vulkan`.
+**Graphics Quality**: Run the graphics in `Low` or `Epic` quality mode. The `Low` setting increases the display framerate significantly. If you run `0.9.10.1` in `Low` with `-opengl` the screen appears washed out with white and other colors. This is an over exposure issue related to the quality setting transistion that seems to be known in previous versions (not talked about much it in 0.9.10.1). If you run in `Low` then use `vulkan`. If you run in `Epic` you can use either `opengl` or `vulkan`.
 
-***Framerate***: You can set the frame rate with `-benchmark` and `fps=<framerate>`. You can also chang the framerate from the client side using `PythonAPI/utils/config.py --fps <framerate>`, and this is shown later. Note: Either will change the simulation time, not the display time see post `asdf` for more info. 
-
-***Graphics Library***: You can run the graphics with `vulkan` or `opengl`. Previously I was unable to run the server in `vulkan` mode. This is a known issue with 0.9.10.1, but I finally found a solution here (https://github.com/carla-simulator/carla/issues/3377). The fix is to start the server with`--gpus 'all,"capabilities=graphics,utility,display,video,compute"'`. We were previously using `--gpus all`. With this change you can now run with out without the `-opengl` flag. I wonder why the fix was so obscure and hard to find. 
+**Graphics Library**: Run the graphics with `vulkan` or `opengl`. Previously I was unable to run the server in `vulkan` mode. This is a known issue with 0.9.10.1, but I finally found a solution here (https://github.com/carla-simulator/carla/issues/3377). The fix is to start the server with`--gpus 'all,"capabilities=graphics,utility,display,video,compute"'`. We were previously using `--gpus all`. With this change you can now run with out without the `-opengl` flag. I wonder why the fix was so obscure and hard to find. 
 
 Running in `vulkan` fixed the over exposure white screen issues. The white screen issue still happens with `-opengl` and `-quality-level=Low`.
+
+**Framerate**: Set the frame rate with `-benchmark` and `fps=<framerate>`. You can also chang the framerate from the client side using `PythonAPI/utils/config.py --fps <framerate>`, and this is shown later. Note: Either will change the simulation time, not the display time see post `asdf` for more info. 
 
 ##### Running Headless
 You can run the server headless using `SDL_VIDEODRIVER=offscreen` and no display will be shown. It does not seem to greatly the affect the display FPS. 
