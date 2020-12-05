@@ -5,9 +5,11 @@ October 07, 2020 - October 14, 2020 - October 29, 2020 - December 03, 2020
 
 - [x] install and test ROS_BRIDGE in ros melodic
 - [ ] install and test ROS_BRIDGE in ros noetic (this is not clearly supported yet)
+- [ ] test ros_bridge with COROS  
 - [ ] figure out steering wheel and pedal controls for demo - testdrive an autonomous car - Jon H. worked on this 
 - [ ] record a *metric* for Dr. Canfield
 - [ ] use RVIZ to visualize the data from carla
+- [ ] make a custom map with open street map
 
 - [x] learn to use CONDA for python client - this will help with testing - done - big improvement
 - [x] start the server in a different town, HDMaps/Town02.pcd  
