@@ -233,7 +233,7 @@ This will run the script `CarlaUE4.sh` in the carla container. Using the `--name
 There are two options for graphics quailty. Choose to run graphics in `Low` or `Epic` quality mode. 
 
 ##### Framerate
-You can set the frame rate with `-benchmark` and `fps=<framerate>`. You can also chang the framerate from the client side using `PythonAPI/utils/config.py --fps <framerate>`, and this is shown later Note: Either will change the simulation time, not the display time see post `asdf` for more info
+You can set the frame rate with `-benchmark` and `fps=<framerate>`. You can also chang the framerate from the client side using `PythonAPI/utils/config.py --fps <framerate>`, and this is shown later. Note: Either will change the simulation time, not the display time see post `asdf` for more info. 
 
 ##### Running graphics with `vulkan` versus `opengl`
 Previously i was unable to run the server in `vulkan` mode. This is a known issue with 0.9.10.1, but I finally found the solution here (https://github.com/carla-simulator/carla/issues/3377). The fix is `--gpus 'all,"capabilities=graphics,utility,display,video,compute"'`. We were previously using `--gpus all`. With this change you can now run with out without the `-opengl` flag. I wonder why the fix was so obscure and hard to find.
