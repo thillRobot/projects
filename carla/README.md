@@ -311,10 +311,12 @@ re-actitvate the environment after setting vars
 
 `conda activate carla09101`
 
-***python2.7***
+**Python2.7**
+
 `conda env config vars set PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py2.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
 
-***python3.7***
+**Python3.7**
+
 `conda env config vars set PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
 
 re-actitvate the environment after setting vars again (could this be combined?)
@@ -347,13 +349,13 @@ Before you can run the client (0.9.10.1) you have to set PYTHONPATH to .egg file
 
 Choose the appropriate version of Python
 
-***Python2.7***
+**Python2.7**
 
 ```export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py2.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla```
 
-***Python3.7***
+**Python3.7**
 
-````export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla```
+```export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla```
 
 
 
