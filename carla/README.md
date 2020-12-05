@@ -227,30 +227,26 @@ There are still some warnings but it seems like the simulation has started.
 #### Run the server in a docker container
 This will run the script `CarlaUE4.sh` in the carla container. Using the `--name` option to choose a name for the container or the container starts with a random funny name. If these lines require `sudo` see instructions above for configuring permissions.
 
-##### Run CarlaUE4.sh with Default Server Parameters
+##### Run CarlaUE4.sh with default server parameters
  ```
  docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus 'all,"capabilities=graphics,utility,display,video,compute"' -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh
  ```
-##### Run CarlaUE4.sh Setting Various Server Parameters   
+##### Run CarlaUE4.sh with various server parameters   
  ```
  docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus 'all,"capabilities=graphics,utility,display,video,compute"' -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -quality-level=Epic -opengl -benchmark fps=20
  ```
  
 ##### Graphics Quality
-There are two options for graphics quailty. Choose to run graphics in `Low` or `Epic` quality mode. 
+Choose to run the graphics in `Low` or `Epic` quality mode. The `Low` setting increases the display framerate significantly. If you run `0.9.10.1` in `Low` with `-opengl` the screen appears washed out with white and other colors. This is an over exposure issue related to the quality setting transistion that seems to be known in previous versions (not talked about much it in 0.9.10.1). If you run in `Low` then use `vulkan`. If you run in `Epic` you can use either `opengl` or `vulkan`.
 
-##### Framerate
-You can set the frame rate with `-benchmark` and `fps=<framerate>`. You can also chang the framerate from the client side using `PythonAPI/utils/config.py --fps <framerate>`, and this is shown later. Note: Either will change the simulation time, not the display time see post `asdf` for more info. 
+***Framerate***: You can set the frame rate with `-benchmark` and `fps=<framerate>`. You can also chang the framerate from the client side using `PythonAPI/utils/config.py --fps <framerate>`, and this is shown later. Note: Either will change the simulation time, not the display time see post `asdf` for more info. 
 
-##### Running graphics with `vulkan` versus `opengl`
-Previously i was unable to run the server in `vulkan` mode. This is a known issue with 0.9.10.1, but I finally found the solution here (https://github.com/carla-simulator/carla/issues/3377). The fix is `--gpus 'all,"capabilities=graphics,utility,display,video,compute"'`. We were previously using `--gpus all`. With this change you can now run with out without the `-opengl` flag. I wonder why the fix was so obscure and hard to find.
+***Graphics Library***: You can run the graphics with `vulkan` or `opengl`. Previously I was unable to run the server in `vulkan` mode. This is a known issue with 0.9.10.1, but I finally found a solution here (https://github.com/carla-simulator/carla/issues/3377). The fix is to start the server with`--gpus 'all,"capabilities=graphics,utility,display,video,compute"'`. We were previously using `--gpus all`. With this change you can now run with out without the `-opengl` flag. I wonder why the fix was so obscure and hard to find. 
 
 Running in `vulkan` fixed the over exposure white screen issues. The white screen issue still happens with `-opengl` and `-quality-level=Low`.
 
-
-
 ##### Running Headless
-You can run the server headless using `SDL_VIDEODRIVER=offscreen` with no screen. It does not seem to greatly the FPS however. The low setting seems to increase the fps. This seems to increase the FPS significantly, but it caused a weird 'white screen' error that seems to be known issue in previous versions (not so much in 9.10.1)
+You can run the server headless using `SDL_VIDEODRIVER=offscreen` and no display will be shown. It does not seem to greatly the affect the display FPS. 
 
  ``` 
  docker run -e SDL_VIDEODRIVER=offscreen -e DISPLAY=:99 -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10.1   ./CarlaUE4.sh -opengl 
