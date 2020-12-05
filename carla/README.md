@@ -282,7 +282,7 @@ Someone suggested this in a forum somewhere, but that does not mean it is a good
 
 #### CARLA PythonAPI - this is a set of tools and example for interacting with the CARLA server
 There are all kinds of things that you can try. "get in the there and mess around" - CARLA docs
-the API is located in the carla directory `/carla/PythonAPI`
+the API is located in the carla directory `/carla/PythonAPI`  or `${CARLA_ROOT}/PythonAPI`
 
 ##### Setup Option 1 (reccomended): Use the PythonAPI CONDA Environment - This saves time and is preferred method during testing
 Once way to use the PythonAPI in Ubuntu 20.04 in with CONDA. Install conda following instructions here (https://docs.anaconda.com/anaconda/install/linux/). Use CONDA for a virtual environment I have setup for conveinence. This way you do not have to set the paths each time or install dependencies. 
@@ -292,6 +292,10 @@ This turtorial (https://antc2lt.medium.com/carla-on-ubuntu-20-04-with-docker-5c2
 Create a environment to use the PythonAPI in (this only needs to be done once)
 this environment will have python3.7 installed
 
+***python2.7***
+`conda create --name carla09101 python=2.7`
+
+***python3.7***
 `conda create --name carla09101 python=3.7`
 
 then actitvate the environment (this needs to be done at the start of each session)
@@ -307,6 +311,10 @@ re-actitvate the environment after setting vars
 
 `conda activate carla09101`
 
+***python2.7***
+`conda env config vars set PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py2.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
+
+***python3.7***
 `conda env config vars set PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
 
 re-actitvate the environment after setting vars again (could this be combined?)
@@ -337,11 +345,17 @@ Before you can run the client (0.9.10.1) you have to set PYTHONPATH to .egg file
 
 `export CARLA_ROOT=~/carla_simulator/carla_09101`
 
-`export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
+Choose the appropriate version of Python
 
-OR if you are using Python2.7 use the appropriate .egg file
+***Python2.7***
 
-`export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py2.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
+```export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py2.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla```
+
+***Python3.7***
+
+````export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla```
+
+
 
 Then, you can run *some* of the examples in `/PythonAPI/examples` and `/PythonAPI/utils`, but several of the scripts tend to fail.
 
