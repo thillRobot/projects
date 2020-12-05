@@ -289,13 +289,14 @@ Once way to use the PythonAPI in Ubuntu 20.04 in with CONDA. Install conda follo
 
 This turtorial (https://antc2lt.medium.com/carla-on-ubuntu-20-04-with-docker-5c2ccdfe2f71) shows a similar way that uses `virtualenv`. There are one or two bugs in the tutorial, but overall it was very useful to read because this person is doing something very similar to me. 
 
-Create a environment to use the PythonAPI in (this only needs to be done once)
-this environment will have python3.7 installed
+Create a environment to use the PythonAPI in (this only needs to be done once). 
 
-***python2.7***
+If you are using Python2.7:
+
 `conda create --name carla09101 python=2.7`
 
-***python3.7***
+**Or**, if you are using Python3.7:
+
 `conda create --name carla09101 python=3.7`
 
 then actitvate the environment (this needs to be done at the start of each session)
@@ -311,11 +312,11 @@ re-actitvate the environment after setting vars
 
 `conda activate carla09101`
 
-**Python2.7**
+If you are using Python2.7:
 
 `conda env config vars set PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py2.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
 
-**Python3.7**
+**Or**, if you are using Python3.7:
 
 `conda env config vars set PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
 
@@ -337,7 +338,7 @@ now that `CARLA_ROOT` is set you can install the python requirements with the fo
 
 `conda install networkx`
 
-now you can test the different features included in the API
+Now you can test the different features included in the API.
 
 ##### Setup Option 2: install neccesary deps with apt and/or pip (not in conda or virualenv)
 The PythonAPI requires NUMPY and PYGAME (https://carla.readthedocs.io/en/latest/start_quickstart/). 
@@ -347,20 +348,17 @@ Before you can run the client (0.9.10.1) you have to set PYTHONPATH to .egg file
 
 `export CARLA_ROOT=~/carla_simulator/carla_09101`
 
-Choose the appropriate version of Python
+Choose the appropriate version of Python and set `PYTHON_PATH`.
 
-**Python2.7**
+If you are using Python2.7:
 
 ```export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py2.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla```
 
-**Python3.7**
+**Or**, if you are using Python3.7:
 
 ```export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla```
 
-
-
-Then, you can run *some* of the examples in `/PythonAPI/examples` and `/PythonAPI/utils`, but several of the scripts tend to fail.
-
+Then, you can run *some* of the examples in `/PythonAPI/examples` and `/PythonAPI/utils`, but several of the scripts tend to fail. I assume this is because there are missing dependencies. These appear to be installed with `requirements.txt`.
 
 ##### Spawm (N) NPC Vehicles and Pedestrains 
 
@@ -486,8 +484,6 @@ NOTE: the `carla-ros-bridge`
 `rostopic echo /carla/ego_vehicle/imu/imu1`
 
 You should now be able to see the data from the simulator in ROS, cool.
-
-
 
 #### alternatively run the client in the container - this is what I really want - This does not work yet
 
