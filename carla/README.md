@@ -201,7 +201,7 @@ OK I have made some more progress
 
 Run the server - notice I have added the opengl flag
 
-`docker run -p 2000-2002:2000-2002 --runtime=nvidia --gpus all carlasim/carla:0.8.4 /bin/bash CarlaUE4.sh DISPLAY= ./CarlaUE4.sh -opengl -carla-serve`r
+`docker run -p 2000-2002:2000-2002 --runtime=nvidia --gpus all carlasim/carla:0.8.4 /bin/bash CarlaUE4.sh DISPLAY= ./CarlaUE4.sh -opengl -carla-serve`
 
 Run the client - notice this is my script that I modified. Cool
 
@@ -430,7 +430,7 @@ This can be fixed by increasing the connection timeout that is set in the python
 editing line 1038 in `manual_control.py`. I wonder why it defaults to something that works so poorly. 
 
 
-#### CARLA ROS-BRIDGE - This gives us access to data from the simulation in ROS
+#### CARLA ROS-BRIDGE (ros-melodic only)- This gives us access to data from the simulation in ROS
 
 Follow the instructions on the ROS-BRIDGE github (https://github.com/carla-simulator/ros-bridge)
 
@@ -472,7 +472,7 @@ NOTE: using conda conflicts with ROS somehow. I need to figure this out somehow.
 
 `docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
 
-##### run the CARLA ROS BRIDGE (with client)
+##### run the CARLA-ROS-BRIDGE 
 NOTE: the `carla-ros-bridge` 
 
 `export CARLA_ROOT=~/carla_simulator/carla_09101`
@@ -492,6 +492,12 @@ NOTE: the `carla-ros-bridge`
 `rostopic echo /carla/ego_vehicle/imu/imu1`
 
 You should now be able to see the data from the simulator in ROS, cool.
+
+##### Testing carla-ros-bridge in ros-noetic
+
+I have successfully tested this in Ubuntu18.04 using both intallation methods shown here. `ros-noetic` is not supported yet. You can copmile from source in ubuntu20.04 there is a python version error when you try the launch files. ALso, `apt` cannot find the the package `carla-ros-bridge`. This somewhat confirms that it isnot yet supported in `focal fossa`
+
+This the main reason I am holding onto `Ubuntu18.04`.
 
 #### alternatively run the client in the container - this is what I really want - This does not work yet
 
@@ -522,7 +528,6 @@ Next, `run` a client on the server machine this time so there is no ip needed, y
 
 `sudo docker run -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --net=host -it --gpus all carlasim/carla:0.9.10 /PythonAPI/examples/manual_control.py --env CARLA_ROOT=~/ --env PYTHONPATH=~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:~/PythonAPI/carla/agents:~/PythonAPI/carla`
 
-, 
 ##### Alternatively,`run` the carla server in a docker container, and `exec` the the client in the same container as the server - not working 
 
 `sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:/home/carla/PythonAPI/carla/agents:/home/carla/PythonAPI/carla carla python3 PythonAPI/examples/manual_control.py`
