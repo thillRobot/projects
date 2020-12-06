@@ -139,74 +139,9 @@ Here we show versions:
  * carla 0.9.10.1 
  * carla latest (0.9.10.1)
  
-## CARLA Version 0.8.4
-this is a hybrid of approach 1 (download and extract) and method 3 (run in docker) from the list above 
 
-### Start the CARLA server in a CARLA Version 0.8.4 container
 
-run the default script 'CarlaUE4.sh' in a carla 0.8.4 container and give a name 'carlaserver'
-
-`docker run --name carlaserver -p 2000-2002:2000-2002 --runtime=nvidia --gpus all carlasim/carla:0.8.4 \
-/bin/bash CarlaUE4.sh -quality-level=low -carla-server -benchmark -fps=10`
-
-this starts the server, now it is waiting for a client to connect
-
-### Start a client (0.8.4) on the host machine - NOT WORKING - PORT2000 CLOSED
-
-change to the PythonClient directory and run one of the example scripts
-
-`cd ~/carla_simulator/carla_084/PythonClient`
-`./manual_control.py --autopilot`
-
-### Start a client (0.8.4) on a remote computer - This works
-
-First change to the PythonClient directory and run one of the example scripts
-
-`cd ~/carla_simulator/carla_084/PythonClient`
-
-`./manual_control.py --autopilot --host 192.168.x.x`
-
-### Drive the car around with the keyboard in PYGAME.
-You have to take the parking break off first! At the moment the server<--->client relationship works!
-
-Note: the directory `/PythonClient` has changed `/PythonAPI` in the later versions 
-
-### Shutdown the CARLA server 
-
-In version 084 'ctrl-c' does not stop the preocess
-
-You cannot just close the process, you have to stop the container
-This process needs to be improved. I am supposed to be able to use the --name option to give
-container a persistent name but I have not made this work yet.
-
-For now, to stop the container you must first list the running containers
-
-`docker ps`
-
-OR
-
-`docker container ls`
-
-and you will get something like this:
-
-```
-CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS                              NAMES
-7b2ab18618af        carlasim/carla:0.8.4   "/bin/bash CarlaUE4.…"   20 minutes ago      Up 20 minutes       0.0.0.0:2000-2002->2000-2002/tcp   elastic_kare
-```
-Read the goofy name over on the right and that is the 'name' you will use to stop the containers.It is a good idea to choose your own name with the `--name` option.
-
-`docker stop elastic_kare`
-
-Run the server - notice the `opengl` flag. 
-
-`docker run -p 2000-2002:2000-2002 --runtime=nvidia --gpus all carlasim/carla:0.8.4 /bin/bash CarlaUE4.sh DISPLAY= ./CarlaUE4.sh -opengl -carla-server`
-
-Run the client. Notice that this script can be easiyl modified. `PythonClient` is a set of examples.
-`cd ~/carla_simlulator/carla_v084/PythonClient`
-
-`/.manual_control_twh.py --autopilot --host 192.168.1.2 -q Low`
-
-## Using CARLA Version 0.9.10 or 0.9.10.1 - Current Development Version: latest
+## Using CARLA Version 0.9.10.1 (latest)
 
 This requires modern nividia drivers(>390), I installed  nvidia450 -> nvidia455
 
@@ -286,7 +221,7 @@ This will run BASH in the carla container without starting the simulator.
 
 `docker run --name carlaserver --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10.1 bash`
 
-You can start the server from inside the container. I am not sure why you would want to do this, but the link I mentioned does it this way.
+You can start the server from inside the container. I am not sure why you woulREMOTEd want to do this, but the link I mentioned does it this way.
 
 `SDL_VIDEODRIVER=x11 ./CarlaUE4.sh -opengl` 
 
@@ -383,7 +318,7 @@ If you are using **Python2.7**:
 
 Then, you can run *some* of the examples in `/PythonAPI/examples` and `/PythonAPI/utils`, but several of the scripts tend to fail. I assume this is because there are missing dependencies. These appear to be installed with `requirements.txt`.
 
-#### Spawm (N) NPC Vehicles and Pedestrains 
+#### Spawn NPC Vehicles and Pedestrains 
 
 `python3 ${CARLA_ROOT}/PythonAPI/examples/spawn_npc.py -n 20`
 
@@ -422,11 +357,11 @@ And this line changes the weather.
 
 `python3 ${CARLA_ROOT}/PythonAPI/util/config.py --weather HardRainNoon`
 
-This sets the fixed rate frames per second.
+This sets the simulation fixed frame (frames per second). This does not affect the framerate displayed in server or client windows.
 
 `python3 ${CARLA_ROOT}/PythonAPI/util/config.py --fps 10`
 
-#### Timeout Error with REMOTE use of PythonAPI
+#### Timeout Error with remote use of PythonAPI
 Sometimes running the PythonAPT remote throws an error like this. 
 ```
 'No recommended values for 'speed' attribute
@@ -514,7 +449,80 @@ I have successfully tested this in Ubuntu18.04 using both intallation methods sh
 
 This the main reason I am holding onto `Ubuntu18.04`.
 
-### alternatively run the client in the container - this is what I really want - This does not work yet
+## Using CARLA Version 0.8.4 (stable)
+this is a hybrid of approach 1 (download and extract) and method 3 (run in docker) from the list above 
+
+### Start the CARLA server in a CARLA Version 0.8.4 container
+
+run the default script 'CarlaUE4.sh' in a carla 0.8.4 container and give a name 'carlaserver'
+
+`docker run --name carlaserver -p 2000-2002:2000-2002 --runtime=nvidia --gpus all carlasim/carla:0.8.4 \
+/bin/bash CarlaUE4.sh -quality-level=low -carla-server -benchmark -fps=10`
+
+this starts the server, now it is waiting for a client to connect
+
+### Start a client (0.8.4) on the host machine 
+
+change to the PythonClient directory and run one of the example scripts
+
+`cd ~/carla_simulator/carla_084/PythonClient`
+`./manual_control.py --autopilot`
+
+this is NOT WORKING - `PORT2000 CLOSED`
+
+
+### Start a client (0.8.4) on a remote computer - This works
+
+First change to the PythonClient directory and run one of the example scripts
+
+`cd ~/carla_simulator/carla_084/PythonClient`
+
+`./manual_control.py --autopilot --host 192.168.x.x`
+
+### Drive the car around with the keyboard in PYGAME.
+You have to take the parking break off first! At the moment the server<--->client relationship works!
+
+Note: the directory `/PythonClient` has changed `/PythonAPI` in the later versions 
+
+### Shutdown the CARLA server 
+
+In version 084 'ctrl-c' does not stop the preocess
+
+You cannot just close the process, you have to stop the container
+This process needs to be improved. I am supposed to be able to use the --name option to give
+container a persistent name but I have not made this work yet.
+
+For now, to stop the container you must first list the running containers
+
+`docker ps`
+
+OR
+
+`docker container ls`
+
+and you will get something like this:
+
+```
+CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS                              NAMES
+7b2ab18618af        carlasim/carla:0.8.4   "/bin/bash CarlaUE4.…"   20 minutes ago      Up 20 minutes       0.0.0.0:2000-2002->2000-2002/tcp   elastic_kare
+```
+Read the goofy name over on the right and that is the 'name' you will use to stop the containers.It is a good idea to choose your own name with the `--name` option.
+
+`docker stop elastic_kare`
+
+Run the server - notice the `opengl` flag. 
+
+`docker run -p 2000-2002:2000-2002 --runtime=nvidia --gpus all carlasim/carla:0.8.4 /bin/bash CarlaUE4.sh DISPLAY= ./CarlaUE4.sh -opengl -carla-server`
+
+Run the client. Notice that this script can be easiyl modified. `PythonClient` is a set of examples.
+`cd ~/carla_simlulator/carla_v084/PythonClient`
+
+`/.manual_control_twh.py --autopilot --host 192.168.1.2 -q Low`
+
+
+
+## THILLROBOT DEVELOPMENT DOCS BELOW HERE - Proceed at your own risk
+#### alternatively run the client in the container - this is what I really want - This does not work yet
 
 I would really like for the client and server to be in the docker container. To me it seems to make sense for me to be able to run both in the container. 
 
