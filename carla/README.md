@@ -195,34 +195,29 @@ and you will get something like this:
 CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS                              NAMES
 7b2ab18618af        carlasim/carla:0.8.4   "/bin/bash CarlaUE4.…"   20 minutes ago      Up 20 minutes       0.0.0.0:2000-2002->2000-2002/tcp   elastic_kare
 ```
-read the goofy name over on the right and that is the 'name' you will use to stop the containers. This goofy name issue is solved with the `--name` option.
+Read the goofy name over on the right and that is the 'name' you will use to stop the containers.It is a good idea to choose your own name with the `--name` option.
 
 `docker stop elastic_kare`
 
-OK I have made some more progress
+Run the server - notice the `opengl` flag. 
 
-Run the server - notice I have added the opengl flag
+`docker run -p 2000-2002:2000-2002 --runtime=nvidia --gpus all carlasim/carla:0.8.4 /bin/bash CarlaUE4.sh DISPLAY= ./CarlaUE4.sh -opengl -carla-server`
 
-`docker run -p 2000-2002:2000-2002 --runtime=nvidia --gpus all carlasim/carla:0.8.4 /bin/bash CarlaUE4.sh DISPLAY= ./CarlaUE4.sh -opengl -carla-serve`
-
-Run the client - notice this is my script that I modified. Cool
-
+Run the client. Notice that this script can be easiyl modified. `PythonClient` is a set of examples.
 `cd ~/carla_simlulator/carla_v084/PythonClient`
 
 `/.manual_control_twh.py --autopilot --host 192.168.1.2 -q Low`
 
-## Using CARLA Version 0.9.10 or 0.9.10.1 - Current Development Version latest
+## Using CARLA Version 0.9.10 or 0.9.10.1 - Current Development Version: latest
 
-This requires the more modern nividia drivers, I installed  nvidia450 -> nvidia455
+This requires modern nividia drivers(>390), I installed  nvidia450 -> nvidia455
 
 `docker pull carlasim/carla:0.9.10.1`
 
-I ran into this  errors: sh: 1: xdg-user-dir: not found
+I ran into this  error: `sh: 1: xdg-user-dir: not found`. This seems to be common issue, and the CARLA teams says it can be ignored.
+There is some discussion here (https://github.com/carla-simulator/carla/issues/3156).There are still warnings but it seems like the simulation has started.
+###
 
-but i found a solution here (https://github.com/carla-simulator/carla/issues/3156)
-
-There are still some warnings but it seems like the simulation has started.
--p allows one to one mapping of ports host - container
 
 ### CARLA Server - The server is the world simulation
 
@@ -237,6 +232,13 @@ This will run the script `CarlaUE4.sh` in the carla container. Using the `--name
  ```
  docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus 'all,"capabilities=graphics,utility,display,video,compute"' -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -quality-level=Epic -opengl -benchmark fps=20
  ```
+  *mystery t*: `-it` this is something that I need to read about         
+ 
+  *Environment Variables*: `-e` defines environment varibles to be used in the container
+ 
+  *Volumes*: `-v` defines volumes that will be visible to the container
+  
+  *Ports*: `-p` defines one to one mapping of ports host - container
  
   *Graphics Quality*: Run the graphics in `Low` or `Epic` quality mode. The `Low` setting increases the display framerate significantly. If you run `0.9.10.1` in `Low` with `-opengl` the screen appears washed out with white and other colors. This is an over exposure issue related to the quality setting transistion that seems to be known in previous versions (not talked about much it in 0.9.10.1). If you run in `Low` then use `vulkan`. If you run in `Epic` you can use either `opengl` or `vulkan`.
 
