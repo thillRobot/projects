@@ -130,6 +130,8 @@ Now we have three images to choose from. I believe 'latest' is the same as 0.9.1
 
 ### Download and extract CARLA pre-compiled package from Github (reccomended option by CARLA for choosing versions)
 
+NEEDS UPDATING - this step is redundant because you jsut downloaded carla using docker, you can get it from the container. This is shown in one of the links in the useful docs part of this page.
+
 Download and extract the appropriate version from Github. (https://github.com/carla-simulator/carla)
 I am currently putting the package in ` ~/carla_simulator/carla_<version number> `
 Here we show versions: 
