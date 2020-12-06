@@ -1,7 +1,7 @@
-## TWH logs - CARLA - open source vehicle simulator
-October 07, 2020 - October 14, 2020 - October 29, 2020 - December 03, 2020
+# TWH logs - CARLA - open source vehicle simulator
+October 07, 2020 - December 06, 2020
 
-### Goals:
+## Goals:
 
 - [x] install and test ROS_BRIDGE in ros melodic
 - [ ] install and test ROS_BRIDGE in ros noetic (this is not clearly supported yet)
@@ -24,7 +24,7 @@ October 07, 2020 - October 14, 2020 - October 29, 2020 - December 03, 2020
 - [ ] test server on local machine - not in a docker - NOT DONE
 - [ ] clean up this document, it is a huge mess - it is a little better
 
-### Useful Resources
+## Useful Resources
 
 Official Carla Documentation
 https://carla.readthedocs.io/en/latest/
@@ -38,9 +38,9 @@ https://hub.docker.com/r/johannhaselberger/coros
 This shows how to use CARLA with `docker` and `virtualenv` in Ubuntu 20.04
 https://antc2lt.medium.com/carla-on-ubuntu-20-04-with-docker-5c2ccdfe2f71
 
-### Hardware
+## Hardware
 
-#### Test Server Computer:
+### Test Server Computer:
 
 * Computer: Dell t1600
 * CPU:      Xeon CPU E31245 @ 3.30GHz × 8
@@ -48,7 +48,7 @@ https://antc2lt.medium.com/carla-on-ubuntu-20-04-with-docker-5c2ccdfe2f71
 * RAM:      8GB - > 16 GB
 * OS:       Ubuntu 20.04/Ubuntu18.04
 
-#### Test Client Computer:
+### Test Client Computer:
 
 * Computer: Intel NUC7i7BNH
 * CPU:      Intel i7
@@ -57,10 +57,10 @@ https://antc2lt.medium.com/carla-on-ubuntu-20-04-with-docker-5c2ccdfe2f71
 * OS:       Ubuntu 18.04
 
 
-### Installing CARLA
+## Installing CARLA
 
 
-#### Required/Related Software
+### Required/Related Software
 
 * CARLA - the core of this project
 * Python - Python3 is reccomended but apparently the client runs on Python2.
@@ -71,7 +71,7 @@ https://antc2lt.medium.com/carla-on-ubuntu-20-04-with-docker-5c2ccdfe2f71
 * ROS
 * ROS_BRIDGE
 
-#### Different Options for Installing CARLA
+### Different Options for Installing CARLA
 There are multple ways to install and run the CARLA package. Which is the right way, who knows.
 
 1. Download and Extract from CARLA package from Github (https://github.com/carla-simulator/carla/releases) - if you just need a client - or do developement
@@ -88,13 +88,13 @@ There are multple ways to install and run the CARLA package. Which is the right 
 
 I am pursuing the Docker Approach for the server for several reasons. Mainly flexibility in testing. Currently, my working demo is a hybrid of approach 1 and 3 from above. It would nice if we had full functionality in a Docker container (method 3 only) because this would allow for complete portability. This may have to wait. Option 2 is a good idea also!
 
-#### install docker 
+### install docker 
 I installed 'docker CE' and 'nvidia-docker2' following the instructions that I was lead to from the carla docs. This requires the nvidia drivers.
 * https://carla.readthedocs.io/en/latest/build_docker/
 * https://carla.readthedocs.io/en/latest/build_docker/#docker-ce Be careful not to install docker CE with apt and the script!
 * https://carla.readthedocs.io/en/latest/build_docker/#nvidia-docker2
 
-##### using docker without sudo (root access)
+### configure docker to run without sudo access
 
 If you are a regular user without without access to sudo, you must be added to the docker group. More details are dicsussed in the *post-installation steps*  here (https://docs.docker.com/engine/install/linux-postinstall/).
 
@@ -112,7 +112,7 @@ Also, to run CARLA server with docker (the X11 port stuff), the container needs 
 
 Now you should be able to run the `docker` commands below. All remaining `docker` commands should not require sudo.
 
-#### pull CARLA images with docker
+### pull CARLA images with docker
 then I pulled a older vesion of carla 0.8.4. , this does not need to be repeated unless I change version
 
 `docker pull carlasim/carla:0.8.4`
@@ -130,7 +130,7 @@ Now we have three images to choose from. I believe 'latest' is the same as 0.9.1
 `docker pull carlasim/carla:latest`
 
 
-#### Download and extract CARLA pre-compiled package from Github (reccomended option by CARLA for choosing versions)
+### Download and extract CARLA pre-compiled package from Github (reccomended option by CARLA for choosing versions)
 
 Download and extract the appropriate version from Github. (https://github.com/carla-simulator/carla)
 I am currently putting the package in ` ~/carla_simulator/carla_<version number> `
@@ -141,10 +141,10 @@ Here we show versions:
  * carla 0.9.10.1 
  * carla latest=
  
-### CARLA Version 0.8.4
+## CARLA Version 0.8.4
 this is a hybrid of approach 1 (download and extract) and method 3 (run in docker) from the list above 
 
-#### Start the CARLA server in a CARLA Version 0.8.4 container
+### Start the CARLA server in a CARLA Version 0.8.4 container
 
 run the default script 'CarlaUE4.sh' in a carla 0.8.4 container and give a name 'carlaserver'
 
@@ -153,14 +153,14 @@ run the default script 'CarlaUE4.sh' in a carla 0.8.4 container and give a name 
 
 this starts the server, now it is waiting for a client to connect
 
-#### Start a client (0.8.4) on the host machine - NOT WORKING - PORT2000 CLOSED
+### Start a client (0.8.4) on the host machine - NOT WORKING - PORT2000 CLOSED
 
 change to the PythonClient directory and run one of the example scripts
 
 `cd ~/carla_simulator/carla_084/PythonClient`
 `./manual_control.py --autopilot`
 
-#### Start a client (0.8.4) on a remote computer - This works
+### Start a client (0.8.4) on a remote computer - This works
 
 First change to the PythonClient directory and run one of the example scripts
 
@@ -168,12 +168,12 @@ First change to the PythonClient directory and run one of the example scripts
 
 `./manual_control.py --autopilot --host 192.168.x.x`
 
-#### Drive the car around with the keyboard in PYGAME.
+### Drive the car around with the keyboard in PYGAME.
 You have to take the parking break off first! At the moment the server<--->client relationship works!
 
 Note: the directory `/PythonClient` has changed `/PythonAPI` in the later versions 
 
-#### Shutdown the CARLA server 
+### Shutdown the CARLA server 
 
 In version 084 'ctrl-c' does not stop the preocess
 
@@ -211,7 +211,7 @@ Run the client - notice this is my script that I modified. Cool
 
 `/.manual_control_twh.py --autopilot --host 192.168.1.2 -q Low`
 
-### Using CARLA Version 0.9.10 or 0.9.10.1 - Current Development Version latest
+## Using CARLA Version 0.9.10 or 0.9.10.1 - Current Development Version latest
 
 This requires the more modern nividia drivers, I installed  nvidia450 -> nvidia455
 
@@ -224,16 +224,16 @@ but i found a solution here (https://github.com/carla-simulator/carla/issues/315
 There are still some warnings but it seems like the simulation has started.
 -p allows one to one mapping of ports host - container
 
-#### CARLA Server - The server is the world simulation
+### CARLA Server - The server is the world simulation
 
-#### Run the server in a docker container
+### Run the server in a docker container
 This will run the script `CarlaUE4.sh` in the carla container. Using the `--name` option to choose a name for the container or the container starts with a random funny name. If these lines require `sudo` see instructions above for configuring permissions.
 
-##### Run CarlaUE4.sh with default server parameters
+#### Run CarlaUE4.sh with default server parameters
  ```
  docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus 'all,"capabilities=graphics,utility,display,video,compute"' -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh
  ```
-##### Run CarlaUE4.sh with various server parameters   
+#### Run CarlaUE4.sh with various server parameters   
  ```
  docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus 'all,"capabilities=graphics,utility,display,video,compute"' -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -quality-level=Epic -opengl -benchmark fps=20
  ```
@@ -246,7 +246,7 @@ Running in `vulkan` fixed the over exposure white screen issues. The white scree
 
   *Framerate*: Set the frame rate with `-benchmark` and `fps=<framerate>`. You can also chang the framerate from the client side using `PythonAPI/utils/config.py --fps <framerate>`, and this is shown later. Note: Either will change the simulation time, not the display time see post `asdf` for more info. 
 
-##### Running Headless
+#### Running Headless
 You can run the server headless using `SDL_VIDEODRIVER=offscreen` and no display will be shown. It does not seem to greatly the affect the display FPS. 
 
  ``` 
@@ -266,7 +266,7 @@ or shown below so you can read the commands
     carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl
  ```
  
-##### running `bash` in the container
+#### running `bash` in the container
 This will run BASH in the carla container without starting the simulator.
 
 `docker run --name carlaserver --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10.1 bash`
@@ -275,24 +275,24 @@ You can start the server from inside the container. I am not sure why you would 
 
 `SDL_VIDEODRIVER=x11 ./CarlaUE4.sh -opengl` 
 
-##### Closing the Server
+#### Closing the Server
 In version 0.9.10 you can ctrl-c to close the server, but I want to check that this is ok, i think the container is removed so it should be fine
 unless you want to run that same container again with docker start or restart. For now, you have to remove the container before you can start it again. This should be fixed but it is not at the moment.
 
-##### Cleaning up 
+#### Cleaning up 
 You sometime need to remove the container before you can start the server again. I think there is an easy fix for this. 
 
 `docker container rm carlaserver`
 
-##### Warning 
-Do not run the docker as `--privileged` even though some forums may suggest it. This gives container root access to host, and this is very dangerous.
+#### Warning 
+It is not reccomended to run the docker as `--privileged` even though some forums may suggest it. This gives container root access to host, and this is risky.
 Someone suggested this in a forum somewhere, but that does not mean it is a good idea. It is even suggested to do so in the dockerfile!
 
-#### CARLA PythonAPI - this is a set of tools and example for interacting with the CARLA server
+### CARLA PythonAPI - this is a set of tools and example for interacting with the CARLA server
 There are all kinds of things that you can try. "get in the there and mess around" - CARLA docs
 the API is located in the carla directory `/carla/PythonAPI`  or `${CARLA_ROOT}/PythonAPI`
 
-##### Setup Option 1 (reccomended): Use the PythonAPI CONDA Environment - This saves time and is preferred method during testing
+#### Setup Option 1 (reccomended): Use the PythonAPI CONDA Environment - This saves time and is preferred method during testing
 Once way to use the PythonAPI in Ubuntu 20.04 in with CONDA. Install conda following instructions here (https://docs.anaconda.com/anaconda/install/linux/). Use CONDA for a virtual environment I have setup for conveinence. This way you do not have to set the paths each time or install dependencies. 
 
 This turtorial (https://antc2lt.medium.com/carla-on-ubuntu-20-04-with-docker-5c2ccdfe2f71) shows a similar way that uses `virtualenv`. There are one or two bugs in the tutorial, but overall it was very useful to read because this person is doing something very similar to me. 
@@ -348,7 +348,7 @@ now that `CARLA_ROOT` is set you can install the python requirements with the fo
 
 Now you can test the different features included in the API.
 
-##### Setup Option 2: install neccesary deps with apt and/or pip (not in conda or virualenv)
+#### Setup Option 2: install neccesary deps with apt and/or pip (not in conda or virualenv)
 The PythonAPI requires NUMPY and PYGAME (https://carla.readthedocs.io/en/latest/start_quickstart/). 
 Do I need the `--user` option ? What does that even do? I think I know.
 
@@ -368,11 +368,11 @@ If you are using **Python2.7**:
 
 Then, you can run *some* of the examples in `/PythonAPI/examples` and `/PythonAPI/utils`, but several of the scripts tend to fail. I assume this is because there are missing dependencies. These appear to be installed with `requirements.txt`.
 
-##### Spawm (N) NPC Vehicles and Pedestrains 
+#### Spawm (N) NPC Vehicles and Pedestrains 
 
 `python3 ${CARLA_ROOT}/PythonAPI/examples/spawn_npc.py -n 20`
 
-##### Start a CARLA Client - The client is a vehicle driving in the world server
+#### Start a CARLA Client - The client is a vehicle driving in the world server
 
 I origanally wanted the client to be run from inside the container. I am not sure exactly why. It seems like it should be available in the container...
 On the client side I have had some trouble with the 'no module named carla issue' - https://github.com/carla-simulator/carla/issues/1137
@@ -381,10 +381,10 @@ this is related to properly setting the path for the 'carla' python module from 
 In Ubuntu 20.04 (server machine) I downloaded and extracted carla 0.9.10 - 'pip3 install pygame' did not work so I had to use 'apt install python3-pygame'
 i had to set the PYTHONPATH for the carla module to work. Basically the PYTHONPATH must include the path to .egg file for the right version of carla, I think that this is the same problem I am having in the docker container 'no module named carla'
 
-##### Running the client in users home directory (~/) of the local (server) machine 
+#### Running the client in users home directory (~/) of the local (server) machine 
 
 
-##### run CARLA client in CONDA Environment 
+#### run CARLA client in CONDA Environment 
 
 `conda activate carla09101`
 
@@ -396,7 +396,7 @@ If the client is remote then you have to inlcude the IP address of the host.
 
 `python3 ${CARLA_ROOT}/PythonAPI/examples/manual_control.py --host 192.168.254.45` 
 
-##### Configuring the CARLA server from a client
+#### Configuring the CARLA server from a client
 A new useful feature I have just discovered is `/PythonAPI/utils/config.py`. This scripts is used to configure a running CARLA server. You can do things like change the town map and other things. This is very useful becuase is it a pain (so much that I was unable to do so!) from the server side. I guess this makes sensse...
 
 Here is an example that shows how to change the town map.
@@ -411,7 +411,7 @@ This sets the fixed rate frames per second.
 
 `python3 ${CARLA_ROOT}/PythonAPI/util/config.py --fps 10`
 
-##### Timeout Error with REMOTE use of PythonAPI
+#### Timeout Error with REMOTE use of PythonAPI
 Sometimes running the PythonAPT remote throws an error like this. 
 ```
 'No recommended values for 'speed' attribute
@@ -430,11 +430,11 @@ This can be fixed by increasing the connection timeout that is set in the python
 editing line 1038 in `manual_control.py`. I wonder why it defaults to something that works so poorly. 
 
 
-#### CARLA ROS-BRIDGE (ros-melodic only)- This gives us access to data from the simulation in ROS
+### CARLA ROS-BRIDGE (ros-melodic only)- This gives us access to data from the simulation in ROS
 
 Follow the instructions on the ROS-BRIDGE github (https://github.com/carla-simulator/ros-bridge)
 
-##### Install Option A (for users): install with `apt`
+#### Install Option A (for users): install with `apt`
 ```
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1AF1527DE64CB8D9
 sudo add-apt-repository "deb [arch=amd64] http://dist.carla.org/carla $(lsb_release -sc) main"
@@ -445,7 +445,7 @@ sudo apt-get update
 sudo apt-get install carla-ros-bridge
 ```
 
-##### Install Option B (developers): compile from source 
+#### Install Option B (developers): compile from source 
 Create a catkin workspace and install carla_ros_bridge package
 ```
 #setup folder structure
@@ -468,11 +468,11 @@ catkin_make
 ```
 NOTE: using conda conflicts with ROS somehow. I need to figure this out somehow.
 
-##### run the server before testing
+#### run the server before testing
 
 `docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus all -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -opengl`
 
-##### run the CARLA-ROS-BRIDGE 
+#### run the CARLA-ROS-BRIDGE 
 NOTE: the `carla-ros-bridge` 
 
 `export CARLA_ROOT=~/carla_simulator/carla_09101`
@@ -485,7 +485,7 @@ NOTE: the `carla-ros-bridge`
 
 `roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch`
 
-##### run rostopic to test
+#### run rostopic to test
 
 `rostopic list`
 
@@ -493,17 +493,17 @@ NOTE: the `carla-ros-bridge`
 
 You should now be able to see the data from the simulator in ROS, cool.
 
-##### Testing carla-ros-bridge in ros-noetic
+#### Testing carla-ros-bridge in ros-noetic
 
 I have successfully tested this in Ubuntu18.04 using both intallation methods shown here. `ros-noetic` is not supported yet. You can copmile from source in ubuntu20.04 there is a python version error when you try the launch files. ALso, `apt` cannot find the the package `carla-ros-bridge`. This somewhat confirms that it isnot yet supported in `focal fossa`
 
 This the main reason I am holding onto `Ubuntu18.04`.
 
-#### alternatively run the client in the container - this is what I really want - This does not work yet
+### alternatively run the client in the container - this is what I really want - This does not work yet
 
 I would really like for the client and server to be in the docker container. To me it seems to make sense for me to be able to run both in the container. 
 
-##### Try to `run` the carla server in a docker container, and then `run` the client in the same container. 
+#### Try to `run` the carla server in a docker container, and then `run` the client in the same container. 
 
 Start the carla server in a docker container. Apparantely I was not using the name option. I need to add the name option here. 
 
@@ -528,7 +528,7 @@ Next, `run` a client on the server machine this time so there is no ip needed, y
 
 `sudo docker run -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --net=host -it --gpus all carlasim/carla:0.9.10 /PythonAPI/examples/manual_control.py --env CARLA_ROOT=~/ --env PYTHONPATH=~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:~/PythonAPI/carla/agents:~/PythonAPI/carla`
 
-##### Alternatively,`run` the carla server in a docker container, and `exec` the the client in the same container as the server - not working 
+#### Alternatively,`run` the carla server in a docker container, and `exec` the the client in the same container as the server - not working 
 
 `sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:/home/carla/PythonAPI/carla/agents:/home/carla/PythonAPI/carla carla python3 PythonAPI/examples/manual_control.py`
 
@@ -540,7 +540,7 @@ Next, `run` a client on the server machine this time so there is no ip needed, y
   File "/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg/carla/libcarla.py", line 7, in __bootstrap__ Actually you are wrong carla is the name of the container and the python module
 ImportError: libxerces-c-3.2.so: cannot open shared object file: No such file or directory
 `
-##### Something else: `run` the carla server in a docker container, and then `run` the client in a separate container. 
+#### Something else: `run` the carla server in a docker container, and then `run` the client in a separate container. 
 To do this use the --name option to force the containers to be different.
 
 Start the carla server in a docker container named `carlaserver`
@@ -553,7 +553,7 @@ Then, start the the client in the different container named `carlaclient`
 
 This is not seem to be any different. 
 
-##### Mike was trying to help me fix the missing library file (libxerces-c-3.2.so) issue. This library issue was fixed by installing missinhg librbaries in container. See below. 
+#### Mike was trying to help me fix the missing library file (libxerces-c-3.2.so) issue. This library issue was fixed by installing missinhg librbaries in container. See below. 
 
 Start the server in a container, use -v to mount /usr/lib/x86_64-linux-gnu/:/usr/local/host/lib on the host computer
 
@@ -583,7 +583,7 @@ OKIE DOKIE!  I think i figured out the libxerces-c issue. well, maybe not but I 
 "Fixed dependency of library Xerces-c on package" - I think they might mean 'of'
 Well here we go with the latest version (16 days old).
 
-##### Now we are going to repeat those tests with carla 0.9.10.1
+#### Now we are going to repeat those tests with carla 0.9.10.1
 
 run bash in the container - works
 
@@ -605,7 +605,7 @@ Then, start the the client in the same container as the server - not working
   File "/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg/carla/libcarla.py", line 7, in __bootstrap__
 ImportError: libjpeg.so.8: cannot open shared object file: No such file or directory`
 
-##### I was still stuck so I finally reached out to the guys at CARLA
+#### I was still stuck so I finally reached out to the guys at CARLA
 
 Wow, another similar error, different library. Does this mean that they fixed the xerces error and not this one? I am a little confused about that. At this point I have spent some time on this. I finally broke down and asked the CARLA team. I posted my question. I was terrified that they would make fun of me, but they were vey helpful and responsive. Here is my post (https://github.com/carla-simulator/carla/issues/3236#issuecomment-711022225):
 
@@ -625,7 +625,7 @@ ImportError: libjpeg.so.8: cannot open shared object file: No such file or direc
 
 As you can read in the link above the CARLA team was veryh helpful, but their suggestions have only lead me to more issues. Nicoloas said that carla is not runtime for the client (I am not sure what he means exactly), and that I will have to go into the client with bash and install the libraries with `apt-get`. This is very counter intutive to me.
 
-##### most recent attempt at running carla client in container - I am trying to following suggestions from carla team.
+#### most recent attempt at running carla client in container - I am trying to following suggestions from carla team.
 
 For any of this to work the docker must be able to access the internet, to do this edit the /etc/default/docker file and give DNS ip address
 add this line to the bottom of /etc/default/docker to allow a container to access the internet
