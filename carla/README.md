@@ -40,7 +40,7 @@ https://antc2lt.medium.com/carla-on-ubuntu-20-04-with-docker-5c2ccdfe2f71
 
 ## Hardware
 
-### Test Server Computer:
+### Server Computer:
 
 * Computer: Dell t1600
 * CPU:      Xeon CPU E31245 @ 3.30GHz × 8
@@ -48,17 +48,13 @@ https://antc2lt.medium.com/carla-on-ubuntu-20-04-with-docker-5c2ccdfe2f71
 * RAM:      8GB - > 16 GB
 * OS:       Ubuntu 20.04/Ubuntu18.04
 
-### Test Client Computer:
+### Client Computer:
 
 * Computer: Intel NUC7i7BNH
 * CPU:      Intel i7
 * Graphics: KabyLake GT3e
 * RAM:      16GB
 * OS:       Ubuntu 18.04
-
-
-## Installing CARLA
-
 
 ### Required/Related Software
 
@@ -71,25 +67,27 @@ https://antc2lt.medium.com/carla-on-ubuntu-20-04-with-docker-5c2ccdfe2f71
 * ROS
 * ROS_BRIDGE
 
+## Installing CARLA
+
 ### Different Options for Installing CARLA
 There are multple ways to install and run the CARLA package. Which is the right way, who knows.
 
-1. Download and Extract from CARLA package from Github (https://github.com/carla-simulator/carla/releases) - if you just need a client - or do developement
-  * CARLA Client - This is easy - requires numpy and pygame only 
-  * CARLA Server -  This appears to be a very involved - requires building CARLA and UNREAL4 (https://carla.readthedocs.io/en/latest/build_linux/)
+*Option 1:* Download and Extract from CARLA package from Github (https://github.com/carla-simulator/carla/releases) - if you just need a client - or do developement
+  * CARLA Client - This is easy - requires numpy and pygame only (or use requirements.txt) 
+  * CARLA Server -  This appears to be a very involved - requires building CARLA and UNREAL4 (https://carla.readthedocs.io/en/latest/build_linux/) - I have not tested this yet.
    
-2. Install CARLA package with `apt install` - this should be very straight forward - but hard to change versions - for a general user
-  * CARLA Client - this needs testing - this should be easy 
-  * CARLA Server - this needs testing - it may be a pain to update versions - maybe not
+*Option 2:* Install CARLA package with `apt install` - this should be very straight forward - but hard to change versions - for a general user
+  * CARLA Client - I have not tested this yet.
+  * CARLA Server - I have not tested this yet.
 
-3. Use Docker to pull and run a CARLA image (https://carla.readthedocs.io/en/latest/build_docker/) - for development and test - portability
+*Option 3:* Use Docker to pull and run a CARLA image (https://carla.readthedocs.io/en/latest/build_docker/) - for development and testing - extremely portability
   * CARLA Client - This should be easy, but this does not work - see bottom of this document
   * CARLA Server - This works good, but it did require some figuring out - see middle of this document
 
-I am pursuing the Docker Approach for the server for several reasons. Mainly flexibility in testing. Currently, my working demo is a hybrid of approach 1 and 3 from above. It would nice if we had full functionality in a Docker container (method 3 only) because this would allow for complete portability. This may have to wait. Option 2 is a good idea also!
+I am pursuing the Docker Approach for the server for flexibility in testing. Currently, my working demo is a hybrid of approach 1 and 3 from above. It would nice if we had full functionality in a Docker container (method 3 only) because this would allow for complete portability. This may have to wait. Option 2 is a good idea also!
 
 ### install docker 
-I installed 'docker CE' and 'nvidia-docker2' following the instructions that I was lead to from the carla docs. This requires the nvidia drivers.
+I installed `docker CE` and `nvidia-docker2` following the instructions from docker that is pointed to in the carla docs. This requires the nvidia drivers. 
 * https://carla.readthedocs.io/en/latest/build_docker/
 * https://carla.readthedocs.io/en/latest/build_docker/#docker-ce Be careful not to install docker CE with apt and the script!
 * https://carla.readthedocs.io/en/latest/build_docker/#nvidia-docker2
