@@ -230,13 +230,28 @@ This will run the script `CarlaUE4.sh` in the carla container. Using the `--name
  ```
  docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus 'all,"capabilities=graphics,utility,display,video,compute"' -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -quality-level=Epic -opengl -benchmark fps=20
  ```
-  *mystery t*: `-it` this is something that I need to read about         
+ 
+ the command is repeated below in a readable format
+ 
+ ```
+  docker run --name carlaserver \
+  -e SDL_VIDEODRIVER=x11 \
+  -e DISPLAY=$DISPLAY \
+  -e XAUTHORITY=$XAUTHORITY \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  -v $XAUTHORITY:$XAUTHORITY \
+  -it --gpus 'all,"capabilities=graphics,utility,display,video,compute"' \
+  -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 \
+  ./CarlaUE4.sh -quality-level=Epic -opengl -benchmark fps=20
+  ```      
  
   *Environment Variables*: `-e` defines environment varibles to be used in the container
  
   *Volumes*: `-v` defines volumes that will be visible to the container
   
   *Ports*: `-p` defines one to one mapping of ports host - container
+ 
+  *mystery it*: `-it` this is something that I need to read about   
  
   *Graphics Quality*: Run the graphics in `Low` or `Epic` quality mode. The `Low` setting increases the display framerate significantly. If you run `0.9.10.1` in `Low` with `-opengl` the screen appears washed out with white and other colors. This is an over exposure issue related to the quality setting transistion that seems to be known in previous versions (not talked about much it in 0.9.10.1). If you run in `Low` then use `vulkan`. If you run in `Epic` you can use either `opengl` or `vulkan`.
 
