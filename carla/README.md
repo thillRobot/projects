@@ -26,17 +26,19 @@ October 07, 2020 - December 06, 2020
 
 ## Useful Resources
 
-Official Carla Documentation
+- Official Carla Documentation
 https://carla.readthedocs.io/en/latest/
 
-I am not the first one doing this... what a surprise
+- I am not the first one doing this... what a surprise
 https://usermanual.wiki/Document/CARLASetupGuideUbuntu.271743992/help  
 
-This group is using COROS + CARLA 0.9.10.1 in a docker
+- This group is using COROS + CARLA 0.9.10.1 in a docker
 https://hub.docker.com/r/johannhaselberger/coros
 
-This shows how to use CARLA with `docker` and `virtualenv` in Ubuntu 20.04
+- This shows how to use CARLA with `docker` and `virtualenv` in Ubuntu 20.04
 https://antc2lt.medium.com/carla-on-ubuntu-20-04-with-docker-5c2ccdfe2f71
+
+I am not alone. This is good.
 
 ## Hardware
 
@@ -59,13 +61,12 @@ https://antc2lt.medium.com/carla-on-ubuntu-20-04-with-docker-5c2ccdfe2f71
 ### Required/Related Software
 
 * CARLA - the core of this project
-* Python - Python3 is reccomended but apparently the client runs on Python2.
-           This needs to be addressed.
+* Python - Python2.7 and Python3.7 are used
 * NUMPY and PYGAME
 * docker CE
 * nvidia-docker2 (this requires nvidia drivers and driver version limits carla version)
-* ROS
-* ROS_BRIDGE
+* ROS Melodic (Noetic in testing)
+* CARLA_ROS_BRIDGE
 
 ## Installing CARLA
 
@@ -93,7 +94,6 @@ I installed `docker CE` and `nvidia-docker2` following the instructions from doc
 * https://carla.readthedocs.io/en/latest/build_docker/#nvidia-docker2
 
 ### configure docker to run without sudo access
-
 If you are a regular user without without access to sudo, you must be added to the docker group. More details are dicsussed in the *post-installation steps*  here (https://docs.docker.com/engine/install/linux-postinstall/).
 
 `sudo groupadd docker`
@@ -108,7 +108,7 @@ Also, to run CARLA server with docker (the X11 port stuff), the container needs 
 
 `chmod 644 $XAUTHORITY`
 
-Now you should be able to run the `docker` commands below. All remaining `docker` commands should not require sudo.
+Now you should be able to run the `docker` commands below. All remaining `docker` commands should not require sudo, and this documents assumes you have completed this step.
 
 ### pull CARLA images with docker
 then I pulled a older vesion of carla 0.8.4. , this does not need to be repeated unless I change version
@@ -137,7 +137,7 @@ Here we show versions:
  * carla 0.8.4
  * carla 0.9.10 
  * carla 0.9.10.1 
- * carla latest=
+ * carla latest (0.9.10.1)
  
 ## CARLA Version 0.8.4
 this is a hybrid of approach 1 (download and extract) and method 3 (run in docker) from the list above 
