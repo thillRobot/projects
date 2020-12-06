@@ -29,13 +29,13 @@ October 07, 2020 - December 06, 2020
 - Official Carla Documentation
 https://carla.readthedocs.io/en/latest/
 
-- I am not the first one doing this... what a surprise
+- CORSERA 
 https://usermanual.wiki/Document/CARLASetupGuideUbuntu.271743992/help  
 
-- This group is using COROS + CARLA 0.9.10.1 in a docker
+- COROS + CARLA 0.9.10.1 (ROS with docker)
 https://hub.docker.com/r/johannhaselberger/coros
 
-- This shows how to use CARLA with `docker` and `virtualenv` in Ubuntu 20.04
+- CARLA with `docker` and `virtualenv` in Ubuntu 20.04
 https://antc2lt.medium.com/carla-on-ubuntu-20-04-with-docker-5c2ccdfe2f71
 
 I am not alone. This is good.
