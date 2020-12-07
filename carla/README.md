@@ -509,7 +509,7 @@ I have successfully tested this in Ubuntu18.04 using both intallation methods sh
 
 This the main reason I am holding onto `Ubuntu18.04`.
 
-### Issue with version 0.9.10.1
+### Issues with version 0.9.10.1
 
 ####  xdg-user-dir: not found
 I ran into this  error: `sh: 1: xdg-user-dir: not found`. This seems to be common issue, and the CARLA teams says it can be ignored.
@@ -585,6 +585,19 @@ Run the client. Notice that this script can be easiyl modified. `PythonClient` i
 `cd ~/carla_simlulator/carla084/PythonClient`
 
 `/.manual_control_twh.py --autopilot --host 192.168.1.2 -q Low`
+
+
+## Generating Custom Maps with OpenStreetMap
+
+I have started to learn to build a custom town. This is one of my big goals for this project. I want to run CARLA in a virtual TNTECH Campus.
+
+I have tried to follow this CARLA tutorial here (https://carla.readthedocs.io/en/latest/tuto_G_openstreetmap/), but I am stuck. 
+
+
+I have not tried to follow this yet. (https://carla.readthedocs.io/en/latest/tuto_A_add_map/#introduction)
+
+
+
 
 ## THILLROBOT DEVELOPMENT DOCS BELOW HERE - Proceed at your own risk
 ### alternatively run the client in the container - this is what I really want but it does not work yet
