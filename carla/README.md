@@ -615,6 +615,9 @@ Warning: Cannot read local schema '../carla/data/xsd/types_file.xsd', will try w
 
 #### Step 3 - Import into CARLA
 
+
+RoadRunner is the recommended software to create a map due to its simplicity
+
 I have tried method **b)** from the tutorial and nothing happens. The command and the outout are shown below.
 ```
 python3 ${CARLA_ROOT}/PythonAPI/util/config.py --osm-path=/home/thill/carla_simulator/openstreetmap/map2.xodr
@@ -622,13 +625,22 @@ Converting OSM data to opendrive
 No nodes loaded.
 ```
 
-I am going to try method **a)** next.
-
-I have not tried to follow this yet. (https://carla.readthedocs.io/en/latest/tuto_A_add_map/#introduction)
+I have tried **method a)** by making a copy of `config.py` called `import_map.py`. 
+```
+cp ${CARLA_ROOT}/PythonAPI/util/condig.py ${CARLA_ROOT}/PythonAPI/util/import_map.py 
+```
+I did this so I could adjust the parameters, but I am not sure what to adjust. I am not sure if this is a problem with CARLA or my map.
+```
+python3 ${CARLA_ROOT}/PythonAPI/util/import_map.py --osm-path=/home/thill/carla_simulator/openstreetmap/map2.xodr
+Converting OSM data to opendrive
+No nodes loaded.
+```
+I commented on this Github post here (https://github.com/carla-simulator/carla/issues/3009), but I have not heard anything back yet.
 
 ### Adding a Map with RoadRunner
+(https://carla.readthedocs.io/en/latest/tuto_A_add_map/#introduction)
 *RoadRunner is the recommended software to create a map due to its simplicity* - CARLA docs
-I have requested a trial license from MATHWORKS
+I have not tried to follow this yet because it requires RoadRunner, but I have requested a trial license from MATHWORKS/
 
 ## THILLROBOT DEVELOPMENT DOCS BELOW HERE - Proceed at your own risk
 ### alternatively run the client in the container - this is what I really want but it does not work yet
