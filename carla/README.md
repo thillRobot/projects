@@ -281,10 +281,6 @@ This requires modern nividia drivers(>390), I installed  nvidia450 -> nvidia455
 
 `docker pull carlasim/carla:0.9.10.1`
 
-I ran into this  error: `sh: 1: xdg-user-dir: not found`. This seems to be common issue, and the CARLA teams says it can be ignored.
-There is some discussion here (https://github.com/carla-simulator/carla/issues/3156).There are still warnings but it seems like the simulation has started.
-###
-
 ### CARLA Server - The server is the world simulation
 
 ### Run the server in a docker container
@@ -505,6 +501,14 @@ You should now be able to see the data from the simulator in ROS, cool.
 I have successfully tested this in Ubuntu18.04 using both intallation methods shown here. `ros-noetic` is not supported yet. You can copmile from source in ubuntu20.04 there is a python version error when you try the launch files. ALso, `apt` cannot find the the package `carla-ros-bridge`. This somewhat confirms that it isnot yet supported in `focal fossa`
 
 This the main reason I am holding onto `Ubuntu18.04`.
+
+### Issue with version 0.9.10.1
+
+####  xdg-user-dir: not found
+I ran into this  error: `sh: 1: xdg-user-dir: not found`. This seems to be common issue, and the CARLA teams says it can be ignored.
+There is some discussion here (https://github.com/carla-simulator/carla/issues/3156).There are still warnings but it seems like the simulation has started.
+
+#### white screen wash out
 
 ## Using CARLA Version 0.8.4 (stable)
 this is a hybrid of approach 1 (download and extract) and method 3 (run in docker) from the list above 
