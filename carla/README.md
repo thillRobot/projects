@@ -68,26 +68,7 @@ I am not alone. This is good.
 * ROS Melodic (Noetic in testing)
 * CARLA_ROS_BRIDGE
 
-## Installing CARLA
-
-### Different Options for Installing CARLA
-There are multple ways to install and run the CARLA package. Which is the right way, who knows.
-
-*Option 1:* Download and Extract from CARLA package from Github (https://github.com/carla-simulator/carla/releases) - if you just need a client - or do developement
-  * CARLA Client - This is easy - requires numpy and pygame only (or use requirements.txt) 
-  * CARLA Server -  This appears to be a very involved - requires building CARLA and UNREAL4 (https://carla.readthedocs.io/en/latest/build_linux/) - I have not tested this yet.
-   
-*Option 2:* Install CARLA package with `apt install` - this should be very straight forward - but hard to change versions - for a general user
-  * CARLA Client - I have not tested this yet.
-  * CARLA Server - I have not tested this yet.
-
-*Option 3:* Use Docker to pull and run a CARLA image (https://carla.readthedocs.io/en/latest/build_docker/) - for development and testing - extremely portability
-  * CARLA Client - This should be easy, but this does not work - see bottom of this document
-  * CARLA Server - This works good, but it did require some figuring out - see middle of this document
-
-I am pursuing the Docker Approach for the server for flexibility in testing. Currently, my working demo is a hybrid of approach 1 and 3 from above. It would nice if we had full functionality in a Docker container (method 3 only) because this would allow for complete portability. This may have to wait. Option 2 is a good idea also!
-
-### install docker 
+## Installing Docker 
 I installed `docker CE` and `nvidia-docker2` following the instructions from docker that is pointed to in the carla docs. This requires the nvidia drivers. 
 * https://carla.readthedocs.io/en/latest/build_docker/
 * https://carla.readthedocs.io/en/latest/build_docker/#docker-ce Be careful not to install docker CE with apt and the script!
@@ -109,6 +90,28 @@ Also, to run CARLA server with docker (the X11 port stuff), the container needs 
 `chmod 644 $XAUTHORITY`
 
 Now you should be able to run the `docker` commands below. All remaining `docker` commands should not require sudo, and this documents assumes you have completed this step.
+
+## Installing CARLA
+
+### Options for Installing CARLA
+There are multple ways to install and run the CARLA package. Which is the right way, who knows.
+
+*Option 1:* Download and Extract from CARLA package from Github (https://github.com/carla-simulator/carla/releases) - if you just need a client - or do developement
+  * CARLA Client - This is easy - requires numpy and pygame only (or use requirements.txt) 
+  * CARLA Server -  This appears to be a very involved - requires building CARLA and UNREAL4 (https://carla.readthedocs.io/en/latest/build_linux/) - I have not tested this yet.
+   
+*Option 2:* Install CARLA package with `apt install` - this should be very straight forward - but hard to change versions - for a general user
+  * CARLA Client - I have not tested this yet.
+  * CARLA Server - I have not tested this yet.
+
+*Option 3:* Use Docker to pull and run a CARLA image (https://carla.readthedocs.io/en/latest/build_docker/) - for development and testing - extremely portability
+  * CARLA Client - This should be easy, but this does not work - see bottom of this document
+  * CARLA Server - This works good, but it did require some figuring out - see middle of this document
+
+I am pursuing the Docker Approach for the server for flexibility in testing. Currently, my working demo is a hybrid of approach 1 and 3 from above. It would nice if we had full functionality in a Docker container (method 3 only) because this would allow for complete portability. This may have to wait. Option 2 is a good idea also!
+
+
+
 
 ### pull CARLA images with docker
 then I pulled a older vesion of carla 0.8.4. , this does not need to be repeated unless I change version
@@ -382,8 +385,8 @@ This can be fixed by increasing the connection timeout that is set in the python
 editing line 1038 in `manual_control.py`. I wonder why it defaults to something that works so poorly. 
 
 
-### CARLA ROS-BRIDGE (ros-melodic only)- This gives us access to data from the simulation in ROS
-
+### CARLA ROS-BRIDGE (ros-melodic only)
+This gives us access to data from the simulation in ROS
 Follow the instructions on the ROS-BRIDGE github (https://github.com/carla-simulator/ros-bridge)
 
 #### Install Option A (for users): install with `apt`
