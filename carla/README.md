@@ -270,12 +270,12 @@ Then, you can run *some* of the examples in `/PythonAPI/examples` and `/PythonAP
 
 ## CARLA Versions Tested  
  
- * carla 0.8.4
- * carla 0.9.10 
- * carla 0.9.10.1 
- * carla latest (0.9.10.1)
+ - [x] carla 0.8.4
+ - [x] carla 0.9.10 
+ - [x] carla 0.9.10.1 
+ - [ ] carla latest
  
-## Using CARLA Version 0.9.10.1 (latest)
+## Using CARLA Version 0.9.10.1
 
 This requires modern nividia drivers(>390), I installed  nvidia450 -> nvidia455
 
