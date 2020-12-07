@@ -143,7 +143,7 @@ docker run \
  -e DISPLAY=$DISPLAY \
  -v /tmp/.X11-unix:/tmp/.X11-unix \
  -it \
- carlasim/carla \
+ carlasim/carla:latest \
  bash
 ```
 
@@ -168,9 +168,9 @@ docker cp <container id>:<src path> <dst path>
 for example:
 
 ```
-mkdir -p ~/carla_simulator/carla09101/
+mkdir -p ~/carla_simulator/carla/
 
-docker cp 0d9f3b22c18b:/home/carla/PythonAPI ~/carla_simulator/carla09101/
+docker cp 75a9e2e56930:/home/carla/PythonAPI ~/carla_simulator/carla/
 
 cd carla_simulator/carla09101/PythonAPI/
 ````
@@ -193,24 +193,24 @@ Create a environment to use the PythonAPI in (this only needs to be done once).
 
 If you are using **Python2.7**:
 
-`conda create --name carla09101 python=2.7`
+`conda create --name carla python=2.7`
 
 **or**, if you are using **Python3.7**:
 
-`conda create --name carla09101 python=3.7`
+`conda create --name carla python=3.7`
 
 then actitvate the environment (this needs to be done at the start of each session)
 
-`conda activate carla09101`
+`conda activate carla`
 
 finally add the paths to the conda environment so that you do not have to do this each time
 this line shows to set a env var permanently in the conda environment
 
-`conda env config vars set CARLA_ROOT=~/carla_simulator/carla09101`
+`conda env config vars set CARLA_ROOT=~/carla_simulator/carla`
 
 re-actitvate the environment after setting vars 
 
-`conda activate carla09101`
+`conda activate carla`
 
 If you are using **Python2.7**:
 
@@ -222,7 +222,7 @@ If you are using **Python2.7**:
 
 re-actitvate the environment after setting vars again (could this be combined?)
 
-`conda activate carla09101`
+`conda activate carla`
 
 You need to have `numpy` and `pygame` installed. The CARLA website reccomends doing like this. 
 
@@ -254,7 +254,7 @@ If you are using **Python2.7**:
 
 Before you can use the PythonAPI you have to set PYTHONPATH to the .egg file. (CARLA_ROOT is just intermediate variable to save length)
 
-`export CARLA_ROOT=~/carla_simulator/carla09101`
+`export CARLA_ROOT=~/carla_simulator/carla`
 
 Choose the appropriate version of Python and set `PYTHON_PATH`.
 
@@ -391,7 +391,7 @@ i had to set the PYTHONPATH for the carla module to work. Basically the PYTHONPA
 
 #### run CARLA client in CONDA Environment 
 
-`conda activate carla09101`
+`conda activate carla`
 
 This starts a client and lets you drive with PYGAME. Also because these scripts at home they will easy to modify.
 
