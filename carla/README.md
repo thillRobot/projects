@@ -186,6 +186,7 @@ This option might by needed if you do not have docker. This could happen with an
 ### Setup CARLA PythonAPI Dependencies
 #### Setup Option 1 (reccomended): Use the PythonAPI CONDA Environment - This saves time and is preferred method during testing
 Once way to use the PythonAPI in Ubuntu 20.04 in with CONDA. Install conda following instructions here (https://docs.anaconda.com/anaconda/install/linux/). Use CONDA for a virtual environment I have setup for conveinence. This way you do not have to set the paths each time or install dependencies. 
+Here is the CONDA cheatsheet: https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf
 
 This turtorial (https://antc2lt.medium.com/carla-on-ubuntu-20-04-with-docker-5c2ccdfe2f71) shows a similar way that uses `virtualenv`. There are one or two bugs in the tutorial, but overall it was very useful to read because this person is doing something very similar to me. 
 
@@ -267,7 +268,6 @@ If you are using **Python2.7**:
 ```export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla```
 
 Then, you can run *some* of the examples in `/PythonAPI/examples` and `/PythonAPI/utils`, but several of the scripts tend to fail. I assume this is because there are missing dependencies. These appear to be installed with `requirements.txt`.
-
 
 ## CARLA Versions Tested  
  
@@ -391,7 +391,6 @@ In Ubuntu 20.04 (server machine) I downloaded and extracted carla 0.9.10 - 'pip3
 i had to set the PYTHONPATH for the carla module to work. Basically the PYTHONPATH must include the path to .egg file for the right version of carla, I think that this is the same problem I am having in the docker container 'no module named carla'
 
 #### Running the client in users home directory (~/) of the local (server) machine 
-
 
 #### run CARLA client in CONDA Environment 
 
@@ -529,7 +528,6 @@ change to the PythonClient directory and run one of the example scripts
 
 this is NOT WORKING - `PORT2000 CLOSED`
 
-
 ### Start a client (0.8.4) on a remote computer - This works
 
 First change to the PythonClient directory and run one of the example scripts
@@ -578,10 +576,8 @@ Run the client. Notice that this script can be easiyl modified. `PythonClient` i
 
 `/.manual_control_twh.py --autopilot --host 192.168.1.2 -q Low`
 
-
-
 ## THILLROBOT DEVELOPMENT DOCS BELOW HERE - Proceed at your own risk
-#### alternatively run the client in the container - this is what I really want - This does not work yet
+### alternatively run the client in the container - this is what I really want but it does not work yet
 
 I would really like for the client and server to be in the docker container. To me it seems to make sense for me to be able to run both in the container. 
 
@@ -591,7 +587,7 @@ Start the carla server in a docker container. Apparantely I was not using the na
 
 `sudo docker run -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10 ./CarlaUE4.sh -opengl`
 
-I have discovered that if you set the paths CORRECTLY then the python scripts run without import errors, but then there are other errors. Fixing these errors is my main goal in this section. I also realized that this seems to work just the same. Only the first python path is required (i am not sure if this is ok). 
+You must set the paths CORRECTLY forthe python scripts to run without import errors, but there may still be other errors. Fixing these errors is my main goal in this section. I also realized that this seems to work just the same. Only the first python path is required (i am not sure if this is ok). 
 
 `export CARLA_ROOT=~/`
 `export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
