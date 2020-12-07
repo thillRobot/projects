@@ -311,7 +311,7 @@ then actitvate the environment (this needs to be done at the start of each sessi
 finally add the paths to the conda environment so that you do not have to do this each time
 this line shows to set a env var permanently in the conda environment
 
-`conda env config vars set CARLA_ROOT=~/carla_simulator/carla_09101`
+`conda env config vars set CARLA_ROOT=~/carla_simulator/carla09101`
 
 re-actitvate the environment after setting vars 
 
@@ -351,7 +351,7 @@ Do I need the `--user` option ? What does that even do? I think I know.
 
 Before you can run the client (0.9.10.1) you have to set PYTHONPATH to .egg file. (CARLA_ROOT is just intermediate variable to save length)
 
-`export CARLA_ROOT=~/carla_simulator/carla_09101`
+`export CARLA_ROOT=~/carla_simulator/carla09101`
 
 Choose the appropriate version of Python and set `PYTHON_PATH`.
 
@@ -472,7 +472,7 @@ NOTE: using conda conflicts with ROS somehow. I need to figure this out somehow.
 #### run the CARLA-ROS-BRIDGE 
 NOTE: the `carla-ros-bridge` 
 
-`export CARLA_ROOT=~/carla_simulator/carla_09101`
+`export CARLA_ROOT=~/carla_simulator/carla09101`
 
 `export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.10-py2.7-linux-x86_64.egg:${CARLA_ROOT}/PythonAPI/carla/agents:${CARLA_ROOT}/PythonAPI/carla`
 
@@ -512,7 +512,7 @@ this starts the server, now it is waiting for a client to connect
 
 change to the PythonClient directory and run one of the example scripts
 
-`cd ~/carla_simulator/carla_084/PythonClient`
+`cd ~/carla_simulator/carla084/PythonClient`
 `./manual_control.py --autopilot`
 
 this is NOT WORKING - `PORT2000 CLOSED`
@@ -522,7 +522,7 @@ this is NOT WORKING - `PORT2000 CLOSED`
 
 First change to the PythonClient directory and run one of the example scripts
 
-`cd ~/carla_simulator/carla_084/PythonClient`
+`cd ~/carla_simulator/carla084/PythonClient`
 
 `./manual_control.py --autopilot --host 192.168.x.x`
 
@@ -562,7 +562,7 @@ Run the server - notice the `opengl` flag.
 `docker run -p 2000-2002:2000-2002 --runtime=nvidia --gpus all carlasim/carla:0.8.4 /bin/bash CarlaUE4.sh DISPLAY= ./CarlaUE4.sh -opengl -carla-server`
 
 Run the client. Notice that this script can be easiyl modified. `PythonClient` is a set of examples.
-`cd ~/carla_simlulator/carla_v084/PythonClient`
+`cd ~/carla_simlulator/carla084/PythonClient`
 
 `/.manual_control_twh.py --autopilot --host 192.168.1.2 -q Low`
 
