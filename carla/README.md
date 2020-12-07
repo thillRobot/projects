@@ -147,12 +147,34 @@ docker run \
  bash
 ```
 
+You can see the ID in the terminal where you would expect the hostname to be.
+
+`
+carla@0d9f3b22c18b:~$
+`
+
+Altentively, you can see find the container ID with the following command. 
+
+`
+docker ps -a
+`
+##### Step 2: Copy the PythonAPI source from the container to the home folder of the host computer.
+
+`
+docker cp <container id>:<src path> <dst path>
+`
+for example:
+`
+docker cp 0d9f3b22c18b:/home/carla/PythonAPI ~/carla_simulator/
+`
+Now you have a copy of the PythonAPI in home, so if you bork it up you can get a fresh copy.
+
 #### Option B: Download and extract CARLA pre-compiled package from Github (reccomended option by CARLA for choosing versions)
 Download and extract the appropriate version from Github. (https://github.com/carla-simulator/carla)
 I am currently putting the package in ` ~/carla_simulator/carla_<version number> `
+This option might by needed if you do not have docker. This could happen with an `AMD` gpu.
 
- 
- 
+
 ## CARLA Versions Tested  
  
  * carla 0.8.4
@@ -160,7 +182,6 @@ I am currently putting the package in ` ~/carla_simulator/carla_<version number>
  * carla 0.9.10.1 
  * carla latest (0.9.10.1)
  
-
 ## Using CARLA Version 0.9.10.1 (latest)
 
 This requires modern nividia drivers(>390), I installed  nvidia450 -> nvidia455
