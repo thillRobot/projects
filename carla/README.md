@@ -165,13 +165,14 @@ docker cp <container id>:<src path> <dst path>
 `
 for example:
 `
-docker cp 0d9f3b22c18b:/home/carla/PythonAPI ~/carla_simulator/
+mkdir -p ~/carla_simulator/carla09101/
+docker cp 0d9f3b22c18b:/home/carla/PythonAPI ~/carla_simulator/carla09101/
 `
 Now you have a copy of the PythonAPI in home, so if you bork it up you can get a fresh copy.
 
 #### Option B: Download and extract CARLA pre-compiled package from Github (reccomended option by CARLA for choosing versions)
 Download and extract the appropriate version from Github. (https://github.com/carla-simulator/carla)
-I am currently putting the package in ` ~/carla_simulator/carla_<version number> `
+I am currently putting the package in ` ~/carla_simulator/carla`
 This option might by needed if you do not have docker. This could happen with an `AMD` gpu.
 
 
