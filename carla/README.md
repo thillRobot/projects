@@ -273,7 +273,11 @@ Then, you can run *some* of the examples in `/PythonAPI/examples` and `/PythonAP
  - [x] carla 0.8.4
  - [x] carla 0.9.10 
  - [x] carla 0.9.10.1 
- - [ ] carla latest
+ - [x] carla latest
+ 
+## Using CARLA Version:latest
+
+I just started experimenting with the version. I assume it has some bug fixes, but maybe it has new bugs! We will see.
  
 ## Using CARLA Version 0.9.10.1
 
