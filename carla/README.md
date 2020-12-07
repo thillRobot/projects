@@ -15,6 +15,7 @@ October 07, 2020 - December 06, 2020
 - [x] start the server in a different town, HDMaps/Town02.pcd  
 - [x] change the town from the client side, HDMaps/Town02.pcd 
 - [ ] document and test basic use of CARLA - not in a docker container
+- [ ] clean up this document, it is a huge mess - it is a little better
 
 - [x] try the stable version (0.8.4 or 0.8.2) - does not have ROS_BRIDGE support I do not think
 - [x] test client on local machine - not in docker - Done - Working
@@ -22,7 +23,7 @@ October 07, 2020 - December 06, 2020
 - [x] test client on local machine - in a docker   - DONE - not working
 - [x] test server on local machine - in a docker - DONE - Working
 - [ ] test server on local machine - not in a docker - NOT DONE
-- [ ] clean up this document, it is a huge mess - it is a little better
+
 
 ## Useful Resources
 
@@ -72,7 +73,7 @@ I am not alone. This is good.
 ## Installing Docker 
 I installed `docker CE` and `nvidia-docker2` following the instructions from docker that is pointed to in the carla docs. This requires the nvidia drivers. 
 * https://carla.readthedocs.io/en/latest/build_docker/
-* https://carla.readthedocs.io/en/latest/build_docker/#docker-ce Be careful not to install docker CE with apt and the script!
+* https://carla.readthedocs.io/en/latest/build_docker/#docker-ce **Be careful not to install docker CE with apt and the script!**
 * https://carla.readthedocs.io/en/latest/build_docker/#nvidia-docker2
 
 ### configure docker to run without sudo access
@@ -109,23 +110,21 @@ There are multple ways to install and run the CARLA package. Which is the right 
   * CARLA Client - This should be easy, but this does not work - see bottom of this document
   * CARLA Server - This works good, but it did require some figuring out - see middle of this document
 
-I am pursuing the Docker Approach for the server for flexibility in testing. Currently, my working demo is a hybrid of approach 1 and 3 from above. It would nice if we had full functionality in a Docker container (method 3 only) because this would allow for complete portability. This may have to wait. Option 2 is a good idea also!
-
+I am using Option 3, Docker Approach for the server for flexibility in testing. Currently, my working demo is a hybrid of approach 1 and 3 from above. It would nice if we had full functionality in a Docker container (method 3 only) because this would allow for complete portability. I am working on this.
 
 ### Pull CARLA image with docker
-then I pulled a older vesion of carla 0.8.4. , this does not need to be repeated unless I change version
+Choose a version of CARLA that you want to pull. You can see the available tags here (https://hub.docker.com/r/carlasim/carla/tags?page=1&ordering=last_updated). 
+
+#### Stable
 
 `docker pull carlasim/carla:0.8.4`
 
-then I pulled the two more recent version, I as trying to get around the library issues i was having
-
-`docker pull carlasim/carla:0.9.10`
-
-This one in only on the 18.04 'sandbox computer' at the moment
+#### Developement
 
 `docker pull carlasim/carla:0.9.10.1 `
 
-Now we have three images to choose from. I believe 'latest' is the same as 0.9.10.1
+#### Developement - latest
+There is a new version out. ***latest*** was updated around 11/23/2020
 
 `docker pull carlasim/carla:latest`
 
