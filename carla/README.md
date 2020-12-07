@@ -9,7 +9,8 @@ October 07, 2020 - December 06, 2020
 - [ ] figure out steering wheel and pedal controls for demo - testdrive an autonomous car - Jon H. worked on this 
 - [ ] record a *metric* for Dr. Canfield
 - [ ] use RVIZ to visualize the data from carla
-- [ ] make a custom map with open street map
+- [ ] make a custom map with open street map and carla tools - i have tried and I am stuck
+- [ ] get access to RoadRunner and make custom town - i have requested a trial
 
 - [x] learn to use CONDA for python client - this will help with testing - done - big improvement
 - [x] start the server in a different town, HDMaps/Town02.pcd  
