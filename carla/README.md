@@ -626,6 +626,10 @@ I am going to try method **a)** next.
 
 I have not tried to follow this yet. (https://carla.readthedocs.io/en/latest/tuto_A_add_map/#introduction)
 
+### Adding a Map with RoadRunner
+*RoadRunner is the recommended software to create a map due to its simplicity* - CARLA docs
+I have requested a trial license from MATHWORKS
+
 ## THILLROBOT DEVELOPMENT DOCS BELOW HERE - Proceed at your own risk
 ### alternatively run the client in the container - this is what I really want but it does not work yet
 
