@@ -586,8 +586,9 @@ Run the client. Notice that this script can be easiyl modified. `PythonClient` i
 
 `/.manual_control_twh.py --autopilot --host 192.168.1.2 -q Low`
 
+## Making Custom Maps for CARLA 
 
-## Generating Custom Maps with OpenStreetMap
+### Generating Custom Maps with OpenStreetMap (Generate maps with OpenStreetMap)
 
 I have started to learn to build a custom town. This is one of my big goals for this project. I want to run CARLA in a virtual TNTECH Campus.
 
@@ -595,16 +596,16 @@ I have tried to follow this CARLA tutorial here (https://carla.readthedocs.io/en
 
 Progress so far (steps from tutorial in lin above)
 
-- Step 1 -  Obtain a map with OpenStreetMap
+#### Step 1 -  Obtain a map with OpenStreetMap
 I have exported two maps of TNTECH campus as `.osm` files from OpenStreetMap named `map.osm` and `map2.osm`. These are located in `carla/openstreetmap`
 
-- Step 2 -  Convert to OpenDRIVE format
+#### Step 2 -  Convert to OpenDRIVE format
 I made a script `convert_map.py` to convert the `.osm` file to a `.xodr` file using the sample code in the tutorial. I used `utils/config.py` as a template mainly for the imports lines. This step appears to work and the output file is produced. The line below runs the script
 
-`
+````
 cd ~/carla_simulator/carla/PythonAPI/carla/
 python3 ${CARLA_ROOT}/PythonAPI/util/convert_map.py
-`
+````
 
 If you will recieve the error below, this is because ou must be in the `carla/PythonAPI/carla/` directoty to run this script. I assume this is just a path issue that can be addressed. For now, use `cd` as shown above.
 
@@ -612,13 +613,18 @@ If you will recieve the error below, this is because ou must be in the `carla/Py
 Warning: Cannot read local schema '../carla/data/xsd/types_file.xsd', will try website lookup.
 ```
 
+#### Step 3 - Import into CARLA
 
+I have tried method **b)** from the tutorial and nothing happens. The command and the outout are shown below.
+```
+python3 ${CARLA_ROOT}/PythonAPI/util/config.py --osm-path=/home/thill/carla_simulator/openstreetmap/map2.xodr
+Converting OSM data to opendrive
+No nodes loaded.
+```
 
+I am going to try method **a)** next.
 
 I have not tried to follow this yet. (https://carla.readthedocs.io/en/latest/tuto_A_add_map/#introduction)
-
-
-
 
 ## THILLROBOT DEVELOPMENT DOCS BELOW HERE - Proceed at your own risk
 ### alternatively run the client in the container - this is what I really want but it does not work yet
