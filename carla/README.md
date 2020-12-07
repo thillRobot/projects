@@ -296,10 +296,10 @@ This will run the script `CarlaUE4.sh` in the carla container. Using the `--name
  ```
 #### Run CarlaUE4.sh with various server parameters   
  ```
- docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -it --gpus 'all,"capabilities=graphics,utility,display,video,compute"' -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 ./CarlaUE4.sh -quality-level=Epic -opengl -benchmark fps=20
+ docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -e XAUTHORITY=$XAUTHORITY -v /tmp/.X11-unix:/tmp/.X11-unix -v $XAUTHORITY:$XAUTHORITY -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 -it --gpus 'all,"capabilities=graphics,utility,display,video,compute"' ./CarlaUE4.sh -quality-level=Epic -opengl -benchmark fps=20
  ```
  
- the command is repeated below in a readable format
+ The command is repeated below in a readable format.
  
  ```
   docker run --name carlaserver \
@@ -308,8 +308,8 @@ This will run the script `CarlaUE4.sh` in the carla container. Using the `--name
   -e XAUTHORITY=$XAUTHORITY \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   -v $XAUTHORITY:$XAUTHORITY \
-  -it --gpus 'all,"capabilities=graphics,utility,display,video,compute"' \
   -p 2000-2002:2000-2002 carlasim/carla:0.9.10.1 \
+  -it --gpus 'all,"capabilities=graphics,utility,display,video,compute"' \ 
   ./CarlaUE4.sh -quality-level=Epic -opengl -benchmark fps=20
   ```      
  
