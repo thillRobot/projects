@@ -504,7 +504,6 @@ NOTE: the `carla-ros-bridge`
 You should now be able to see the data from the simulator in ROS, cool.
 
 #### Testing carla-ros-bridge in ros-noetic
-
 I have successfully tested this in Ubuntu18.04 using both intallation methods shown here. `ros-noetic` is not supported yet. You can copmile from source in ubuntu20.04 there is a python version error when you try the launch files. ALso, `apt` cannot find the the package `carla-ros-bridge`. This somewhat confirms that it isnot yet supported in `focal fossa`
 
 This the main reason I am holding onto `Ubuntu18.04`.
@@ -521,7 +520,6 @@ There is some discussion here (https://github.com/carla-simulator/carla/issues/3
 this is a hybrid of approach 1 (download and extract) and method 3 (run in docker) from the list above 
 
 ### Start the CARLA server in a CARLA Version 0.8.4 container
-
 run the default script 'CarlaUE4.sh' in a carla 0.8.4 container and give a name 'carlaserver'
 
 `docker run --name carlaserver -p 2000-2002:2000-2002 --runtime=nvidia --gpus all carlasim/carla:0.8.4 \
@@ -530,7 +528,6 @@ run the default script 'CarlaUE4.sh' in a carla 0.8.4 container and give a name 
 this starts the server, now it is waiting for a client to connect
 
 ### Start a client (0.8.4) on the host machine 
-
 change to the PythonClient directory and run one of the example scripts
 
 `cd ~/carla_simulator/carla084/PythonClient`
@@ -539,7 +536,6 @@ change to the PythonClient directory and run one of the example scripts
 this is NOT WORKING - `PORT2000 CLOSED`
 
 ### Start a client (0.8.4) on a remote computer - This works
-
 First change to the PythonClient directory and run one of the example scripts
 
 `cd ~/carla_simulator/carla084/PythonClient`
@@ -589,8 +585,7 @@ Run the client. Notice that this script can be easiyl modified. `PythonClient` i
 ## Making Custom Maps for CARLA 
 
 ### Generating Custom Maps with OpenStreetMap (Generate maps with OpenStreetMap)
-
-I have started to learn to build a custom town. This is one of my big goals for this project. I want to run CARLA in a virtual TNTECH Campus.
+I started trying to build a custom town. This is one of my big goals for this project. I want to run CARLA in a virtual TNTECH Campus.
 
 I have tried to follow this CARLA tutorial here (https://carla.readthedocs.io/en/latest/tuto_G_openstreetmap/), but I am stuck. 
 
@@ -615,16 +610,6 @@ Warning: Cannot read local schema '../carla/data/xsd/types_file.xsd', will try w
 
 #### Step 3 - Import into CARLA
 
-
-RoadRunner is the recommended software to create a map due to its simplicity
-
-I have tried method **b)** from the tutorial and nothing happens. The command and the outout are shown below.
-```
-python3 ${CARLA_ROOT}/PythonAPI/util/config.py --osm-path=/home/thill/carla_simulator/openstreetmap/map2.xodr
-Converting OSM data to opendrive
-No nodes loaded.
-```
-
 I have tried **method a)** by making a copy of `config.py` called `import_map.py`. 
 ```
 cp ${CARLA_ROOT}/PythonAPI/util/condig.py ${CARLA_ROOT}/PythonAPI/util/import_map.py 
@@ -637,6 +622,14 @@ No nodes loaded.
 ```
 I commented on this Github post here (https://github.com/carla-simulator/carla/issues/3009), but I have not heard anything back yet.
 
+
+I have tried method **b)** from the tutorial and nothing happens. This method is effectively the same as **a)**, and thre results are the same. The command and the outout are shown below.
+```
+python3 ${CARLA_ROOT}/PythonAPI/util/config.py --osm-path=/home/thill/carla_simulator/openstreetmap/map2.xodr
+Converting OSM data to opendrive
+No nodes loaded.
+```
+
 ### Adding a Map with RoadRunner
 (https://carla.readthedocs.io/en/latest/tuto_A_add_map/#introduction)
 *RoadRunner is the recommended software to create a map due to its simplicity* - CARLA docs
@@ -644,11 +637,9 @@ I have not tried to follow this yet because it requires RoadRunner, but I have r
 
 ## THILLROBOT DEVELOPMENT DOCS BELOW HERE - Proceed at your own risk
 ### alternatively run the client in the container - this is what I really want but it does not work yet
-
 I would really like for the client and server to be in the docker container. To me it seems to make sense for me to be able to run both in the container. 
 
 #### Try to `run` the carla server in a docker container, and then `run` the client in the same container. 
-
 Start the carla server in a docker container. Apparantely I was not using the name option. I need to add the name option here. 
 
 `sudo docker run -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10 ./CarlaUE4.sh -opengl`
@@ -673,7 +664,6 @@ Next, `run` a client on the server machine this time so there is no ip needed, y
 `sudo docker run -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --net=host -it --gpus all carlasim/carla:0.9.10 /PythonAPI/examples/manual_control.py --env CARLA_ROOT=~/ --env PYTHONPATH=~/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:~/PythonAPI/carla/agents:~/PythonAPI/carla`
 
 #### Alternatively,`run` the carla server in a docker container, and `exec` the the client in the same container as the server - not working 
-
 `sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg:/home/carla/PythonAPI/carla/agents:/home/carla/PythonAPI/carla carla python3 PythonAPI/examples/manual_control.py`
 
 `Traceback (most recent call last):
@@ -697,8 +687,7 @@ Then, start the the client in the different container named `carlaclient`
 
 This is not seem to be any different. 
 
-#### Mike was trying to help me fix the missing library file (libxerces-c-3.2.so) issue. This library issue was fixed by installing missinhg librbaries in container. See below. 
-
+#### Mike was trying to help me fix the missing library file (libxerces-c-3.2.so) issue. This library issue was fixed by installing missinhg librbaries in container. 
 Start the server in a container, use -v to mount /usr/lib/x86_64-linux-gnu/:/usr/local/host/lib on the host computer
 
 `sudo docker run --name carlaserver -e SDL_VIDEODRIVER=x11 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v /usr/lib/x86_64-linux-gnu/:/usr/local/host/lib -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10 ./CarlaUE4.sh -opengl`
@@ -728,7 +717,6 @@ OKIE DOKIE!  I think i figured out the libxerces-c issue. well, maybe not but I 
 Well here we go with the latest version (16 days old).
 
 #### Now we are going to repeat those tests with carla 0.9.10.1
-
 run bash in the container - works
 
 `sudo -E docker run --name carla --privileged --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10.1 bash`
@@ -750,7 +738,6 @@ Then, start the the client in the same container as the server - not working
 ImportError: libjpeg.so.8: cannot open shared object file: No such file or directory`
 
 #### I was still stuck so I finally reached out to the guys at CARLA
-
 Wow, another similar error, different library. Does this mean that they fixed the xerces error and not this one? I am a little confused about that. At this point I have spent some time on this. I finally broke down and asked the CARLA team. I posted my question. I was terrified that they would make fun of me, but they were vey helpful and responsive. Here is my post (https://github.com/carla-simulator/carla/issues/3236#issuecomment-711022225):
 
 *I am having a similar issue while trying to run the PythonAPI in a carlasim/carla:0.9.10.1 docker container. The server runs with some warnings, but the client does not run and shows the following error when I run the client inside the container.*
@@ -770,7 +757,6 @@ ImportError: libjpeg.so.8: cannot open shared object file: No such file or direc
 As you can read in the link above the CARLA team was veryh helpful, but their suggestions have only lead me to more issues. Nicoloas said that carla is not runtime for the client (I am not sure what he means exactly), and that I will have to go into the client with bash and install the libraries with `apt-get`. This is very counter intutive to me.
 
 #### most recent attempt at running carla client in container - I am trying to following suggestions from carla team.
-
 For any of this to work the docker must be able to access the internet, to do this edit the /etc/default/docker file and give DNS ip address
 add this line to the bottom of /etc/default/docker to allow a container to access the internet
 
@@ -813,3 +799,6 @@ OK, more news! Running the installs in the container get us past the library iss
 Nicholas from CARLA team said first test that you can run 'tutorial.py'. OK, lets try that. Also, he said that he uses apt-get and not pip. this makes sense in the docker. let try this one more time.
 
 `sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg carlaserver python3 PythonAPI/examples/tutorial.py`
+
+
+## END OF README
