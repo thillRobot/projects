@@ -171,6 +171,8 @@ for example:
 mkdir -p ~/carla_simulator/carla09101/
 
 docker cp 0d9f3b22c18b:/home/carla/PythonAPI ~/carla_simulator/carla09101/
+
+cd carla_simulator/carla09101/PythonAPI/
 ````
 
 Now you have a copy of the PythonAPI in home, so if you bork it up you can get a fresh copy.
