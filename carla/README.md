@@ -111,8 +111,6 @@ There are multple ways to install and run the CARLA package. Which is the right 
 I am pursuing the Docker Approach for the server for flexibility in testing. Currently, my working demo is a hybrid of approach 1 and 3 from above. It would nice if we had full functionality in a Docker container (method 3 only) because this would allow for complete portability. This may have to wait. Option 2 is a good idea also!
 
 
-
-
 ### pull CARLA images with docker
 then I pulled a older vesion of carla 0.8.4. , this does not need to be repeated unless I change version
 
@@ -130,21 +128,38 @@ Now we have three images to choose from. I believe 'latest' is the same as 0.9.1
 
 `docker pull carlasim/carla:latest`
 
+### Bring CARLA into home directory for testing
+#### Option A: copy egg from docker image
+This method is preffered becuase it does not make sense to download the package twice. Also, this ensures that you are working on exactly the same version. I learned this here (https://antc2lt.medium.com/carla-on-ubuntu-20-04-with-docker-5c2ccdfe2f71)
 
-### Download and extract CARLA pre-compiled package from Github (reccomended option by CARLA for choosing versions)
+##### Step 1: find container ID
+This can be done in multple ways. One way is to open `bash` in the container. This can be done with the command below.
 
-NEEDS UPDATING - this step is redundant because you jsut downloaded carla using docker, you can get it from the container. This is shown in one of the links in the useful docs part of this page.
+```
+docker run \
+ -p 2000-2002:2000-2002 \
+ --runtime=nvidia \
+ --gpus all \
+ -e DISPLAY=$DISPLAY \
+ -v /tmp/.X11-unix:/tmp/.X11-unix \
+ -it \
+ carlasim/carla \
+ bash
+```
 
+#### Option B: Download and extract CARLA pre-compiled package from Github (reccomended option by CARLA for choosing versions)
 Download and extract the appropriate version from Github. (https://github.com/carla-simulator/carla)
 I am currently putting the package in ` ~/carla_simulator/carla_<version number> `
-Here we show versions: 
+
+ 
+ 
+## CARLA Versions Tested  
  
  * carla 0.8.4
  * carla 0.9.10 
  * carla 0.9.10.1 
  * carla latest (0.9.10.1)
  
-
 
 ## Using CARLA Version 0.9.10.1 (latest)
 
