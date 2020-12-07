@@ -244,7 +244,15 @@ Now you can test the different features included in the API.
 The PythonAPI requires NUMPY and PYGAME (https://carla.readthedocs.io/en/latest/start_quickstart/). 
 Do I need the `--user` option ? What does that even do? I think I know.
 
-Before you can run the client (0.9.10.1) you have to set PYTHONPATH to .egg file. (CARLA_ROOT is just intermediate variable to save length)
+If you are using **Python2.7**:
+
+`pip install --user pygame numpy`
+
+**or**, if you are using **Python3.7**:
+
+`pip3 install --user pygame numpy`
+
+Before you can use the PythonAPI you have to set PYTHONPATH to the .egg file. (CARLA_ROOT is just intermediate variable to save length)
 
 `export CARLA_ROOT=~/carla_simulator/carla09101`
 
