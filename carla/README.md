@@ -113,7 +113,7 @@ There are multple ways to install and run the CARLA package. Which is the right 
 I am using Option 3, Docker Approach for the server for flexibility in testing. Currently, my working demo is a hybrid of approach 1 and 3 from above. It would nice if we had full functionality in a Docker container (method 3 only) because this would allow for complete portability. I am working on this.
 
 ### Pull CARLA image with docker
-Choose a version of CARLA that you want to pull. You can see the available tags here (https://hub.docker.com/r/carlasim/carla/tags?page=1&ordering=last_updated). 
+Choose a version of CARLA that you want to use and pull (download an image) with docker. You can see the available tags here (https://hub.docker.com/r/carlasim/carla/tags?page=1&ordering=last_updated). 
 
 #### Stable
 
