@@ -801,4 +801,4 @@ Nicholas from CARLA team said first test that you can run 'tutorial.py'. OK, let
 `sudo docker exec -e PYTHONPATH=/home/carla/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg carlaserver python3 PythonAPI/examples/tutorial.py`
 
 
-## END OF README
+### Have a Nice Day!
