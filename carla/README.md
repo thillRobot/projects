@@ -67,6 +67,7 @@ I am not alone. This is good.
 * nvidia-docker2 (this requires nvidia drivers and driver version limits carla version)
 * ROS Melodic (Noetic in testing)
 * CARLA_ROS_BRIDGE
+* CONDA/ANACONDA (for virtual python emvironments)
 
 ## Installing Docker 
 I installed `docker CE` and `nvidia-docker2` following the instructions from docker that is pointed to in the carla docs. This requires the nvidia drivers. 
