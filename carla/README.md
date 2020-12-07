@@ -329,7 +329,7 @@ Running in `vulkan` fixed the over exposure white screen issues. The white scree
 You can run the server headless using `SDL_VIDEODRIVER=offscreen` and no display will be shown. It does not seem to greatly the affect the display FPS. 
 
  ``` 
- docker run -e SDL_VIDEODRIVER=offscreen -e DISPLAY=:99 -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10.1   ./CarlaUE4.sh -opengl 
+ docker run -e SDL_VIDEODRIVER=offscreen -e DISPLAY=:99 -v /tmp/.X11-unix:/tmp/.X11-unix -p 2000-2002:2000-2002 -it --gpus all carlasim/carla:0.9.10.1    ./CarlaUE4.sh -opengl 
  ```
 
 or shown below so you can read the commands
@@ -348,7 +348,9 @@ or shown below so you can read the commands
 #### running `bash` in the container
 This will run BASH in the carla container without starting the simulator.
 
-`docker run --name carlaserver --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10.1 bash`
+```
+docker run --name carlaserver --rm --gpus all -it --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -it carlasim/carla:0.9.10.1 bash
+```
 
 You can start the server from inside the container. I am not sure why you woulREMOTEd want to do this, but the link I mentioned does it this way.
 
