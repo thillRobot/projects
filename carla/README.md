@@ -1,10 +1,10 @@
 # TWH logs - CARLA - open source vehicle simulator
 October 07, 2020 - December 06, 2020
 
-## Watch on Youtube
+## Watch
 You can see some demonstration videos on [Youtube](https://www.youtube.com/channel/UCH3bAvnmCLCRjyyorfUJXKg)
 
-## Goals:
+## Goals
 
 - [x] install and test ROS_BRIDGE in ros melodic
 - [ ] install and test ROS_BRIDGE in ros noetic (this is not clearly supported yet)
