@@ -1,6 +1,9 @@
 # TWH logs - CARLA - open source vehicle simulator
 October 07, 2020 - December 06, 2020
 
+## Watch on Youtube
+You can see some demonstration videos on [Youtube](https://www.youtube.com/channel/UCH3bAvnmCLCRjyyorfUJXKg)
+
 ## Goals:
 
 - [x] install and test ROS_BRIDGE in ros melodic
@@ -28,17 +31,13 @@ October 07, 2020 - December 06, 2020
 
 ## Useful Resources
 
-- Official Carla Documentation
-https://carla.readthedocs.io/en/latest/
+- [Official Carla Documentation](https://carla.readthedocs.io/en/latest/)
 
-- CORSERA 
-https://usermanual.wiki/Document/CARLASetupGuideUbuntu.271743992/help  
+- [CORSERA](https://usermanual.wiki/Document/CARLASetupGuideUbuntu.271743992/help)
 
-- COROS + CARLA 0.9.10.1 (ROS with docker)
-https://hub.docker.com/r/johannhaselberger/coros
+- [COROS + CARLA 0.9.10.1 (ROS with docker)](https://hub.docker.com/r/johannhaselberger/coros)
 
-- CARLA with `docker` and `virtualenv` in Ubuntu 20.04
-https://antc2lt.medium.com/carla-on-ubuntu-20-04-with-docker-5c2ccdfe2f71
+- [CARLA with `docker` and `virtualenv` in Ubuntu 20.04](https://antc2lt.medium.com/carla-on-ubuntu-20-04-with-docker-5c2ccdfe2f71)
 
 I am not alone. This is good.
 
