@@ -630,6 +630,16 @@ Converting OSM data to opendrive
 No nodes loaded.
 ```
 
+You were doing it wrong. The command below uses the `-x` to load the `.xodr` file which makes sense right?
+
+```
+python3 ${CARLA_ROOT}/PythonAPI/util/config.py -x /home/thill/carla_simulator/openstreetmap/map2.xodr
+```
+
+The map loads fine, but the map is distorted. This is a known issue (https://github.com/carla-simulator/carla/issues/3009).
+
+
+
 ### Adding a Map with RoadRunner
 (https://carla.readthedocs.io/en/latest/tuto_A_add_map/#introduction)
 *RoadRunner is the recommended software to create a map due to its simplicity* - CARLA docs
