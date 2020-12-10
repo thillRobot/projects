@@ -588,10 +588,66 @@ I started trying to build a custom town. This is one of my big goals for this pr
 
 I have tried to follow this CARLA tutorial here (https://carla.readthedocs.io/en/latest/tuto_G_openstreetmap/), but I am stuck. 
 
-Progress so far (steps from tutorial in lin above)
+Progress so far (steps from tutorial in link above)
 
 #### Step 1 -  Obtain a map with OpenStreetMap
 I have exported two maps of TNTECH campus as `.osm` files from OpenStreetMap named `map.osm` and `map2.osm`. These are located in `carla/openstreetmap`
+This can be done with the web app(openstreetmap.org), or you can get the data directly with the java app `josm` shown below.
+
+#### Step 2 - Prepare Map with Third Party Tools
+JAVA is required. I had revert to an older version: `openjdk-8-jre` to run some of them.
+
+##### - JOSM - Extensible Editor for OpenStreetMap(.osm)
+This JAVA app can be used to download maps from OpenStreetMap end edit **.osm** files. Read more on the [josm Github](https://josm.openstreetmap.de/).
+
+Install the app with apt.
+```
+wget -q https://josm.openstreetmap.de/josm-apt.key -O- | sudo apt-key add - 
+sudo apt-get install josm
+```
+
+Run the app.
+```
+java -jar josm.jar
+```
+
+##### - OSM2WORLD - 
+This Java app can be used to convert a **.osm** file into **.obj** file which contains the buildings and other objects and polygons.
+Download the package [here](http://osm2world.org/download/) and extract it somewhere reasonable.
+
+```
+java -jar OSM2World.jar
+```
+
+```
+./osm2world.sh --gui
+```
+
+Open a .osm file and save as a .obj file
+
+##### - Blender 
+This app can be used to convert a **.obj** file into a **.fbx** file which hopefully can be ingested by carla.
+
+```
+sudo apt install blender
+```
+
+```
+blender
+```
+
+import mesh **.obj** and export a **.fbx** file
+
+
+
+##### - osm2xodr 
+This package can be used convert the **.osm** file to **.xodr** file which can be ingested by carla. [osm2xodr](https://github.com/JHMeusener/osm2xodr) 
+This is a custom script that I made from the example that came with the package.
+
+run the conversion - I need to add arguments to changing the map map can be done through the command line. 
+```
+python3 ~/carla_simulator/osm2xodr/convert_map.py
+```
 
 #### Step 2 -  Convert to OpenDRIVE format
 I made a script `convert_map.py` to convert the `.osm` file to a `.xodr` file using the sample code in the tutorial. I used `utils/config.py` as a template mainly for the imports lines. This step appears to work and the output file is produced. The line below runs the script
@@ -606,6 +662,15 @@ If you will recieve the error below, this is because ou must be in the `carla/Py
 ```
 Warning: Cannot read local schema '../carla/data/xsd/types_file.xsd', will try website lookup.
 ```
+
+The conversion runs but causes an angular distortion in the map - not useable This is a known issue (https://github.com/carla-simulator/carla/issues/3009).
+
+The distortion issue can be avoided by using a [osm2xodr](https://github.com/JHMeusener/osm2xodr) to convert from **.osm** to **.xodr**
+
+
+
+
+
 
 #### Step 3 - Import into CARLA
 
@@ -635,7 +700,11 @@ You were doing it wrong. The command below uses the `-x` to load the `.xodr` fil
 python3 ${CARLA_ROOT}/PythonAPI/util/config.py -x /home/thill/carla_simulator/openstreetmap/map2.xodr
 ```
 
-The map loads fine, but the map is distorted. This is a known issue (https://github.com/carla-simulator/carla/issues/3009).
+The map loads fine.
+
+
+
+
 
 
 
