@@ -1,7 +1,7 @@
 # twh_logs
 This is my set of logs for doing ... stuff on computers.
 
-Welcome - This is a work in progress
+Does this repo have a purpose? I am not so sure. This might be going away soon.
 
 Current Projects:
 
