@@ -1,7 +1,7 @@
 # docs
-This is a hub for my logs for doing ... cool stuff that may involve robots.
+This is my project hub. Do you want to work on a project? 
 
-Projects:
+### Projects:
 
 * mech_lab
 * [CARLA](https://github.com/thillRobot/carla_simulator/blob/master/README.md)
@@ -14,5 +14,4 @@ Projects:
 
 * video editing
 
-
-* Is five enough? No, that is why there are more than 5.
+## Is five enough? No, that is why there are more than 5.
