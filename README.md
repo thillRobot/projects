@@ -1,12 +1,10 @@
 # docs
-This is my set of logs for doing ... stuff on computers.
+This is a hub for my logs for doing ... cool stuff.
 
-Does this repo have a purpose? I think so.
-
-Current Projects:
+Projects:
 
 * mech_lab
-* carla
+* [CARLA](https://github.com/thillRobot/carla_simulator)
 * seam_detection
 * scan_cloud
 * turtlebot3
