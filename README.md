@@ -1,4 +1,4 @@
-# docs
+# projects
 This is my project hub. Do you want to work on a project? 
 
 ### Public Projects:
