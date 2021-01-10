@@ -1,14 +1,9 @@
 # docs
 This is my project hub. Do you want to work on a project? 
 
-### Projects:
-
+### Public Projects:
 
 - [CARLA Open Source Vehicle Simulator](https://github.com/thillRobot/carla_simulator/blob/master/README.md)
-
-- [Weld Seam Detection with PCL](https://github.com/thillRobot/seam_detection/blob/master/README.md)
-
-- [Low-Cost 3D LiDAR](scan_cloud)
 
 - [Turtlebot3 ROS Platform](https://github.com/thillRobot/turtlebot3_setup/blob/master/README.md)
 
@@ -18,4 +13,10 @@ This is my project hub. Do you want to work on a project?
 
 - video and image editing
 
-##### Is five enough? No, that is why there are more than five.
+### Private Projects:
+
+- [Weld Seam Detection with PCL](https://github.com/thillRobot/seam_detection/blob/master/README.md)
+
+- [Low-Cost 3D LiDAR](scan_cloud)
+
+Contact me at <thill@tntech.edu> if you are intereseted in collaborating on a project.
