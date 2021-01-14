@@ -2,6 +2,7 @@
 
 This readme is a general guide to video editing and processing. 
  
+This needs work! 
 
 ## using ffmpeg to compress videos for upload
 
