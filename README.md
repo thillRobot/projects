@@ -11,6 +11,8 @@ This is my project hub. Do you want to work on a project?
 
 - [Apps for Dynamics, Modeling, and Controls](https://github.com/thillRobot/dmc_apps/blob/master/README.md)
 
+- [ATMEGA2560 Code Base](https://github.com/thillRobot/mega2560)
+
 - video and image editing
 
 ### Private Projects:
