@@ -13,8 +13,6 @@ This is my project hub. Do you want to work on a project?
 
 - [ATMEGA2560 Code Base](https://github.com/thillRobot/mega2560)
 
-- video and image editing
-
 ### Private Projects:
 
 - [Weld Seam Detection with PCL](https://github.com/thillRobot/seam_detection/blob/master/README.md)
