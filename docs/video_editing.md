@@ -8,6 +8,6 @@ This needs work!
 
 Run this in the terminal where the files 'raw' video files are.
 
-$ cd <dir with videos>
+$ cd dir_with_videos
 
 $ ffmpeg -i input.mp4 -vcodec libx264 -crf 28 output.mp4
