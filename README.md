@@ -14,12 +14,15 @@ This is my project hub. Do you want to work on a project?
 - [ATMEGA2560 Code Base](https://github.com/thillRobot/mega2560)
 
 - [Marlin2 Firmware for MakerGear M2 3D Printer](https://github.com/thillRobot/marlin_m2)
+
 - [Marlin2 Firmware for Custom 3D Printer](https://github.com/thillRobot/marlin_big)
+
 
 ### Private Projects:
 
 - [Weld Seam Detection with PCL](https://github.com/thillRobot/seam_detection/blob/master/README.md)
 
 - [Low-Cost 3D LiDAR](scan_cloud)
+
 
 Contact me at <thill@tntech.edu> if you are intereseted in collaborating on a project.
