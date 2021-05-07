@@ -13,9 +13,9 @@ This is my project hub. Do you want to work on a project?
 
 - [Micro-Controller Code Base](https://github.com/thillRobot/mcu)
 
-- [Marlin2 Firmware for MakerGear M2 3D Printer](https://github.com/thillRobot/marlin_m2)
+- [Marlin2 Firmware for MakerGear M2 3D Printer](https://github.com/thillRobot/Marlin)
 
-- [Marlin2 Firmware for Custom 3D Printer](https://github.com/thillRobot/marlin_big)
+<!-- - [Marlin2 Firmware for Custom 3D Printer](https://github.com/thillRobot/marlin_big) -->
 
 
 ### Private Projects:
