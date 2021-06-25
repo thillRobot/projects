@@ -15,6 +15,8 @@ This is my project hub. Do you want to work on a project?
 
 - [Marlin Firmware for MakerGear M2 3D Printer](https://github.com/thillRobot/Marlin)
 
+- [Data Acquisition for Model Rocketry](https://github.com/thillRobot/data-logger)
+
 <!-- - [Marlin2 Firmware for Custom 3D Printer](https://github.com/thillRobot/marlin_big) -->
 
 
