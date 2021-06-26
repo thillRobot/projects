@@ -27,4 +27,4 @@ This is my project hub. Do you want to work on a project?
 - [Low-Cost 3D LiDAR](scan_cloud)
 
 
-Contact me at <thill@tntech.edu> if you are intereseted in collaborating on a project.
+Contact me at <thill@tntech.edu> if you are interested in collaborating on a project.
