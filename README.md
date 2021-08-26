@@ -5,7 +5,7 @@ This is my project hub. Do you want to work on a project?
 
 - [CARLA Open Source Vehicle Simulator](https://github.com/thillRobot/carla_simulator/blob/master/README.md)
 
-- [Adept Pinoeer LX ROS Platform](https://github.com/thillRobot/lx_navigation/blob/master/README.md)
+- [Pinoeer LX ROS Platform](https://github.com/thillRobot/lx_navigation/blob/master/README.md)
 
 - [Turtlebot3 ROS Platform](https://github.com/thillRobot/turtlebot3_setup/blob/master/README.md)
 
