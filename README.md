@@ -11,6 +11,8 @@ This is my project hub. Do you want to work on a project?
 
 - [ROS Workshop](https://github.com/thillRobot/ros_workshop/blob/master/README.md)
 
+- [Engineering Analysis](https://github.com/thillRobot/analysis/blob/master/README.md)
+
 - [Apps for Dynamics, Modeling, and Controls](https://github.com/thillRobot/dmc_apps/blob/master/README.md)
 
 - [Micro-Controller Code Base](https://github.com/thillRobot/mcu)
