@@ -1,7 +1,7 @@
 # projects
 This is my project hub. Do you want to work on a project? 
 
-### Public Projects:
+### Projects:
 
 - [CARLA Open Source Vehicle Simulator](https://github.com/thillRobot/carla_simulator/blob/master/README.md)
 
@@ -24,9 +24,6 @@ This is my project hub. Do you want to work on a project?
 - [Data Acquisition and Control for Model Rocketry](https://github.com/thillRobot/mcu-rocket)
 
 <!-- - [Marlin2 Firmware for Custom 3D Printer](https://github.com/thillRobot/marlin_big) -->
-
-
-### Private Projects:
 
 - [Weld Seam Detection with PCL](https://github.com/thillRobot/seam_detection/blob/master/README.md)
 
